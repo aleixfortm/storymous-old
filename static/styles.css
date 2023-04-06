@@ -10,6 +10,8 @@ body {
     margin: 0 auto;
 }
 
+/* --------- Navbar ---------- */
+
 .navbar {
     max-width: 800px;
     margin: 50px auto;
@@ -18,7 +20,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     font-size: 24px;
-    border: 2px dashed #313d4d;
+    border: 3px dashed #313d4d;
 }
 
 .navbar__logo {
@@ -52,18 +54,23 @@ body {
 }
 
 .navbar__link:hover {
-    color:rgb(250, 225, 112);
+    color:rgb(255, 220, 64);
     text-decoration: underline;
 }
+
+/* ---------- Main ----------- */
 
 .main {
     max-width: 700px;
     display: flex;
     flex-direction: row;
-    margin: 10px auto;
-    justify-content: center;
+    margin: 70px auto;
+    justify-content: space-between;
     padding: 10px;
-    align-items: flex-end;
+}
+
+.randomstory {
+    flex-grow: 1;
 }
 
 .randomstory__upper {
@@ -73,16 +80,29 @@ body {
     align-items: center;
 }
 
-.randomstory__remaining-time {
+.randomstory__date {
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.randomstory__time {
     display: flex;
-    justify-content: right;
+    font-size: large;
+    font-weight: bold;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.randomstory__remaining-time {
+    padding: 5px 10px;
+    background-color: bisque;
+    color: #313d4d;
+    border-radius: 5px;
 }
 
 
 
-
-
-
+/* ---------- 404 ---------- */
 
 .error{
     max-width: 200px;

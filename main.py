@@ -25,20 +25,23 @@ else:
 def index():
     return redirect(url_for("home"))
 
+
 @app.route("/home")
 def home():
     x = random.randint(0, 2)
     post_dict = data_dict[x]
-
     return render_template("home.html", title=post_dict["title"], content=post_dict["content"])
+
 
 @app.route("/stats")
 def stats():
     return render_template("stats.html")
 
+
 @app.route("/about")
 def about():
     return render_template("about.html")
+
 
 @app.errorhandler(404)
 def not_found_error(error):

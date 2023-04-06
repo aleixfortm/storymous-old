@@ -5,17 +5,19 @@
         <img class="navbar__name" src="/static/img/logo2.png" alt="Logo" width="75">Storymous
     </div>
     <ul class="navbar__navigation">
-        <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">account</a></li>
+        <li class="navbar__navigation-item"><a href="#" class="navbar__link ">account</a></li>
         <li class="navbar__navigation-item"><a href="{{url_for('stats')}}" class="navbar__link ">stats</a></li>
-        <li class="navbar__navigation-item"><a href="#" class="navbar__link ">about</a></li>
+        <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
         <li class="navbar__navigation-item"><a href="#" class="navbar__link ">login</a></li>
         <li class="navbar__navigation-item"><a href="#" class="navbar__link ">logout</a></li>
     </ul>
 </header>
 <main class="main">
-    <section>
-        <article class="randomstory">
-            <div class="randomstory__remaining-time">2:00</div>
+    <section class="randomstory">
+        <article class="randomstory__article">
+            <div class="randomstory__time">
+                <div class="randomstory__remaining-time">Next story in 2:00</div>
+            </div>
             <div class="randomstory__upper">
                 <h2 class="randomstory__title"> {{ title }} </h2>
                 <time class="randomstory__date" datetime="21-04-2023"> Apr 4</time>
