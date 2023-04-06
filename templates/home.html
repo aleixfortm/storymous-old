@@ -1,36 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storymous</title>
-</head>
-<body>
-    <header class="navbar">
-        <div class="navbar__logo">
-            <img class="navbar__name" src="static/img/logo.jpg" alt="Sailing boat logo" width="75"> Storyblog
-        </div>
-        <ul class="navbar__navigation">
-            <li class="navbar__navigation-item"><a href="#" class="navbar__link ">Post your story</a></li>
-            <li class="navbar__navigation-item"><a href="#" class="navbar__link ">Stats</a></li>
-        </ul>
-    </header>
-    <main class="main">
-        <section>
-            <article class="randomstory">
-                <div class="randomstory__remaining-time">2:00</div>
-                <div>
-                    <h2 class="randomstory__title"> This is an example title</h2>
-                    <time class="randomstory__date" datetime="21-04-2023"> Apr 4</time>
-                </div>
-                <p class="randomstory__content">
-                    This is a story example of an old tree called pollancre
-                </p>
-            </article>
-        </section>
-    </main>
-    <footer class="footer">
-    </footer>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<header class="navbar">
+    <div class="navbar__logo">
+        <img class="navbar__name" src="/static/img/logo2.png" alt="Logo" width="75">Storymous
+    </div>
+    <ul class="navbar__navigation">
+       
+        <li class="navbar__navigation-item"><a href="#" class="navbar__link ">stats</a></li>
+        <li class="navbar__navigation-item"><a href="#" class="navbar__link ">login</a></li>
+        <li class="navbar__navigation-item"><a href="#" class="navbar__link ">logout</a></li>
+    </ul>
+</header>
+<main class="main">
+    <section>
+        <article class="randomstory">
+            <div class="randomstory__remaining-time">2:00</div>
+            <div class="randomstory__upper">
+                <h2 class="randomstory__title"> This is an example title</h2>
+                <time class="randomstory__date" datetime="21-04-2023"> Apr 4</time>
+            </div>
+            <p class="randomstory__content">
+                This is a story example of an old tree called pollancre, and this rest of the text is complete filler, just to test how it would look to have a longer story displayed here... hehehe!
+            </p>
+        </article>
+    </section>
+</main>
+{% endblock %}
