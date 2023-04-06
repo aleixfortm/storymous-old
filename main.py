@@ -14,13 +14,15 @@ import time
 import requests
 import random
 
-# login form
+
+##### FORMS #####
+
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log In')
 
-# register form. TODO: CHECK IF EMAIL AND USERNAME ALREADY EXIST (WHEN DATABASE ADDED)
+# TODO: CHECK IF EMAIL AND USERNAME ALREADY EXIST (WHEN DATABASE ADDED)
 class RegisterForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     username = StringField('Username', validators=[DataRequired()])
@@ -28,15 +30,18 @@ class RegisterForm(FlaskForm):
     password_confirm = PasswordField('Confirm Password', validators=[DataRequired()])
     submit = SubmitField("Register")
 
-# update user form. TODO: CHECK IF EMAIL AND USERNAME ALREADY EXIST (WHEN DATABASE ADDED)
+# TODO: CHECK IF EMAIL AND USERNAME ALREADY EXIST (WHEN DATABASE ADDED)
 class UpdateUserForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     username = StringField('Username', validators=[DataRequired()])
     picture = FileField("Update Profile Picture", validators=[FileAllowed([".png", ".jpg"])])
     submit = SubmitField("Update")
 
+
 app = Flask(__name__)
 
+
+##### API RETRIEVING #####
 
 test_api_endpoint = "https://api.npoint.io/786a14060decfb7e66d9"
 test_api_response = requests.get(test_api_endpoint)
@@ -50,6 +55,8 @@ else:
     # if the request was unsuccessful, print an error message
     print("Error: API request failed with status code", test_api_response.status_code)
 
+
+##### ROUTING #####
 
 @app.route("/")
 def index():
@@ -77,6 +84,8 @@ def about():
 def not_found_error(error):
     return render_template("404.html", error=error), 404
 
+
+##### RUN #####
 
 if __name__ == "__main__":
     app.run(debug=True)
