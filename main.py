@@ -1,9 +1,39 @@
 from flask import Flask, render_template, url_for, redirect
+
+# Flask forms
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Email, EqualTo
+from flask_wtf.file import FileField, FileAllowed
+
+# Database
 from pymongo import MongoClient
+
+# Others
 import time
 import requests
 import random
 
+# login form
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Log In')
+
+# register form. TODO: CHECK IF EMAIL AND USERNAME ALREADY EXIST (WHEN DATABASE ADDED)
+class RegisterForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(), EqualTo("password_confirm", message="Passwords do not match")])
+    password_confirm = PasswordField('Confirm Password', validators=[DataRequired()])
+    submit = SubmitField("Register")
+
+# update user form. TODO: CHECK IF EMAIL AND USERNAME ALREADY EXIST (WHEN DATABASE ADDED)
+class UpdateUserForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired()])
+    picture = FileField("Update Profile Picture", validators=[FileAllowed([".png", ".jpg"])])
+    submit = SubmitField("Update")
 
 app = Flask(__name__)
 

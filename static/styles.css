@@ -64,7 +64,7 @@ body {
     max-width: 700px;
     display: flex;
     flex-direction: row;
-    margin: 70px auto;
+    margin: 50px auto;
     justify-content: space-between;
     padding: 10px;
 }
