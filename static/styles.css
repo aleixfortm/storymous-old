@@ -77,3 +77,22 @@ body {
     display: flex;
     justify-content: right;
 }
+
+
+
+
+
+
+
+.error{
+    max-width: 200px;
+    margin: 100px auto;
+    padding: 10px 2px;
+    color: aliceblue;
+    background-color: rgb(147, 48, 204);
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(39, 39, 39);
+}

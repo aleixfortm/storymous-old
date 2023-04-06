@@ -1,6 +1,8 @@
 from flask import Flask, render_template, url_for, redirect
 from pymongo import MongoClient
+import time
 import requests
+import random
 
 
 app = Flask(__name__)
@@ -25,9 +27,10 @@ def index():
 
 @app.route("/home")
 def home():
+    x = random.randint(0, 2)
+    post_dict = data_dict[x]
 
-
-    return render_template("home.html")
+    return render_template("home.html", title=post_dict["title"], content=post_dict["content"])
 
 @app.route("/stats")
 def stats():
@@ -36,6 +39,11 @@ def stats():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template("404.html", error=error), 404
+
 
 if __name__ == "__main__":
     app.run(debug=True)
