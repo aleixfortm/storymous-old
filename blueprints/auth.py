@@ -1,21 +1,26 @@
-from flask import Blueprint, url_for
-from flask_login import UserMixin, current_user
+from flask import Blueprint, url_for, render_template, flash, redirect
+from flask_login import UserMixin, current_user, login_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, email_validator, ValidationError
 from flask_wtf.file import FileField, FileAllowed
 from werkzeug.security import generate_password_hash, check_password_hash
+from pymongo import MongoClient
+from blueprints.config import MONGODB_URI, POLL
 
-# database object
-from blueprints import db
 
-# Image conversion
-import os
-from PIL import Image
-
+print(POLL + " this is auth")
+# mongodb database setup
+client = MongoClient(MONGODB_URI)
+database = client.storymous
+db = database.main #collection
 
 # blueprint creation 
-auth_bp = Blueprint("users", __name__)
+auth_bp = Blueprint("auth", __name__)
+
+def register_blueprints(app):
+    from blueprints.auth import auth_bp
+    app.register_blueprint(auth_bp)
 
 
 class User(UserMixin):
@@ -89,3 +94,39 @@ class UpdateUserForm(FlaskForm):
     def check_username(self, field):
         if db.find_one({"username": field.data}):
             raise ValidationError("That username already exists")
+
+
+@auth_bp.route("/login", methods=["GET", "POST"])
+def login():
+
+    form = LoginForm()
+    
+    if form.validate_on_submit():
+        print("validated")
+        # Find the user in the database
+        user = User.find_by_email(form.email.data)
+        # Check if the user exists by that email and the password is correct
+        if user and user.check_password(form.password.data):
+            print("found")
+            login_user(user)
+            return redirect(url_for("home"))
+        print("Rejected")
+        flash("Invalid email or password")
+
+    return render_template("login.html", form=form)
+
+
+@auth_bp.route("/register", methods=["GET", "POST"])
+def register():
+    form = RegistrationForm()
+
+    if form.validate_on_submit():
+        user = User(email=form.email.data,
+                    username=form.username.data,
+                    password=form.password.data)
+
+        user.save_to_db()
+        flash("Thanks for registering")
+        return redirect(url_for("login"))
+
+    return render_template("register.html", form=form)

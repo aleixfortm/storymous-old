@@ -1,19 +1,22 @@
 from flask import Flask, render_template, url_for, redirect, current_app
-from blueprints import register_blueprints
+from blueprints.auth import register_blueprints
 from pymongo import MongoClient
-
-import time
-import requests
-import random
+import os, time, requests, random
+from blueprints.config import SECRET_KEY, API_ENDPOINT, POLL
 
 
-# create app and import blueprints
+print(POLL + " this is main")
+
+# create app object
 app = Flask(__name__)
+# configure secret key
+app.secret_key = SECRET_KEY
+# register blueprints from respective directory
 register_blueprints(app)
 
 
 ##### API RETRIEVING #####
-test_api_endpoint = "https://api.npoint.io/786a14060decfb7e66d9"
+test_api_endpoint = API_ENDPOINT
 test_api_response = requests.get(test_api_endpoint)
 # check the response status code to ensure the request was successful
 if test_api_response.status_code == 200:
@@ -22,7 +25,6 @@ if test_api_response.status_code == 200:
 else:
     # if the request was unsuccessful, print an error message
     print("Error: API request failed with status code", test_api_response.status_code)
-
 
 
 ##### ROUTING #####
@@ -38,20 +40,9 @@ def home():
     return render_template("home.html", title=post_dict["title"], content=post_dict["content"])
 
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
-
-
-@app.route("/register")
-def register():
-    return render_template("register.html")
-
-
 @app.route("/about")
 def about():
     return render_template("about.html")
-
 
 
 @app.errorhandler(404)
