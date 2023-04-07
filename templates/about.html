@@ -5,11 +5,17 @@
         <img class="navbar__name" src="/static/img/logo2.png" alt="Logo" width="75">Storymous
     </div>
     <ul class="navbar__navigation">
-        <li class="navbar__navigation-item"><a href="#" class="navbar__link ">account</a></li>
-        <li class="navbar__navigation-item"><a href="{{url_for('stats')}}" class="navbar__link ">stats</a></li>
-        <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
-        <li class="navbar__navigation-item"><a href="#" class="navbar__link ">login</a></li>
-        <li class="navbar__navigation-item"><a href="#" class="navbar__link ">logout</a></li>
+
+        {% if user_logged %}
+        <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link ">home</a></li>
+        <li class="navbar__navigation-item"><a href="{{url_for('profile')}}" class="navbar__link ">profile</a></li>
+        <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link " style="color:rgb(255, 220, 64);">about</a></li>
+        {% else %}
+        <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link ">home</a></li>
+        <li class="navbar__navigation-item"><a href="{{url_for('login')}}" class="navbar__link ">log_in</a></li>
+        <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link " style="color:rgb(255, 220, 64);">about</a></li>
+        {% endif %}
+
     </ul>
 </header>
 <main class="main">
