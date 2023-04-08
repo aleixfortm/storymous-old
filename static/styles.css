@@ -97,11 +97,23 @@ body {
 }
 
 .randomstory__article {
-    margin-bottom: 100px;
+    padding: 15px 15px;
+    margin-bottom: 50px;
+    border-radius: 5px;
+    border: 2px dashed #313d4d;
 }
 
 .randomstory__content {
     text-align: justify;
+    margin-bottom: 5px;
+}
+
+.randomstory__title {
+    background-color: bisque;
+    padding: 2px 10px;
+    border-radius: 5px;
+    color: #2d3441;
+    margin: 0px 0px;
 }
 
 .randomstory__upper {
@@ -109,10 +121,10 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin: 2px 0 8px 0;
 }
 
 .randomstory__date {
-    margin-top: 5px;
     margin-left: 20px;
 }
 
