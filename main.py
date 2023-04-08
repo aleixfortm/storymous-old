@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, redirect, current_app
 from flask_login import LoginManager, login_required, current_user
 import os, time, requests, random
 from blueprints.auth import login_manager
-from blueprints.config import SECRET_KEY, API_ENDPOINT, METHOD, DEBUG_MODE
+from blueprints.config import SECRET_KEY, API_ENDPOINT, METHOD, DEBUG_MODE, PORT_LOCAL, PORT_PUBLIC, LOCAL_IP, PUBLIC_IP
 
 
 
@@ -61,11 +61,11 @@ def not_found_error(error):
     return render_template("404.html", error=error), 404
 
 
-##### RUN #####
+##### RUN APP #####
 if __name__ == "__main__":
     if METHOD == 'device':
-        app.run(port=3000, debug=DEBUG_MODE)
+        app.run(port=PORT_LOCAL, debug=DEBUG_MODE)
     elif METHOD == 'local':
-        app.run(host="192.168.1.44", port=3000, debug=DEBUG_MODE)
+        app.run(host=LOCAL_IP, port=PORT_LOCAL, debug=DEBUG_MODE)
     elif METHOD == 'public':
-        app.run(host="0.0.0.0", port=8080, debug=DEBUG_MODE)
+        app.run(host=PUBLIC_IP, port=PORT_PUBLIC, debug=DEBUG_MODE)
