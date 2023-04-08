@@ -45,12 +45,22 @@ body {
     border: 3px dashed #313d4d;
 }
 
-.navbar__logo {
+.navbar__page {
     display: flex;
     align-items: center;
     font-weight: bold;
     cursor: default;
     color: rgb(0, 255, 234);
+}
+
+.navbar__title {
+    font-size: 28px;
+}
+
+.navbar__subtitle {
+    display: flex;
+    font-size: 14px;
+    color: aliceblue;
 }
 
 .navbar__navigation {
@@ -61,8 +71,8 @@ body {
     margin-right: 5px;
 }
 
-.navbar__name {
-    margin-right: 20px;
+.navbar__img {
+    margin-right: 15px;
 }
 
 .navbar__navigation-item {
