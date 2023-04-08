@@ -1,18 +1,12 @@
 from flask import Flask, render_template, url_for, redirect, current_app
 from flask_login import LoginManager
-from pymongo import MongoClient
 import os, time, requests, random
-from blueprints.config import SECRET_KEY, API_ENDPOINT, POLL
+from blueprints.config import SECRET_KEY, API_ENDPOINT
 
 
 def register_blueprints(app):
     from blueprints.auth import auth_bp, db
     app.register_blueprint(auth_bp)
-
-
-# TODO: Import LoginManager from flask_login to manage user login, logout, save user session, restrict access, etc.
-# Import is needed and then check how to import in the other module
-print(POLL + " this is main")
 
 
 # create app object and assign secret key

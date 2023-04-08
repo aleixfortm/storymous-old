@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Email, EqualTo, email_validator, Va
 from flask_wtf.file import FileField, FileAllowed
 from werkzeug.security import generate_password_hash, check_password_hash
 from pymongo import MongoClient
-from blueprints.config import MONGODB_URI, POLL
+from blueprints.config import MONGODB_URI
 
 
 # blueprint creation 
@@ -24,6 +24,14 @@ def load_user(user_id):
     return User.get(user_id)
 """
 
+"""
+By inheriting from UserMixin, the User class gains the following functionalities:
+
+is_authenticated: A boolean property indicating whether the user is authenticated or not.
+is_active: A boolean property indicating whether the user is active or not.
+is_anonymous: A boolean property indicating whether the user is anonymous or not.
+get_id(): A method that returns a unique identifier for the user, as a string.
+"""
 class User(UserMixin):
     def __init__(self, email, username, password_hash):
         self.email = email

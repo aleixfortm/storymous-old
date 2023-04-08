@@ -111,6 +111,13 @@ body {
     margin-bottom: 50px;
     border-radius: 5px;
     border: 2px dashed #313d4d;
+    cursor: pointer;
+    transition: all 0s;
+}
+
+.randomstory__article:hover {
+    border: 2px solid #29313b;
+    box-shadow: 0 0 10px 0 #3c4755;
 }
 
 .randomstory__content {
