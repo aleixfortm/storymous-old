@@ -1,5 +1,5 @@
 from flask import Blueprint, url_for, render_template, flash, redirect
-from flask_login import UserMixin, current_user, login_user
+from flask_login import UserMixin, current_user, login_user, LoginManager
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, email_validator, ValidationError
@@ -12,17 +12,23 @@ from blueprints.config import MONGODB_URI
 # blueprint creation 
 auth_bp = Blueprint("auth", __name__)
 
+# create login manager instance to keep track of user authentication
+login_manager = LoginManager()
+login_manager.init_app(auth_bp)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    # Your code to load user from database
+    return User.get(user_id)
+
+
 # mongodb database setup
 client = MongoClient(MONGODB_URI)
 db_general = client.storymous # database
 db = db_general.main # collection
 
-"""
-@login_manager.user_loader
-def load_user(user_id):
-    # Your code to load user from database
-    return User.get(user_id)
-"""
+
 
 """
 By inheriting from UserMixin, the User class gains the following functionalities:

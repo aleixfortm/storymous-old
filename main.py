@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, current_app
 from flask_login import LoginManager
 import os, time, requests, random
+from blueprints.auth import login_manager
 from blueprints.config import SECRET_KEY, API_ENDPOINT
 
 
@@ -12,14 +13,12 @@ def register_blueprints(app):
 # create app object and assign secret key
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
+
 # register blueprints from respective directory
 register_blueprints(app)
 
-"""
-# create login manager instance to keep track of user authentication
-login_manager = LoginManager()
+# initialize login manager
 login_manager.init_app(app)
-"""
 
 
 ##### API STORY RETRIEVING #####
