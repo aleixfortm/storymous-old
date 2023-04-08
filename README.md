@@ -1,6 +1,6 @@
 # storymous
 
-Storymous is a story-based social media meant to deliver short and amazing stories. It is a fully-responsive website, created with vanilla front-end technologies (no frameworks used). The main idea was that users would post their stories anonymously; however, that will just be a feature, and users will be able to publish their short stories either anonymously or publicly.
+Storymous is a story-based social media meant to deliver short and amazing stories. The front-end is fully responive, built without frameworks. The backend is suported by Flask, using Python. Users can log in and post their stories. An option will be added to add anonymous stories (here comes the 'mous' from storymous).
 
 The link will soon be available.
 
