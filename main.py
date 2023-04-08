@@ -55,4 +55,9 @@ def not_found_error(error):
 
 ##### RUN #####
 if __name__ == "__main__":
-    app.run(debug=True)
+    if method == 'device':
+        app.run(port=3000)
+    elif method == 'local':
+        app.run(host="192.168.1.44", port=3000)
+    elif method == 'public':
+        app.run(host="0.0.0.0", port=8080)
