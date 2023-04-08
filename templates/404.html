@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="404">Oops... Where are you going? This path does not exist! Yet...</h1>
-<div class="error">
+<h1 class="error">Hey, come back! That is a dead end! I'll take you back <a href="{{ url_for('home') }}" class="error__home">home</a>.</h1>
+<div class="error__box">
     <h1>404</h1>
 </div>
 {% endblock %}

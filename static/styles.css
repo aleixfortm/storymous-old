@@ -1,13 +1,35 @@
 body {
     font-family: 'IBM Plex Mono', monospace;
     color: aliceblue;
-    background: #445061;
+    
 }
+
+
+/* For webkit-based browsers */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #2d3541;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #54585e;
+}
+
+.scrollbar {
+    background: #384250;
+}
+
 
 .base {
     max-width: 900px;
-    padding: 0px 0;
+    padding: 5px 0;
     margin: 0 auto;
+    z-index: 10;
+    background-color: #445061;
+    box-shadow: 0 0 10px 0 #384250;
 }
 
 /* --------- Navbar ---------- */
@@ -72,6 +94,10 @@ body {
 
 .randomstory {
     flex-grow: 1;
+}
+
+.randomstory__article {
+    margin-bottom: 100px;
 }
 
 .randomstory__content {
@@ -162,6 +188,7 @@ input[type="text"], input[type="password"] {
     padding-left: 10px;
     margin-top: 4px;
     margin-bottom: 12px;
+    transition: all 0.2s;
 }
 
 input[type="text"]:focus, input[type="password"]:focus {
@@ -194,6 +221,7 @@ input[type="submit"] {
     background-color: bisque;
     color: #445061;
     cursor: pointer;
+    transition: all 0.1s;
 }
 
 input[type="submit"]:hover {
@@ -202,15 +230,24 @@ input[type="submit"]:hover {
 
 /* ---------- 404 ---------- */
 
-.error{
-    max-width: 200px;
-    margin: 100px auto;
-    padding: 10px 2px;
+.error__box{
+    margin: 100px 250px;
+    padding: 10px 10px;
     color: aliceblue;
-    background-color: rgb(147, 48, 204);
+    background-color: #445061;
     display: flex;
     justify-content: center;
-    font-size: xx-large;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgb(39, 39, 39);
+    font-size: 50px;
+    border: 3px dashed #37414e;
+}
+
+.error__home { 
+    text-decoration: underline;
+    color:rgb(255, 220, 64);
+    transition: all 0s;
+}
+
+.error__home:hover { 
+    text-decoration: underline;
+    color:rgb(255, 179, 64);
 }

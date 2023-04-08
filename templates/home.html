@@ -20,18 +20,22 @@
 </header>
 <main class="main">
     <section class="randomstory">
+
+        {% for story in stories %}
         <article class="randomstory__article">
             <div class="randomstory__time">
                 <div class="randomstory__remaining-time">Next story in 2:00</div>
             </div>
             <div class="randomstory__upper">
-                <h2 class="randomstory__title"> {{ title }} </h2>
+                <h2 class="randomstory__title"> {{ story["title"] }} </h2>
                 <time class="randomstory__date" datetime="21-04-2023"> Apr 4</time>
             </div>
             <p class="randomstory__content">
-                {{ content }}
+                {{ story["content"] }}
             </p>
         </article>
+        {% endfor %}
+
     </section>
 </main>
 {% endblock %}

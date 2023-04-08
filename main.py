@@ -29,11 +29,11 @@ login_manager.init_app(app)
 
 
 ##### API STORY RETRIEVING #####
-test_api_response = requests.get(API_ENDPOINT)
-if test_api_response.status_code == 200:
-    data_dict = test_api_response.json()
+stories_api = requests.get(API_ENDPOINT)
+if stories_api.status_code == 200:
+    test_stories = stories_api.json()
 else:
-    print("Error: API request failed with status code", test_api_response.status_code)
+    print("Error: API request failed with status code", stories_api.status_code)
 
 
 ##### ROUTING #####
@@ -44,9 +44,10 @@ def index():
 
 @app.route("/home")
 def home():
-    x = random.randint(0, 2)
-    post_dict = data_dict[x]
-    return render_template("home.html", title=post_dict["title"], content=post_dict["content"], user_logged=True)
+
+    random.shuffle(test_stories)
+    print(test_stories)
+    return render_template("home.html", stories=test_stories, user_logged=True)
 
 
 @app.route("/about")

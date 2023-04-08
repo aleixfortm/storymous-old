@@ -9,10 +9,6 @@ from pymongo import MongoClient
 from blueprints.config import MONGODB_URI, POLL
 
 
-
-
-print(POLL + " this is auth")
-
 # blueprint creation 
 auth_bp = Blueprint("auth", __name__)
 
