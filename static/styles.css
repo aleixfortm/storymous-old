@@ -197,12 +197,36 @@ input:focus, select:focus, textarea:focus, button:focus {
     margin: auto;
 }
 
+.register-form__box {
+    padding-bottom: 10px;
+}
+
+.register-form__login-url {
+    text-decoration: none;
+    font-size: large;
+    color: orange;
+}
+
+.register-form__login-url:hover {
+    color: rgb(168, 109, 0);
+}
+
 .login-form {
     margin: auto;
 }
 
 .login-form__box {
     padding-bottom: 10px;
+}
+
+.login-form__register-url {
+    text-decoration: none;
+    font-size: large;
+    color: orange;
+}
+
+.login-form__register-url:hover {
+    color: rgb(168, 109, 0);
 }
 
 label[for="email"] {
@@ -325,10 +349,12 @@ input[type="submit"]:hover {
     border-top: 3px dashed black;
 }
 
-.footer__author {
-
-}
-
-.footer__social-media {
-
-}
+@media screen and (max-width: 620px) {
+    .footer {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer__social-media {
+        margin-top: 15px;
+    }
+  }

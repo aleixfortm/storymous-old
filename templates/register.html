@@ -1,22 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-    <ul class="navbar__navigation">
-        <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " >home</a></li>
-        <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link " >log_in</a></li>
-        <li class="navbar__navigation-item"><a href="{{url_for('auth.register')}}" class="navbar__link " style="color:rgb(255, 220, 64);">register</a></li>
-        <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
-    </ul>
-</header>
-<main class="main">
-    <div class="register-form">
-        <form method="POST" action="{{ url_for('auth.register') }}">
-            {{form.hidden_tag()}}
-            {{form.email (placeholder="Your e-mail")}}
-            {{form.username(placeholder="Choose a username")}}
-            {{form.password(placeholder="Password")}}
-            {{form.pass_confirm(placeholder="Repeat password")}}
-            {{form.submit()}}
-        </form>
-    </div>
-</main>
+        <ul class="navbar__navigation">
+            <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " >home</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link " style="color:rgb(255, 220, 64);">sign_in</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
+        </ul>
+    </header>
+    <main class="main">
+        <div class="register-form">
+            <form method="POST" action="{{ url_for('auth.register') }}" class="register-form__box">
+                {{form.hidden_tag()}}
+                {{form.email (placeholder="Your e-mail")}}
+                {{form.username(placeholder="Choose a username")}}
+                {{form.password(placeholder="Password")}}
+                {{form.pass_confirm(placeholder="Repeat password")}}
+                {{form.submit()}}
+            </form>
+            <div class="register-form__login">
+                Don't have an account yet? <a href=" {{url_for('auth.login') }}" class="register-form__login-url">Log in</a>
+            </div>
+        </div>
+    </main>
+</div>
 {% endblock %}
