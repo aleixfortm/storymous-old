@@ -20,7 +20,8 @@ login_manager.init_app(auth_bp)
 @login_manager.user_loader
 def load_user(user_id):
     # Your code to load user from database
-    return User.get(user_id)
+    user = User.find_by_username(user_id)
+    return user
 
 
 # mongodb database setup
@@ -37,11 +38,16 @@ is_authenticated: A boolean property indicating whether the user is authenticate
 is_active: A boolean property indicating whether the user is active or not.
 is_anonymous: A boolean property indicating whether the user is anonymous or not.
 get_id(): A method that returns a unique identifier for the user, as a string.
+
+Note: I have added an "id" attribute, since get_id() method looks for such attribute in the object.
+However, I am setting the username to be the id of the user, and the username will also be unique across
+users in the database.
 """
 class User(UserMixin):
     def __init__(self, email, username, password_hash):
         self.email = email
         self.username = username
+        self.id = username
         self.password_hash = password_hash
 
     def check_password(self, password):
@@ -122,8 +128,8 @@ def login():
 
         if user_data and user_object.check_password(form.password.data):
             print("found")
-            #login_user(user_object)
-
+            login_user(user_object)
+            print("logged in successfully")
             return redirect(url_for("home"))
         
         print("Rejected")

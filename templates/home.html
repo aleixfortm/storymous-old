@@ -27,10 +27,10 @@
             -->
             <div class="randomstory__upper">
                 <h2 class="randomstory__title"> {{ story["title"] }} </h2>
-                <time class="randomstory__date" datetime="21-04-2023"> Apr 4</time>
+                <time class="randomstory__date" datetime="21-04-2023"> {{ story["date"] }} </time>
             </div>
             <p class="randomstory__content">
-                {{ story["content"] }}
+                {{ story["story"] }}
             </p>
         </article>
         {% endfor %}

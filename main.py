@@ -1,8 +1,8 @@
 from flask import Flask, render_template, url_for, redirect, current_app
-from flask_login import LoginManager
+from flask_login import LoginManager, login_required, current_user
 import os, time, requests, random
 from blueprints.auth import login_manager
-from blueprints.config import SECRET_KEY, API_ENDPOINT, METHOD
+from blueprints.config import SECRET_KEY, API_ENDPOINT, METHOD, DEBUG_MODE
 
 
 
@@ -38,10 +38,13 @@ def index():
 
 @app.route("/home")
 def home():
-
+        
     random.shuffle(test_stories)
-    print(test_stories)
-    return render_template("home.html", stories=test_stories, user_logged=True)
+    for story in test_stories:
+        print(story)
+
+    return render_template("home.html", stories=test_stories, user_logged=False)
+
 
 
 @app.route("/about")
@@ -57,8 +60,8 @@ def not_found_error(error):
 ##### RUN #####
 if __name__ == "__main__":
     if METHOD == 'device':
-        app.run(port=3000)
+        app.run(port=3000, debug=DEBUG_MODE)
     elif METHOD == 'local':
-        app.run(host="192.168.1.44", port=3000)
+        app.run(host="192.168.1.44", port=3000, debug=DEBUG_MODE)
     elif METHOD == 'public':
-        app.run(host="0.0.0.0", port=8080)
+        app.run(host="0.0.0.0", port=8080, debug=DEBUG_MODE)
