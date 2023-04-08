@@ -55,13 +55,6 @@ class User(UserMixin):
     def find_by_username(username):
         return db.find_one({'username': username})
 
-    def save_to_db(self):
-        db.insert_one({
-            'email': self.email,
-            'username': self.username,
-            'password_hash': self.password_hash
-        })
-
 
 ##### FORMS #####
 class LoginForm(FlaskForm):
@@ -87,7 +80,7 @@ class RegistrationForm(FlaskForm):
         if db.find_one({'username': field.data}):
             raise ValidationError('Sorry, that username is taken!')
 
-    def save_user(self):
+    def save_user_to_db(self):
         password_hash = generate_password_hash(self.password.data)
         db.insert_one({
             'email': self.email.data,
@@ -117,12 +110,13 @@ def login():
     form = LoginForm()
     
     if form.validate_on_submit():
+
         print("validated")
+
         # Find the user in the database
         user_data = User.find_by_email(form.email.data)
         user_object = User(email=user_data["email"], username=user_data["username"], password_hash=user_data["password_hash"])
         
-
         print(user_data)
         print(user_object)
 
@@ -143,13 +137,9 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        user = User(email=form.email.data,
-                    username=form.username.data,
-                    password=form.password.data)
+        form.save_user_to_db()
 
         print("Registered successfully!")
-
-        user.save_to_db()
         flash("Thanks for registering")
         return redirect(url_for("home"))
 

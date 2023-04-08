@@ -1,19 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-    <ul class="navbar__navigation">
+                <ul class="navbar__navigation">
 
-        {% if user_logged %}
-        <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
-        <li class="navbar__navigation-item"><a href="{{url_for('auth.profile')}}" class="navbar__link ">profile</a></li>
-        <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
-        {% else %}
-        <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
-        <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link ">log_in</a></li>
-        <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
-        {% endif %}
+                    {% if user_logged %}
+                    <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('auth.profile')}}" class="navbar__link ">profile</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
+                    {% else %}
+                    <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link ">log_in</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
+                    {% endif %}
 
-    </ul>
-</header>
+                </ul>
+            </header>
+        </div>
 <main class="main">
     <section class="randomstory">
 

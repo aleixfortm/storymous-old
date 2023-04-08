@@ -32,11 +32,15 @@ body {
     box-shadow: 0 0 10px 0 #384250;
 }
 
+.base__aligner {
+    margin: 0 5px;
+}
+
 /* --------- Navbar ---------- */
 
 .navbar {
     max-width: 800px;
-    margin: 50px auto;
+    margin: 20px auto 30px auto;
     padding: 15px 15px;
     display: flex;
     flex-direction: row;
@@ -90,6 +94,23 @@ body {
     color:rgb(255, 220, 64);
     text-decoration: underline;
 }
+
+@media screen and (max-width: 620px) {
+    .navbar {
+        flex-direction: column;
+        margin: 0px auto 10px auto;
+    }
+    .navbar__page {
+        justify-content: center;
+    }
+    .navbar__navigation {
+        justify-content: center;
+        margin-bottom: 5px;
+    }
+    .navbar__navigation-item {
+        margin: 0 auto;
+    }
+  }
 
 /* ---------- Main ----------- */
 

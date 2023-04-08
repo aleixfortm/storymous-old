@@ -2,7 +2,8 @@ from flask import Flask, render_template, url_for, redirect, current_app
 from flask_login import LoginManager
 import os, time, requests, random
 from blueprints.auth import login_manager
-from blueprints.config import SECRET_KEY, API_ENDPOINT
+from blueprints.config import SECRET_KEY, API_ENDPOINT, METHOD
+
 
 
 def register_blueprints(app):
@@ -55,9 +56,9 @@ def not_found_error(error):
 
 ##### RUN #####
 if __name__ == "__main__":
-    if method == 'device':
+    if METHOD == 'device':
         app.run(port=3000)
-    elif method == 'local':
+    elif METHOD == 'local':
         app.run(host="192.168.1.44", port=3000)
-    elif method == 'public':
+    elif METHOD == 'public':
         app.run(host="0.0.0.0", port=8080)
