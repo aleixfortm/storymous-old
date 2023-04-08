@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="error">Hey, come back! That is a dead end! I'll take you back <a href="{{ url_for('home') }}" class="error__home">home</a>.</h1>
+                <ul class="navbar__navigation">
+
+                    {% if user_logged %}
+                    <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('auth.profile')}}" class="navbar__link ">profile</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
+                    {% else %}
+                    <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link ">log_in</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
+                    {% endif %}
+
+                </ul>
+            </header>
+        </div>
+<div class="error">
+    <h1 class="error_text"> Oops! This path does not exist. <br>
+        You can go back <a href="{{ url_for('home') }}" class="error__home">home</a>.</h1>
+</div>        
 <div class="error__box">
     <h1>404</h1>
 </div>

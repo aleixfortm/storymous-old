@@ -3,18 +3,20 @@
     <ul class="navbar__navigation">
         <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " >home</a></li>
         <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link " style="color:rgb(255, 220, 64);">log_in</a></li>
-        <li class="navbar__navigation-item"><a href="{{url_for('auth.register')}}" class="navbar__link ">register</a></li>
         <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
     </ul>
 </header>
 <main class="main">
     <div class="login-form">
-        <form method="POST" action="{{ url_for('auth.login') }}">
+        <form method="POST" action="{{ url_for('auth.login') }}" class="login-form__box">
             {{form.hidden_tag()}}
             {{form.email(placeholder="Your e-mail")}}
             {{form.password(placeholder="Password")}}
             {{form.submit()}}
         </form>
+        <div class="login-form__register">
+            Don't have an account yet? <a href=" {{url_for('register') }}">register</a>
+        </div>
     </div>
 </main>
 {% endblock %}

@@ -51,7 +51,6 @@ def home():
 def about():
 
     if current_user.is_authenticated:
-        print("Already logged, sending back home")
         return render_template("about.html")
     
     return redirect(url_for("home"))

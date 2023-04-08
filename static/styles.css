@@ -25,7 +25,7 @@ body {
 
 .base {
     max-width: 900px;
-    padding: 5px 0;
+    padding: 5px 0 0 0;
     margin: 0 auto;
     z-index: 10;
     background-color: #445061;
@@ -201,6 +201,10 @@ input:focus, select:focus, textarea:focus, button:focus {
     margin: auto;
 }
 
+.login-form__box {
+    padding-bottom: 10px;
+}
+
 label[for="email"] {
     font-weight: 500;
     font-size:large;
@@ -282,8 +286,14 @@ input[type="submit"]:hover {
 
 /* ---------- 404 ---------- */
 
+.error {
+    margin: 0 100px 0 100px;
+    display: flex;
+}
+
+
 .error__box{
-    margin: 100px 250px;
+    margin: 50px 250px 100px 250px;
     padding: 10px 10px;
     color: aliceblue;
     background-color: #445061;
@@ -302,4 +312,23 @@ input[type="submit"]:hover {
 .error__home:hover { 
     text-decoration: underline;
     color:rgb(255, 179, 64);
+}
+
+/* --------- Footer ---------- */
+
+.footer {
+    padding: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: #262d36;
+    border-top: 3px dashed black;
+}
+
+.footer__author {
+
+}
+
+.footer__social-media {
+
 }

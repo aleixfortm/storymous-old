@@ -1,5 +1,5 @@
 from flask import Blueprint, url_for, render_template, flash, redirect
-from flask_login import UserMixin, current_user, login_user, LoginManager, login_required
+from flask_login import UserMixin, current_user, login_user, LoginManager, login_required, logout_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, email_validator, ValidationError
@@ -152,6 +152,18 @@ def login():
         flash("Invalid email or password")
 
     return render_template("login.html", form=form)
+
+
+@login_required
+@auth_bp.route("/logout")
+def logout():
+
+    if current_user.is_authenticated:
+
+        logout_user() #log user out and clear cookies
+        print("Already logged, sending back home")
+
+    return redirect(url_for("home"))
 
 
 @auth_bp.route("/register", methods=["GET", "POST"])
