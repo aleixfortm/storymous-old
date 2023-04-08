@@ -4,6 +4,9 @@
 
 # Roadmap
 - ~~Make front-end reponsive to mobile and desktop resolutions~~
+- ~~Add login and register forms~~
+- ~~Save user data to database~~
+- ~~Styled~~
 - Add about section
 - Add user profile template
 - Track user stats
