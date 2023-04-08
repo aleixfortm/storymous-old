@@ -1,5 +1,5 @@
 from flask import Blueprint, url_for, render_template, flash, redirect
-from flask_login import UserMixin, current_user, login_user, LoginManager
+from flask_login import UserMixin, current_user, login_user, LoginManager, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, email_validator, ValidationError
@@ -18,9 +18,10 @@ login_manager.init_app(auth_bp)
 
 
 @login_manager.user_loader
-def load_user(user_id):
+def load_user(username):
     # Your code to load user from database
-    user = User.find_by_username(user_id)
+    print("Called user_loader from login_manager")
+    user = User.check_user(username)
     return user
 
 
@@ -28,7 +29,6 @@ def load_user(user_id):
 client = MongoClient(MONGODB_URI)
 db_general = client.storymous # database
 db = db_general.main # collection
-
 
 
 """
@@ -45,21 +45,31 @@ users in the database.
 """
 class User(UserMixin):
     def __init__(self, email, username, password_hash):
+        self.id = username
         self.email = email
         self.username = username
-        self.id = username
         self.password_hash = password_hash
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    # retrieve user data as dict
     @staticmethod
     def find_by_email(email):
         return db.find_one({'email': email})
-
+    
+    # retrieve user data as dict
     @staticmethod
     def find_by_username(username):
         return db.find_one({'username': username})
+
+    # return user object from retrieved dict
+    @staticmethod
+    def check_user(username):
+        user_data = db.find_one({'username': username})
+        if user_data:
+            return User(email=user_data['email'], username=user_data['username'], password_hash=user_data['password_hash'])
+        return None
 
 
 ##### FORMS #####
@@ -110,8 +120,13 @@ class UpdateUserForm(FlaskForm):
             raise ValidationError("That username already exists")
 
 
+@login_required
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
+
+    if current_user.is_authenticated:
+        print("Already logged, sending back home")
+        return redirect(url_for("home"))
 
     form = LoginForm()
     
@@ -121,15 +136,16 @@ def login():
 
         # Find the user in the database
         user_data = User.find_by_email(form.email.data)
-        user_object = User(email=user_data["email"], username=user_data["username"], password_hash=user_data["password_hash"])
-        
         print(user_data)
+        user_object = User(email=user_data["email"], username=user_data["username"], password_hash=user_data["password_hash"])
         print(user_object)
 
         if user_data and user_object.check_password(form.password.data):
             print("found")
+
             login_user(user_object)
             print("logged in successfully")
+
             return redirect(url_for("home"))
         
         print("Rejected")

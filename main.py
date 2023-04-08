@@ -36,20 +36,25 @@ def index():
     return redirect(url_for("home"))
 
 
+@login_required
 @app.route("/home")
 def home():
         
     random.shuffle(test_stories)
-    for story in test_stories:
-        print(story)
+    stories = test_stories[:5]
 
-    return render_template("home.html", stories=test_stories, user_logged=False)
-
+    return render_template("home.html", stories=stories, user_logged=current_user.is_authenticated)
 
 
+@login_required
 @app.route("/about")
 def about():
-    return render_template("about.html")
+
+    if current_user.is_authenticated:
+        print("Already logged, sending back home")
+        return render_template("about.html")
+    
+    return redirect(url_for("home"))
 
 
 @app.errorhandler(404)

@@ -160,10 +160,12 @@ body {
     justify-content: space-between;
     align-items: center;
     margin: 2px 0 8px 0;
+    gap: 20px;
 }
 
 .randomstory__date {
-    margin-left: 20px;
+    margin-left: 5px;
+    text-align: right;
 }
 
 .randomstory__time {
