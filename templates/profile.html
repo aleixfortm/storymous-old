@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="navbar">
+    <div class="navbar__logo">
+        <img class="navbar__name" src="/static/img/logo2.png" alt="Logo" width="75">Storymous
+    </div>
+    <ul class="navbar__navigation">
+        <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " >home</a></li>
+        <li class="navbar__navigation-item"><a href="{{url_for('auth.profile')}}" class="navbar__link " style="color:rgb(255, 220, 64);">profile</a></li>
+        <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
+    </ul>
+</header>
+<main class="main">
+    THIS IS YOUR PROFILE LOL!!!!!
+</main>
+{% endblock %}

@@ -9,25 +9,30 @@ from pymongo import MongoClient
 from blueprints.config import MONGODB_URI, POLL
 
 
+
+
 print(POLL + " this is auth")
-# mongodb database setup
-client = MongoClient(MONGODB_URI)
-database = client.storymous
-db = database.main #collection
 
 # blueprint creation 
 auth_bp = Blueprint("auth", __name__)
 
-def register_blueprints(app):
-    from blueprints.auth import auth_bp
-    app.register_blueprint(auth_bp)
+# mongodb database setup
+client = MongoClient(MONGODB_URI)
+db_general = client.storymous # database
+db = db_general.main # collection
 
+"""
+@login_manager.user_loader
+def load_user(user_id):
+    # Your code to load user from database
+    return User.get(user_id)
+"""
 
 class User(UserMixin):
-    def __init__(self, email, username, password):
+    def __init__(self, email, username, password_hash):
         self.email = email
         self.username = username
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = password_hash
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -60,7 +65,7 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired(), EqualTo('pass_confirm', message='Passwords Must Match!')])
     pass_confirm = PasswordField('Confirm password', validators=[DataRequired()])
-    submit = SubmitField('Register!')
+    submit = SubmitField('Register')
 
     def check_email(self, field):
         # Check if not None for that user email!
@@ -104,12 +109,19 @@ def login():
     if form.validate_on_submit():
         print("validated")
         # Find the user in the database
-        user = User.find_by_email(form.email.data)
-        # Check if the user exists by that email and the password is correct
-        if user and user.check_password(form.password.data):
+        user_data = User.find_by_email(form.email.data)
+        user_object = User(email=user_data["email"], username=user_data["username"], password_hash=user_data["password_hash"])
+        
+
+        print(user_data)
+        print(user_object)
+
+        if user_data and user_object.check_password(form.password.data):
             print("found")
-            login_user(user)
+            #login_user(user_object)
+
             return redirect(url_for("home"))
+        
         print("Rejected")
         flash("Invalid email or password")
 
@@ -125,8 +137,15 @@ def register():
                     username=form.username.data,
                     password=form.password.data)
 
+        print("Registered successfully!")
+
         user.save_to_db()
         flash("Thanks for registering")
-        return redirect(url_for("login"))
+        return redirect(url_for("home"))
 
     return render_template("register.html", form=form)
+
+
+@auth_bp.route("/profile")
+def profile():
+    return render_template("profile.html")

@@ -13,7 +13,7 @@
 </header>
 <main class="main">
     <div class="register-form">
-        <form action="POST">
+        <form method="POST" action="{{ url_for('auth.register') }}">
             {{form.hidden_tag()}}
             {{form.email.label}}{{form.email}}
             {{form.username.label}}{{form.username}}

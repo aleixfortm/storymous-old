@@ -12,11 +12,13 @@
     </ul>
 </header>
 <main class="main">
-    <form method="POST" action="{{ url_for('auth.login') }}">
-        {{form.hidden_tag()}}
-        {{form.email.label}}{{form.email}}
-        {{form.password.label}}{{form.password}}
-        {{form.submit()}}
-    </form>
+    <div class="login-form">
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            {{form.hidden_tag()}}
+            {{form.email(placeholder="Your e-mail")}}
+            {{form.password(placeholder="Password")}}
+            {{form.submit()}}
+        </form>
+    </div>
 </main>
 {% endblock %}
