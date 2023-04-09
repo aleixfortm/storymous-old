@@ -33,6 +33,7 @@ else:
 ##### ROUTING #####
 @app.route("/")
 def index():
+    print(current_user.username)
     return redirect(url_for("home"))
 
 
@@ -43,15 +44,18 @@ def home():
     random.shuffle(test_stories)
     stories = test_stories[:5]
 
-    return render_template("home.html", stories=stories, user_logged=current_user.is_authenticated)
+    if current_user.is_authenticated:
 
+        return render_template("home.html", user=current_user.username, user_logged=current_user.is_authenticated, stories=stories)
+
+    return render_template("home.html", user=None, user_logged=current_user.is_authenticated, stories=stories)
 
 @login_required
 @app.route("/about")
 def about():
 
     if current_user.is_authenticated:
-        return render_template("about.html")
+        return render_template("about.html", user_logged=current_user.is_authenticated)
     
     return redirect(url_for("home"))
 

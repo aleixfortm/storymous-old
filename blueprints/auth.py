@@ -161,7 +161,6 @@ def logout():
     if current_user.is_authenticated:
 
         logout_user() #log user out and clear cookies
-        print("Already logged, sending back home")
 
     return redirect(url_for("home"))
 
@@ -175,11 +174,11 @@ def register():
 
         print("Registered successfully!")
         flash("Thanks for registering")
-        return redirect(url_for("home"))
+        return redirect(url_for("auth.login"))
 
     return render_template("register.html", form=form)
 
-
-@auth_bp.route("/profile")
-def profile():
+@login_required
+@auth_bp.route("/user")
+def user():
     return render_template("profile.html")

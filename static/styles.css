@@ -112,13 +112,47 @@ body {
     }
   }
 
+
+/* ---------- Introduction ----------- */
+
+.introduction {
+    margin: 30px 10px 0 10px;
+    
+}
+
+.introduction__box {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px 0px;
+    background-color: #3b4655;
+    display: flex;
+    flex-direction: row;
+    flex-direction: row;
+    justify-content: center;
+    box-shadow: 0 0 10px 0 #29313a;
+}
+
+.introduction__text {
+    font-size: large;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.introduction__user {
+    color: rgb(46, 207, 94);
+}
+
+.introduction__user-title {
+    color: rgb(0, 255, 234);
+}
+
 /* ---------- Main ----------- */
 
 .main {
     max-width: 550px;
     display: flex;
     flex-direction: row;
-    margin: 50px auto;
+    margin: 25px auto 50px auto;
     justify-content: space-between;
     padding: 10px;
 }
@@ -347,6 +381,15 @@ input[type="submit"]:hover {
     justify-content: space-evenly;
     background-color: #262d36;
     border-top: 3px dashed black;
+}
+
+.footer__social-media-link {
+    color: white;
+    text-decoration: none;
+}
+
+.footer__social-media:hover {
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 620px) {
