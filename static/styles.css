@@ -147,7 +147,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     margin: 10px 10px 0 10px;
-    max-width: 300px;
+    max-width: 250px;
 }
 
 .introduction__text-stats-title {
@@ -230,6 +230,15 @@ body {
     
     .introduction__text-box {
         margin-top: 25px;
+        padding: 10px 0;
+    }
+
+    .introduction__text-stats {
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+        margin: 0px auto 0 auto;
+        max-width: 210px;
     }
   }
 
