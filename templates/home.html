@@ -16,24 +16,40 @@
             </header>
         </div>
 <div class="introduction">
+
+    {% if user_logged %}
     <div class="introduction__box">
-        <div class="introduction__text">
-            {% if user_logged %}
-            <h1>Welcome back, <span class="introduction__user"><br>{{ user }}</span>. <br>
-            <h2>Amazing stories await</h2></h1>
-            <h4>Need a reminder? <a href="{{ url_for('about') }}" class="introduction__about"> <br> 
-                Learn how storymous works</a></h4>
-            {% else %}
+        <div class="introduction__text-box">
+            <div class="introduction__text-text">
+                <h1>Welcome back, <span class="introduction__user"><br>{{ user }}</span>. <br>
+                <h2>Amazing stories await</h2></h1>
+                <h4>Need a reminder? <a href="{{ url_for('about') }}" class="introduction__about"> <br> 
+                    Learn how storymous works</a></h4>
+            </div>
+        </div>
+
+    {% else %}
+    <div class="introduction__box-2">
+        <div class="introduction__text-2">
             <h1>Welcome to <span class="introduction__user-title">Storymous</span>!<br>
             <h2> Sign in to start creating,<br>
             or browse anonymously. </h2></h1>
             <h4>New around here? <a href="{{ url_for('about') }}" class="introduction__about"> <br> 
                 Learn how storymous works</a></h4>
-            {% endif %}
         </div>
-        {% if user_logged %}
+
+    {% endif %}
         
+        {% if user_logged %}
+        <div class="introduction__text-box">
+            <div class="introduction__text-stats">
+               <h1>Your profile </h1> 
+               <h2>APOLLANCRAMIENTO</h2>
+            </div>
+            
+        </div>
         {% endif %}
+
     </div>
 </div>
 <main class="main">
