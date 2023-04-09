@@ -5,7 +5,7 @@
                     {% if user_logged %}
                     <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('auth.user')}}" class="navbar__link ">profile</a></li>
-                    <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">log_out</a></li>
                     {% else %}
                     <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link ">sign_in</a></li>
@@ -20,11 +20,15 @@
         <div class="introduction__text">
             {% if user_logged %}
             <h1>Welcome back, <span class="introduction__user"><br>{{ user }}</span>. <br>
-            <h2>Ready to write some stories?</h2></h1>
+            <h2>Amazing stories await</h2></h1>
+            <h4>Need a reminder? <a href="{{ url_for('about') }}" class="introduction__about"> <br> 
+                Learn how storymous works</a></h4>
             {% else %}
             <h1>Welcome to <span class="introduction__user-title">Storymous</span>!<br>
             <h2> Sign in to start creating,<br>
-            or browse anonymously </h2></h1>
+            or browse anonymously. </h2></h1>
+            <h4>New around here? <a href="{{ url_for('about') }}" class="introduction__about"> <br> 
+                Learn how storymous works</a></h4>
             {% endif %}
         </div>
         {% if user_logged %}

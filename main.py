@@ -54,11 +54,8 @@ def home():
 @app.route("/about")
 def about():
 
-    if current_user.is_authenticated:
-        return render_template("about.html", user_logged=current_user.is_authenticated)
+    return render_template("about.html", user_logged=current_user.is_authenticated)
     
-    return redirect(url_for("home"))
-
 
 @app.errorhandler(404)
 def not_found_error(error):
