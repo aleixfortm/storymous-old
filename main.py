@@ -50,6 +50,7 @@ def home():
 
     return render_template("home.html", user=None, user_logged=current_user.is_authenticated, stories=stories)
 
+
 @login_required
 @app.route("/about")
 def about():
