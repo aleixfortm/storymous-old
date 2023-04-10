@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, redirect
 from flask_login import login_required, current_user
-from blueprints.config import SECRET_KEY, API_ENDPOINT, METHOD, DEBUG_MODE, PORT_LOCAL, PORT_PUBLIC, LOCAL_IP, PUBLIC_IP, MONGODB_URI
+from blueprints.config import SECRET_KEY, API_ENDPOINT, MONGODB_URI
 from flask_pymongo import PyMongo
 import requests, random
 
@@ -48,7 +48,6 @@ def home():
     stories = test_stories[:5]
 
     if current_user.is_authenticated:
-
         return render_template("home.html", user=current_user.username, user_logged=current_user.is_authenticated, stories=stories)
 
     return render_template("home.html", user=None, user_logged=current_user.is_authenticated, stories=stories)
@@ -57,12 +56,9 @@ def home():
 @login_required
 @app.route("/about")
 def about():
-
     return render_template("about.html", user_logged=current_user.is_authenticated)
     
 
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template("404.html", error=error), 404
-
-

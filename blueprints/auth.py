@@ -124,9 +124,14 @@ def login():
     form = LoginForm()
     
     if form.validate_on_submit():
-
         # Find the user in the database
         user_data = User.find_by_email(form.email.data)
+
+        # if user not found, reset 
+        if not user_data:
+            message = "That email or username does not exist"
+            return render_template("login.html", form=form, message=message)
+        
         user_object = User(email=user_data["email"], 
                            username=user_data["username"], 
                            password_hash=user_data["password_hash"])
