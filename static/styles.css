@@ -360,7 +360,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .register-form__box {
-    padding-bottom: 10px;
+    padding-bottom: 2px;
 }
 
 .register-form__login-url {
@@ -378,17 +378,58 @@ input:focus, select:focus, textarea:focus, button:focus {
 }
 
 .login-form__box {
-    padding-bottom: 10px;
+    padding-bottom: 2px;
+}
+
+.login-form__title-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.login-form__title {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    cursor: default;
+}
+
+.login-form__register {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .login-form__register-url {
     text-decoration: none;
     font-size: large;
     color: orange;
+    
 }
 
 .login-form__register-url:hover {
     color: rgb(168, 109, 0);
+}
+
+.login-form__error-container {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form__spacer {
+    padding: 5px;
+}
+
+.login-form__error-message {
+    padding: 5px;
+    background-color: red;
+    border-radius: 5px;
+    color: #ffffff;
+    margin: 10px auto 0 auto;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 0 10px 0 #323b47;
+    cursor: default;
 }
 
 label[for="email"] {

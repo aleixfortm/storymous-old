@@ -115,8 +115,6 @@ class UpdateUserForm(FlaskForm):
 def login():
 
     message = None
-    print(db)
-    print(db.find_one())
     if current_user.is_authenticated:
         print("Already logged, sending back home")
         return redirect(url_for("home"))
@@ -129,7 +127,7 @@ def login():
 
         # if user not found, reset 
         if not user_data:
-            message = "That email or username does not exist"
+            message = "Incorrect email or username"
             return render_template("login.html", form=form, message=message)
         
         user_object = User(email=user_data["email"], 
@@ -143,8 +141,9 @@ def login():
 
             return redirect(url_for("home"))
         
-        message = "Username or password are not correct"
-
+        message = "Incorrect username or password"
+        return render_template("login.html", form=form, message=message)
+    
     return render_template("login.html", form=form, message=message)
 
 
@@ -172,14 +171,16 @@ def register():
 
     if form.validate_on_submit():
 
-        if not form.check_email() or not form.check_username(): # proceeds if user or email do not exist
+        if form.check_email(form.email) is not None and form.check_username(form.username) is not None: # proceeds if user or email do not exist
             form.save_user_to_db()
 
             print("Registered successfully!")
             message = "Thanks for registering!"
             return redirect(url_for("auth.login"))
 
+        message = "Email already taken"
     return render_template("register.html", form=form, message=message)
+
 
 @login_required
 @auth_bp.route("/user")
@@ -189,5 +190,6 @@ def user():
 
     return render_template("profile.html")
 
-# import at the end to avoid circular imports
+
+# import from main file at the end to avoid circular imports
 from main import db

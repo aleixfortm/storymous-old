@@ -8,6 +8,19 @@
     </header>
     <main class="main">
         <div class="login-form">
+            <div class="login-form__title-container">
+                <span class="login-form__title">Log In</span>
+            </div>
+            {% if message %}
+            <div class="login-form__error-container">
+                <div class="login-form__error-message">
+                    {{ message }}
+                </div>
+            </div>
+
+            {% endif %}
+
+
             <form method="POST" action="{{ url_for('auth.login') }}" class="login-form__box">
                 {{form.hidden_tag()}}
                 {{form.email(placeholder="Your e-mail")}}
@@ -15,8 +28,13 @@
                 {{form.submit()}}
             </form>
             <div class="login-form__register">
-                Don't have an account yet? <a href=" {{url_for('auth.register') }}" class="login-form__register-url">Register</a>
+                Don't have an account yet? 
+                <span class="login-form__spacer"></span>
+                <a href=" {{url_for('auth.register') }}" class="login-form__register-url">Register</a>
             </div>
+
+
+
         </div>
     </main>
 </div>
