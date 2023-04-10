@@ -23,7 +23,7 @@
 
             <form method="POST" action="{{ url_for('auth.login') }}" class="login-form__box">
                 {{form.hidden_tag()}}
-                {{form.email(placeholder="Your e-mail")}}
+                {{form.user(placeholder="E-mail or username")}}
                 {{form.password(placeholder="Password")}}
                 {{form.submit()}}
             </form>

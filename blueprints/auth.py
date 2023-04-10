@@ -5,6 +5,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, email_validator, ValidationError
 from flask_wtf.file import FileField, FileAllowed
 from werkzeug.security import generate_password_hash, check_password_hash
+import re
 
 
 # blueprint creation 
@@ -18,7 +19,7 @@ login_manager.init_app(auth_bp)
 @login_manager.user_loader
 def load_user(username):
     # Your code to load user from database
-    print("Called user_loader from login_manager")
+    print("\nCalled user_loader from login_manager\n")
     user = User.check_user(username)
     return user
 
@@ -66,7 +67,7 @@ class User(UserMixin):
 
 ##### FORMS #####
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    user = StringField('Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log In')
 
@@ -85,6 +86,11 @@ class RegistrationForm(FlaskForm):
     def check_username(self, field):
         # Check if not None for that username!
         return db.find_one({'username': field.data})
+    
+    def is_valid_username(self, field):
+        # Check if username meets all requirements: accepted special chars: "_" and len<=20chars
+        pattern = r'^[a-zA-Z0-9_]+$'
+        return bool(re.match(pattern, field.data))
 
     def save_user_to_db(self):
         password_hash = generate_password_hash(self.password.data)
@@ -116,33 +122,33 @@ def login():
 
     message = None
     if current_user.is_authenticated:
-        print("Already logged, sending back home")
+        print("\nAlready logged, sending back home\n")
         return redirect(url_for("home"))
 
     form = LoginForm()
     
     if form.validate_on_submit():
-        # Find the user in the database
-        user_data = User.find_by_email(form.email.data)
 
-        # if user not found, reset 
-        if not user_data:
-            message = "Incorrect email or username"
-            return render_template("login.html", form=form, message=message)
+        user_data = User.find_by_email(form.user.data)
+        if not user_data: # not found by email
+            user_data = User.find_by_username(form.user.data)
+
+            if not user_data:
+                message = "Incorrect e-mail or username"
+                return render_template("login.html", form=form, message=message)
         
         user_object = User(email=user_data["email"], 
                            username=user_data["username"], 
                            password_hash=user_data["password_hash"])
 
-        if user_data and user_object.check_password(form.password.data):
+        if user_object.check_password(form.password.data):
 
             login_user(user_object)
-            print("logged in successfully")
-
+            print("\nLogged in successfully\n")
             return redirect(url_for("home"))
         
-        message = "Incorrect username or password"
-        return render_template("login.html", form=form, message=message)
+        else:
+            message = "Incorrect password"
     
     return render_template("login.html", form=form, message=message)
 
@@ -171,14 +177,25 @@ def register():
 
     if form.validate_on_submit():
 
-        if form.check_email(form.email) is not None and form.check_username(form.username) is not None: # proceeds if user or email do not exist
+        found_email = form.check_email(form.email)
+        found_username = form.check_username(form.username)
+
+        if found_email is not None: # email exists in database?
+            message = "E-mail already taken"
+
+        elif found_username is not None: # username exists in database?
+            message = "Username already taken"
+
+        elif not form.is_valid_username(form.username):
+            message = "Invalid username, allowed (a-z, A-Z, _)"
+
+        else: # proceeds if user or email do not exist
             form.save_user_to_db()
 
-            print("Registered successfully!")
+            print("\nRegistered successfully!\n")
             message = "Thanks for registering!"
             return redirect(url_for("auth.login"))
-
-        message = "Email already taken"
+        
     return render_template("register.html", form=form, message=message)
 
 

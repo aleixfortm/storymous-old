@@ -21,7 +21,7 @@
     <div class="introduction__box">
         <div class="introduction__text-box">
             <div class="introduction__text-text">
-                <h1>Welcome back, <span class="introduction__user"><br>{{ user }}</span>. <br>
+                <h1>Welcome back, <span class="introduction__user"><br>{{ user }}</span>. <br> <!--USER MAX 20CHAR-->
                 <h2>Amazing stories await</h2></h1>
                 <h4>Need a reminder? <a href="{{ url_for('about') }}" class="introduction__about"> <br> 
                     Learn how storymous works</a></h4>
@@ -37,7 +37,6 @@
             <h4>New around here? <a href="{{ url_for('about') }}" class="introduction__about"> <br> 
                 Learn how storymous works</a></h4>
         </div>
-
     {% endif %}
         
         {% if user_logged %}
@@ -57,9 +56,7 @@
         
     </div>
 </div>
-<div class="feed-selector">
-    
-</div>
+<div class="feed-selector"></div>
 <main class="main">
     <section class="randomstory">
 
