@@ -2,18 +2,23 @@ from flask import Flask, render_template, url_for, redirect, current_app
 from flask_login import LoginManager, login_required, current_user
 import os, time, requests, random
 from blueprints.auth import login_manager
-from blueprints.config import SECRET_KEY, API_ENDPOINT, METHOD, DEBUG_MODE, PORT_LOCAL, PORT_PUBLIC, LOCAL_IP, PUBLIC_IP
-
+from blueprints.config import SECRET_KEY, API_ENDPOINT, METHOD, DEBUG_MODE, PORT_LOCAL, PORT_PUBLIC, LOCAL_IP, PUBLIC_IP, MONGODB_URI
+from flask_pymongo import PyMongo
 
 
 def register_blueprints(app):
-    from blueprints.auth import auth_bp, db
+    from blueprints.auth import auth_bp
     app.register_blueprint(auth_bp)
 
 
 # create app object and assign secret key
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
+
+# pymongo config
+app.config["MONGO_URI"] = MONGODB_URI
+mongo = PyMongo(app)
+db = mongo.db.main
 
 # register blueprints from respective directory
 register_blueprints(app)
@@ -33,7 +38,6 @@ else:
 ##### ROUTING #####
 @app.route("/")
 def index():
-    print(current_user.username)
     return redirect(url_for("home"))
 
 

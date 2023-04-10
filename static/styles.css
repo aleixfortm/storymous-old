@@ -1,7 +1,7 @@
 body {
     font-family: 'IBM Plex Mono', monospace;
     color: aliceblue;
-    
+    height: 100%;
 }
 
 
@@ -30,6 +30,7 @@ body {
     z-index: 10;
     background-color: #445061;
     box-shadow: 0 0 10px 0 #384250;
+    
 }
 
 .base__aligner {
@@ -121,7 +122,7 @@ body {
 }
 
 .introduction__box {
-    max-width: 600px;
+    max-width: 625px;
     margin: 0 auto;
     padding: 10px 0px;
     display: flex;
@@ -148,15 +149,17 @@ body {
     justify-content: space-between;
     margin: 10px 10px 0 10px;
     max-width: 250px;
+    align-items: center;
 }
 
 .introduction__text-stats-title {
     text-align: center;
-    font-weight: bold;
+    font-weight:1000;
     color: #1e232b;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
     background-color: peru;
     border-radius: 10px;
+    padding: 4px 10px 4px 10px;
 }
 
 .introduction__text-stats-text {
@@ -166,6 +169,7 @@ body {
 
 .introduction__text-stats-img {
     margin: 5px 0px 0 0px;
+    max-width:max-content;
     height: 160px;
     border-radius: 100px;
     border: 3px solid whitesmoke;
@@ -217,7 +221,7 @@ body {
     text-decoration: underline;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 645px) {
     .introduction{
         margin: 0px auto 30px auto;
         max-width: 400px;

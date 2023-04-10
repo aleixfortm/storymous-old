@@ -5,8 +5,6 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, email_validator, ValidationError
 from flask_wtf.file import FileField, FileAllowed
 from werkzeug.security import generate_password_hash, check_password_hash
-from pymongo import MongoClient
-from blueprints.config import MONGODB_URI
 
 
 # blueprint creation 
@@ -23,12 +21,6 @@ def load_user(username):
     print("Called user_loader from login_manager")
     user = User.check_user(username)
     return user
-
-
-# mongodb database setup
-client = MongoClient(MONGODB_URI)
-db_general = client.storymous # database
-db = db_general.main # collection
 
 
 """
@@ -88,13 +80,11 @@ class RegistrationForm(FlaskForm):
 
     def check_email(self, field):
         # Check if not None for that user email!
-        if db.find_one({'email': field.data}):
-            raise ValidationError('Your email has been registered already!')
+        return db.find_one({'email': field.data})
 
     def check_username(self, field):
         # Check if not None for that username!
-        if db.find_one({'username': field.data}):
-            raise ValidationError('Sorry, that username is taken!')
+        return db.find_one({'username': field.data})
 
     def save_user_to_db(self):
         password_hash = generate_password_hash(self.password.data)
@@ -124,6 +114,9 @@ class UpdateUserForm(FlaskForm):
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
 
+    message = None
+    print(db)
+    print(db.find_one())
     if current_user.is_authenticated:
         print("Already logged, sending back home")
         return redirect(url_for("home"))
@@ -132,26 +125,22 @@ def login():
     
     if form.validate_on_submit():
 
-        print("validated")
-
         # Find the user in the database
         user_data = User.find_by_email(form.email.data)
-        print(user_data)
-        user_object = User(email=user_data["email"], username=user_data["username"], password_hash=user_data["password_hash"])
-        print(user_object)
+        user_object = User(email=user_data["email"], 
+                           username=user_data["username"], 
+                           password_hash=user_data["password_hash"])
 
         if user_data and user_object.check_password(form.password.data):
-            print("found")
 
             login_user(user_object)
             print("logged in successfully")
 
             return redirect(url_for("home"))
         
-        print("Rejected")
-        flash("Invalid email or password")
+        message = "Username or password are not correct"
 
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=form, message=message)
 
 
 @login_required
@@ -165,20 +154,35 @@ def logout():
     return redirect(url_for("home"))
 
 
+@login_required
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
+    
+    message = None
+    # redirect home if already logged in
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+    
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        form.save_user_to_db()
 
-        print("Registered successfully!")
-        flash("Thanks for registering")
-        return redirect(url_for("auth.login"))
+        if not form.check_email() or not form.check_username(): # proceeds if user or email do not exist
+            form.save_user_to_db()
 
-    return render_template("register.html", form=form)
+            print("Registered successfully!")
+            message = "Thanks for registering!"
+            return redirect(url_for("auth.login"))
+
+    return render_template("register.html", form=form, message=message)
 
 @login_required
 @auth_bp.route("/user")
 def user():
+    if not current_user.is_authenticated:
+        return redirect(url_for("home"))
+
     return render_template("profile.html")
+
+# import at the end to avoid circular imports
+from main import db
