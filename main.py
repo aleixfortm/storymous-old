@@ -14,17 +14,10 @@ mongo = PyMongo(app)
 db = mongo.db.main
 
 
-
 from blueprints.auth import login_manager
-
-
-
 def register_blueprints(app):
     from blueprints.auth import auth_bp
     app.register_blueprint(auth_bp)
-
-
-
 
 # register blueprints from respective directory
 register_blueprints(app)
