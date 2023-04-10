@@ -30,7 +30,6 @@ body {
     z-index: 10;
     background-color: #445061;
     box-shadow: 0 0 10px 0 #384250;
-    
 }
 
 .base__aligner {
@@ -118,16 +117,15 @@ body {
 
 .introduction {
     margin: 30px 10px 0 10px;
-    
 }
 
 .introduction__box {
-    max-width: 625px;
+    max-width: 675px;
     margin: 0 auto;
     padding: 10px 0px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     
 }
 
@@ -141,7 +139,6 @@ body {
 .introduction__text-text {
     margin: 0 10px;
 }
-
 
 .introduction__text-stats {
     display: flex;
@@ -161,6 +158,7 @@ body {
     border-radius: 10px;
     padding: 4px 10px 4px 10px;
 }
+
 
 .introduction__text-stats-text {
     margin-top: 8px;
@@ -246,33 +244,49 @@ body {
         max-width: 350px;
     }
 
+    .introduction__text-stats-title-container {
+        display: flex;
+        justify-content: center;
+        max-width: 90%;
+    }
+
+    .introduction__text-stats-title {
+        font-size: 6vw;
+        width: auto;
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
     .introduction__text-stats-text {
         margin-top: 15px;
     }
 
-    .introduction__text-stats-title {
-        font-size: 10vw;
-        min-height: 20px;
-    }
 
     .introduction__text-stats-img {
         border-radius: 100%;
-        max-width: 100%;
+        max-width: 90%;
         height: auto;
     }
   }
 
-@media screen and (max-width: 445px) {
+@media screen and (max-width: 440px) {
     .introduction{
         margin: 10px 10px 30px 10px;
         max-width: 400px;
     }
 
     .introduction__text-stats {
-        margin: auto 10px;
+        margin: auto auto;
     }
+
 }
 
+@media screen and (max-width: 420px) {
+
+}
 
 /* ---------- Main ----------- */
 
@@ -446,7 +460,6 @@ label[for="password"] {
     font-weight: 500;
     font-size:large;
 }
-
 
 form {
     display: flex;
