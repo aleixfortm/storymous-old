@@ -333,7 +333,13 @@ body {
 .feed-selector__options-item:hover {
     color: rgb(18, 207, 97);
     font-weight: bold;
-    /*border-bottom: 3px solid rgb(18, 207, 97);*/
+    text-decoration: underline;
+}
+
+.feed-selector__options-item-active {
+    color: rgb(18, 207, 97); 
+    font-weight: bold;
+    cursor: default;
 }
 
 @media screen and (max-width: 445px) {
@@ -417,6 +423,13 @@ body {
     color: #313d4d;
     border-radius: 5px;
 }
+
+.oops-feed {
+    text-align: center;
+    font-style: italic;
+    margin: auto;
+}
+
 
 /* ---------- Forms ---------- */
 
