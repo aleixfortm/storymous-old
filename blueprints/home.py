@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect
 from flask_login import login_required, current_user
-from imports.api import test_stories
+from misc.api import test_stories
 import random
 
 

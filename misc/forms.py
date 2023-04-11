@@ -54,5 +54,12 @@ class UpdateUserForm(FlaskForm):
     def check_username(self, field):
         if db_users.find_one({"username": field.data}):
             raise ValidationError("That username already exists")
-        
+
+
+class PostForm(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    content = StringField("Content", validators=[DataRequired()])
+    submit = SubmitField("Post")
+
+
 from main import db_users

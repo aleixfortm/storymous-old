@@ -44,14 +44,21 @@ class User(UserMixin):
     
 
 class Post:
-    def __init__(self, username, content, date):
-        self.id = username
-        pass
+    def __init__(self, username, title, content, date):
+        self.username = username
+        self.title = title
+        self.content = content
+        self.date = date
+
+    def is_repeated_title(self):
+        return db_posts.find_one({"title": self.title})
 
 
 class Comment:
     def __init__(self, username, content, date):
-        pass
+        self.username = username
+        self.content = content
+        self.date = date
 
 
 from main import db_users, db_posts

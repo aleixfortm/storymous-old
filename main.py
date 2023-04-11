@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_login import LoginManager
-from imports.config import SECRET_KEY, MONGODB_URI
+from misc.config import SECRET_KEY, MONGODB_URI
 from flask_pymongo import PyMongo
 
 
@@ -19,7 +19,7 @@ db_posts = mongo.db.posts
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-from imports.models import User
+from misc.models import User
 @login_manager.user_loader
 def load_user(username):
     # Your code to load user from database
@@ -28,6 +28,7 @@ def load_user(username):
     return user
 
 
+# register blueprints
 from blueprints.home import home_bp
 app.register_blueprint(home_bp)
 from blueprints.auth import auth_bp

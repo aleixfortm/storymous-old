@@ -1,4 +1,4 @@
-from imports.config import API_ENDPOINT
+from misc.config import API_ENDPOINT
 import requests
 
 

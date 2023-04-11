@@ -1,13 +1,11 @@
 from flask import Blueprint, url_for, render_template, redirect
 from flask_login import current_user, login_user, LoginManager, login_required, logout_user, login_manager
-from imports.models import User
-from imports.forms import LoginForm, RegistrationForm
+from misc.models import User
+from misc.forms import LoginForm, RegistrationForm
 
 
 # blueprint creation 
 auth_bp = Blueprint("auth", __name__)
-
-
 
 
 @login_required
