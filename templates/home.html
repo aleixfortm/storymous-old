@@ -3,13 +3,13 @@
                 <ul class="navbar__navigation">
 
                     {% if user_logged %}
-                    <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('auth.user')}}" class="navbar__link ">profile</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">log_out</a></li>
                     {% else %}
-                    <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link ">sign_in</a></li>
-                    <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('home.about')}}" class="navbar__link ">about</a></li>
                     {% endif %}
 
                 </ul>
@@ -23,7 +23,7 @@
             <div class="introduction__text-text">
                 <h1>Welcome back, <span class="introduction__user"><br>{{ user }}</span>. <br> <!--USER MAX 20CHAR-->
                 <h2>Amazing stories await</h2></h1>
-                <h4>Need a reminder? <a href="{{ url_for('about') }}" class="introduction__about"> <br> 
+                <h4>Need a reminder? <a href="{{ url_for('home.about') }}" class="introduction__about"> <br> 
                     Learn how storymous works</a></h4>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <h1>Welcome to <span class="introduction__user-title">Storymous</span>!<br>
             <h2> <a href="{{ url_for('auth.login') }}" class="introduction__signin">Sign in</a> to start creating,<br>
             or browse anonymously. </h2></h1>
-            <h4>New around here? <a href="{{ url_for('about') }}" class="introduction__about"> <br> 
+            <h4>New around here? <a href="{{ url_for('home.about') }}" class="introduction__about"> <br> 
                 Learn how storymous works</a></h4>
         </div>
     {% endif %}

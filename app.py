@@ -1,5 +1,5 @@
-from blueprints import app
-from blueprints.config import METHOD, PORT_LOCAL, PORT_PUBLIC, DEBUG_MODE, PUBLIC_IP, LOCAL_IP
+from main import app
+from imports.config import METHOD, PORT_LOCAL, PORT_PUBLIC, DEBUG_MODE, PUBLIC_IP, LOCAL_IP
 
 ##### RUN APP #####
 if __name__ == "__main__":

@@ -2,11 +2,11 @@
     <div class="feed-selector__container">
         <div class="feed-selector__title">Feed</div>
         <div class="feed-selector__options-container">
-            <div class="feed-selector__options-item-container"><a class="feed-selector__options-item" href="{{ url_for('home', feed='templates') }}">Templates</a></div>
+            <div class="feed-selector__options-item-container"><a class="feed-selector__options-item" href="{{ url_for('home.home', feed='templates') }}">Templates</a></div>
             <div class="feed-selector__options-item-container">
                 <a class="feed-selector__options-item-active">Recommended</a>
             </div>
-            <div class="feed-selector__options-item-container"><a class="feed-selector__options-item" href="{{ url_for('home', feed='following') }}">Following</a></div>
+            <div class="feed-selector__options-item-container"><a class="feed-selector__options-item" href="{{ url_for('home.home', feed='following') }}">Following</a></div>
         </div>
     </div>
 </div>

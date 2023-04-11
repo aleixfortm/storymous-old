@@ -1,4 +1,4 @@
-from blueprints.config import API_ENDPOINT
+from imports.config import API_ENDPOINT
 import requests
 
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
         <ul class="navbar__navigation">
-            <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " >home</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " >home</a></li>
             <li class="navbar__navigation-item"><a href="{{url_for('auth.user')}}" class="navbar__link " style="color:rgb(255, 220, 64);">profile</a></li>
             <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">log_out</a></li>
         </ul>

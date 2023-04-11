@@ -1,23 +1,13 @@
 from flask import Blueprint, url_for, render_template, redirect
-from flask_login import current_user, login_user, LoginManager, login_required, logout_user
-from blueprints.models import User
-from blueprints.forms import LoginForm, RegistrationForm
+from flask_login import current_user, login_user, LoginManager, login_required, logout_user, login_manager
+from imports.models import User
+from imports.forms import LoginForm, RegistrationForm
 
 
 # blueprint creation 
 auth_bp = Blueprint("auth", __name__)
 
-# create login manager instance to keep track of user authentication
-login_manager = LoginManager()
-login_manager.init_app(auth_bp)
 
-
-@login_manager.user_loader
-def load_user(username):
-    # Your code to load user from database
-    print("\nCalled user_loader from login_manager\n")
-    user = User.check_user(username)
-    return user
 
 
 @login_required
@@ -27,7 +17,7 @@ def login():
     message = None
     if current_user.is_authenticated:
         print("\nAlready logged, sending back home\n")
-        return redirect(url_for("home"))
+        return redirect(url_for("home.home"))
 
     form = LoginForm()
     
@@ -49,7 +39,7 @@ def login():
 
             login_user(user_object)
             print("\nLogged in successfully\n")
-            return redirect(url_for("home"))
+            return redirect(url_for("home.home"))
         
         else:
             message = "Incorrect password"
@@ -65,7 +55,7 @@ def logout():
 
         logout_user() #log user out and clear cookies
 
-    return redirect(url_for("home"))
+    return redirect(url_for("home.home"))
 
 
 @login_required
@@ -75,7 +65,7 @@ def register():
     message = None
     # redirect home if already logged in
     if current_user.is_authenticated:
-        return redirect(url_for("home"))
+        return redirect(url_for("home.home"))
     
     form = RegistrationForm()
 
@@ -107,7 +97,7 @@ def register():
 @auth_bp.route("/user")
 def user():
     if not current_user.is_authenticated:
-        return redirect(url_for("home"))
+        return redirect(url_for("home.home"))
 
     return render_template("profile.html")
 

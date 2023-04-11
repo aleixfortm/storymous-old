@@ -3,13 +3,13 @@
                 <ul class="navbar__navigation">
 
                     {% if user_logged %}
-                    <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('auth.user')}}" class="navbar__link ">profile</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">log_out</a></li>
                     {% else %}
-                    <li class="navbar__navigation-item"><a href="{{url_for('home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link ">sign_in</a></li>
-                    <li class="navbar__navigation-item"><a href="{{url_for('about')}}" class="navbar__link ">about</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('home.about')}}" class="navbar__link ">about</a></li>
                     {% endif %}
 
                 </ul>
@@ -17,7 +17,7 @@
         </div>
 <div class="error">
     <h1 class="error_text"> Oops! This path does not exist. <br>
-        You can go back <a href="{{ url_for('home') }}" class="error__home">home</a>.</h1>
+        You can go back <a href="{{ url_for('home.home') }}" class="error__home">home</a>.</h1>
 </div>        
 <div class="error__box">
     <h1>404</h1>

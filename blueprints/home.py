@@ -1,18 +1,22 @@
-from flask import render_template, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect
 from flask_login import login_required, current_user
-from blueprints import app
-from blueprints.api import test_stories
+from imports.api import test_stories
 import random
 
-@app.route("/")
+
+#blueprint creation 
+home_bp = Blueprint("home", __name__)
+
+
+@home_bp.route("/")
 def index():
-    return redirect(url_for("home"))
+    return redirect(url_for("home.home"))
 
 
 @login_required
-@app.route("/home")
-@app.route("/home/<feed>")
-def home(feed="recommended"):
+@home_bp.route("/home")
+@home_bp.route("/home/<feed>")
+def home(feed="templates"):
 
     stories = None
 
@@ -33,11 +37,11 @@ def home(feed="recommended"):
 
 
 @login_required
-@app.route("/about")
+@home_bp.route("/about")
 def about():
     return render_template("about.html", user_logged=current_user.is_authenticated)
     
 
-@app.errorhandler(404)
+@home_bp.errorhandler(404)
 def not_found_error(error):
     return render_template("404.html", error=error), 404
