@@ -14,13 +14,19 @@ mongo = PyMongo(app)
 db = mongo.db.main
 
 
-from blueprints.auth import login_manager
+
 def register_blueprints(app):
     from blueprints.auth import auth_bp
     app.register_blueprint(auth_bp)
+    from blueprints.posts import posts_bp
+    app.register_blueprint(posts_bp)
+
 
 # register blueprints from respective directory
 register_blueprints(app)
+
+# import instances from just initialized blueprints (importing after registering blueprints to avoid errors)
+from blueprints.auth import login_manager
 
 # initialize login manager
 login_manager.init_app(app)
