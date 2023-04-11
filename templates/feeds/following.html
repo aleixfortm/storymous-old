@@ -1,0 +1,33 @@
+<div class="feed-selector">
+    <div class="feed-selector__container">
+        <div class="feed-selector__title">Feed</div>
+        <div class="feed-selector__options-container">
+            <div class="feed-selector__options-item-container"><a class="feed-selector__options-item" href="{{ url_for('home', feed='templates') }}">Templates</a></div>
+            <div class="feed-selector__options-item-container"><a class="feed-selector__options-item" href="{{ url_for('home', feed='recommended') }}">Recommended</a></div>
+            <div class="feed-selector__options-item-container">
+                <a  
+                    class="feed-selector__options-item" 
+                    href="" 
+                    style="border-bottom: 3px solid rgb(18, 207, 97); color: rgb(18, 207, 97); font-weight: bold;">Following
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="main">
+    <section class="randomstory">
+
+        {% for story in stories %}
+        <article class="randomstory__article">
+            <div class="randomstory__upper">
+                <h2 class="randomstory__title"> {{ story["title"] }} </h2>
+                <time class="randomstory__date" datetime="21-04-2023"> {{ story["date"] }} </time>
+            </div>
+            <p class="randomstory__content">
+                {{ story["story"] }}
+            </p>
+        </article>
+        {% endfor %}
+    </section>
+</main>

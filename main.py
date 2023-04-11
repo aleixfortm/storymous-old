@@ -42,15 +42,16 @@ def index():
 
 @login_required
 @app.route("/home")
-def home():
-        
+@app.route("/home/<feed>")
+def home(feed="recommended"):
+
     random.shuffle(test_stories)
     stories = test_stories[:5]
 
     if current_user.is_authenticated:
-        return render_template("home.html", user=current_user.username, user_logged=current_user.is_authenticated, stories=stories)
+        return render_template("home.html", user=current_user.username, user_logged=current_user.is_authenticated, stories=stories, feed=feed)
 
-    return render_template("home.html", user=None, user_logged=current_user.is_authenticated, stories=stories)
+    return render_template("home.html", user=None, user_logged=current_user.is_authenticated, stories=stories, feed=feed)
 
 
 @login_required
