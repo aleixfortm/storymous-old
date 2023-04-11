@@ -45,7 +45,7 @@
                 <div class="introduction__text-stats-title-container">
                     <div class="introduction__text-stats-title">{{ user }}</div>
                 </div>
-                <img src="./static/img/default.png" alt="profile_img" class="introduction__text-stats-img">
+                <img src="{{ url_for('static', filename='img/default.png') }}" alt="profile_img" class="introduction__text-stats-img">
                 <div class="introduction__text-stats-text">
                     Stories <b>0</b><br>
                     Replies <b>0</b>
@@ -56,27 +56,16 @@
         
     </div>
 </div>
-<div class="feed-selector"></div>
-<main class="main">
-    <section class="randomstory">
 
-        {% for story in stories %}
-        <article class="randomstory__article">
-            <!-- 
-            <div class="randomstory__time">
-                <div class="randomstory__remaining-time">Next story in 2:00</div>
-            </div>
-            -->
-            <div class="randomstory__upper">
-                <h2 class="randomstory__title"> {{ story["title"] }} </h2>
-                <time class="randomstory__date" datetime="21-04-2023"> {{ story["date"] }} </time>
-            </div>
-            <p class="randomstory__content">
-                {{ story["story"] }}
-            </p>
-        </article>
-        {% endfor %}
+{% if feed == "templates" %}
+{% include "./feeds/templates.html" %}
 
-    </section>
-</main>
+{% elif feed == "recommended" %}
+{% include "./feeds/recommended.html" %}
+
+{% elif feed == "following" %}
+{% include "./feeds/following.html" %}
+
+{% endif %}
+
 {% endblock %}
