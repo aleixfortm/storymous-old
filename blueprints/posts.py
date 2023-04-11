@@ -2,6 +2,7 @@ from flask import Blueprint, url_for, render_template, redirect
 from flask_login import login_required, current_user
 from misc.forms import PostForm
 from misc.models import Post
+from flask_pymongo import ObjectId
 from main import db_posts
 
 # blueprint creation
@@ -48,7 +49,7 @@ def user(username=None):
     elif username is not None:
 
         user_posts = db_posts.find({"username": username})
-        print(user_posts[0]["title"])
+        print(user_posts[0]["_id"])
 
         return render_template("profile.html", username=current_user.username, stories=user_posts)
     
@@ -57,4 +58,19 @@ def user(username=None):
     return redirect(url_for("posts.user", username=username))
 
 
+@login_required
+@posts_bp.route("/post/<post_id>")
+def post(post_id):
+
+    if current_user.is_authenticated:
+        pass
+
+    if post_id is None:
+        message = "Invalid post id"
+        return redirect(url_for("home.home", message=message))
+
+    post = db_posts.find_one({"_id": ObjectId(post_id)})
+
+
+    return render_template("post.html", story=post)
     

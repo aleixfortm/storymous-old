@@ -16,15 +16,17 @@
         <section class="randomstory">
             {% if stories %}
                 {% for story in stories %}
-                <article class="randomstory__article">
-                    <div class="randomstory__upper">
-                        <h2 class="randomstory__title"> {{ story["title"] }} </h2>
-                        <time class="randomstory__date" datetime="21-04-2023"> NoDateYet </time>
-                    </div>
-                    <p class="randomstory__content">
-                        {{ story["content"] }}
-                    </p>
-                </article>
+                <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="color: inherit; text-decoration: none;">
+                    <article class="randomstory__article">
+                        <div class="randomstory__upper">
+                            <h2 class="randomstory__title"> {{ story["title"] }} </h2>
+                            <time class="randomstory__date" datetime="21-04-2023"> NoDateYet </time>
+                        </div>
+                        <p class="randomstory__content">
+                            {{ story["content"] }}
+                        </p>
+                    </article>
+                </a>
                 {% endfor %}
             {% endif %}
         </section>

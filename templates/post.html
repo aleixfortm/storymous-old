@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+        <ul class="navbar__navigation">
+            <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " >home</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('posts.user')}}" class="navbar__link ">profile</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">log_out</a></li>
+        </ul>
+    </header>
+    <main class="main" style="flex-direction: column;">
+        <div class="oops-feed"></div> 
+        <section class="randomstory">
+            
+                <article class="randomstory__article">
+                    <div class="randomstory__upper">
+                        <h2 class="randomstory__title"> {{ story["title"] }} </h2>
+                        <time class="randomstory__date" datetime="21-04-2023"> NoDateYet </time>
+                    </div>
+                    <p class="randomstory__content">
+                        {{ story["content"] }}
+                    </p>
+                </article>
+
+        </section>
+    </main>
+</div>
+{% endblock %}
+
+<main class="main">
+    
+</main>
