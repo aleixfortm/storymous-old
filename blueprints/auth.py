@@ -111,6 +111,3 @@ def user():
 
     return render_template("profile.html")
 
-
-# import from main file at the end to avoid circular imports
-from main import db_posts, db_users

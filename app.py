@@ -1,4 +1,4 @@
-from main import app
+from blueprints import app
 from blueprints.config import METHOD, PORT_LOCAL, PORT_PUBLIC, DEBUG_MODE, PUBLIC_IP, LOCAL_IP
 
 ##### RUN APP #####

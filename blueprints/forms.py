@@ -55,4 +55,4 @@ class UpdateUserForm(FlaskForm):
         if db_users.find_one({"username": field.data}):
             raise ValidationError("That username already exists")
         
-from main import db_users
+from blueprints import db_users

@@ -54,4 +54,4 @@ class Comment:
         pass
 
 
-from main import db_users, db_posts
+from blueprints import db_users, db_posts
