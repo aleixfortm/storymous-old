@@ -16,7 +16,7 @@ def login():
     if current_user.is_authenticated:
         print("\nAlready logged, sending back home\n")
         return redirect(url_for("home.home"))
-
+    
     form = LoginForm()
     
     if form.validate_on_submit():
@@ -89,13 +89,3 @@ def register():
             return redirect(url_for("auth.login"))
         
     return render_template("register.html", form=form, message=message)
-
-
-@login_required
-@auth_bp.route("/user")
-def user():
-    if not current_user.is_authenticated:
-        return redirect(url_for("home.home"))
-
-    return render_template("profile.html")
-

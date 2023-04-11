@@ -1,5 +1,5 @@
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from werkzeug.security import generate_password_hash
 from flask_wtf.file import FileField, FileAllowed
 from flask_wtf import FlaskForm
@@ -57,9 +57,8 @@ class UpdateUserForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    title = StringField("Title", validators=[DataRequired()])
-    content = StringField("Content", validators=[DataRequired()])
-    submit = SubmitField("Post")
+    newstory_title = StringField("Title", validators=[DataRequired()], render_kw={"class": "newstory_title"})
+    newstory_content = TextAreaField("Content", validators=[DataRequired()], render_kw={"class": "newstory_content"})
+    newstory_submit = SubmitField("Post", render_kw={"class": "newstory_submit"})
 
-
-from main import db_users
+from main import db_users, db_posts

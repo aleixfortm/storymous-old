@@ -2,12 +2,36 @@
 {% block content %}
         <ul class="navbar__navigation">
             <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " >home</a></li>
-            <li class="navbar__navigation-item"><a href="{{url_for('auth.user')}}" class="navbar__link " style="color:rgb(255, 220, 64);">profile</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('posts.user')}}" class="navbar__link " style="color:rgb(255, 220, 64);">profile</a></li>
             <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">log_out</a></li>
         </ul>
     </header>
-    <main class="main">
-        <p class="oops-feed">Work in progress (very soon!)</p> 
+    <main class="main" style="flex-direction: column;">
+        <div class="oops-feed">Work in progress - section not finished!</div> 
+        <div class="feed-selector">
+            <div class="feed-selector__container">
+                <div class="feed-selector__title">Your posts</div>
+            </div>
+        </div>
+        <section class="randomstory">
+            {% if stories %}
+                {% for story in stories %}
+                <article class="randomstory__article">
+                    <div class="randomstory__upper">
+                        <h2 class="randomstory__title"> {{ story["title"] }} </h2>
+                        <time class="randomstory__date" datetime="21-04-2023"> {{ story["date"] }} </time>
+                    </div>
+                    <p class="randomstory__content">
+                        {{ story["story"] }}
+                    </p>
+                </article>
+                {% endfor %}
+            {% endif %}
+        </section>
     </main>
 </div>
 {% endblock %}
+
+<main class="main">
+    
+</main>

@@ -44,14 +44,18 @@ class User(UserMixin):
     
 
 class Post:
-    def __init__(self, username, title, content, date):
+    def __init__(self, username, title, content, date=None):
         self.username = username
         self.title = title
         self.content = content
         self.date = date
 
-    def is_repeated_title(self):
-        return db_posts.find_one({"title": self.title})
+    def save_post_to_db(self):
+        db_posts.insert_one({
+            'username': self.username,
+            'title': self.title,
+            'content': self.content
+            })
 
 
 class Comment:

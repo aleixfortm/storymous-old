@@ -4,7 +4,7 @@
 
                     {% if user_logged %}
                     <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
-                    <li class="navbar__navigation-item"><a href="{{url_for('auth.user')}}" class="navbar__link ">profile</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('posts.user')}}" class="navbar__link ">profile</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">log_out</a></li>
                     {% else %}
                     <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>

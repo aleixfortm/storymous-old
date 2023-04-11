@@ -18,6 +18,8 @@ def index():
 @home_bp.route("/home/<feed>")
 def home(feed="templates"):
 
+    print("\n" + current_user.username + "\n")
+
     stories = None
 
     if feed == "templates":

@@ -492,7 +492,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 
 .login-form__register-url {
     text-decoration: none;
-    font-size: large;
+    font-size: 17px;
     color: orange;
     
 }
@@ -546,7 +546,7 @@ form {
 
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="textarea"] {
     
     color: whitesmoke;
     font-size: 14px;
@@ -598,6 +598,75 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: rgb(221, 165, 96);
+}
+
+
+.newstory-form__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    padding-bottom: 0px;
+}
+
+#newstory_title {
+    width: 95.2%;
+    padding: 0 10px;
+}
+
+.newstory_content {
+    width: 95.2%;
+    height: 100px;
+    color: whitesmoke;
+    font-size: 14px;
+    font-family: inherit;
+    margin-bottom: 10px;
+    background-color: #445061;
+    border: 2px dashed #313d4d;
+    border-radius: 5px;
+    padding: 5px 10px 10px 10px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+    resize: none;
+    box-sizing: content-box;
+}
+
+.newstory_content::placeholder {
+    color: rgb(170, 170, 170);
+}
+
+.newstory_content:focus {
+    background-color: #4b5461;
+    color: whitesmoke;
+    border: 2px solid #313d4d;
+    box-shadow: 0 0 10px 0 #37414e;
+}
+
+
+#newstory_submit {
+    justify-self: right;
+    align-items: right;
+    width: 100%;
+    padding: 0 10px 0 0;
+}
+
+.newstory-help {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.newstory-help__url {
+    text-decoration: none;
+    font-size: 17px;
+    color: orange;
+    
+}
+
+.newstory-help__url:hover {
+    color: rgb(168, 109, 0);
 }
 
 /* ---------- 404 ---------- */
