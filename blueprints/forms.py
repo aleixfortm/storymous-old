@@ -4,7 +4,6 @@ from werkzeug.security import generate_password_hash
 from flask_wtf.file import FileField, FileAllowed
 from flask_wtf import FlaskForm
 import re
-from main import db
 
 
 class LoginForm(FlaskForm):
@@ -22,11 +21,11 @@ class RegistrationForm(FlaskForm):
 
     def check_email(self, field):
         # Check if not None for that user email!
-        return db.find_one({'email': field.data})
+        return db_users.find_one({'email': field.data})
 
     def check_username(self, field):
         # Check if not None for that username!
-        return db.find_one({'username': field.data})
+        return db_users.find_one({'username': field.data})
     
     def is_valid_username(self, field):
         # Check if username meets all requirements: accepted special chars: "_" and len<=20chars
@@ -35,7 +34,7 @@ class RegistrationForm(FlaskForm):
 
     def save_user_to_db(self):
         password_hash = generate_password_hash(self.password.data)
-        db.insert_one({
+        db_users.insert_one({
             'email': self.email.data,
             'username': self.username.data,
             'password_hash': password_hash
@@ -49,9 +48,11 @@ class UpdateUserForm(FlaskForm):
     submit = SubmitField("Update")
 
     def check_email(self, field):
-        if db.find_one({"email": field.data}):
+        if db_users.find_one({"email": field.data}):
             raise ValidationError("That email has already been registered")
         
     def check_username(self, field):
-        if db.find_one({"username": field.data}):
+        if db_users.find_one({"username": field.data}):
             raise ValidationError("That username already exists")
+        
+from main import db_users

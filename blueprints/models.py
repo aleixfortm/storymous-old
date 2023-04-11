@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from main import db
+
 
 """
 By inheriting from UserMixin, the User class gains the following functionalities:
@@ -27,18 +27,31 @@ class User(UserMixin):
     # retrieve user data as dict
     @staticmethod
     def find_by_email(email):
-        return db.find_one({'email': email})
+        return db_users.find_one({'email': email})
     
     # retrieve user data as dict
     @staticmethod
     def find_by_username(username):
-        return db.find_one({'username': username})
+        return db_users.find_one({'username': username})
 
     # return user object from retrieved dict
     @staticmethod
     def check_user(username):
-        user_data = db.find_one({'username': username})
+        user_data = db_users.find_one({'username': username})
         if user_data:
             return User(email=user_data['email'], username=user_data['username'], password_hash=user_data['password_hash'])
         return None
     
+
+class Post:
+    def __init__(self, username, content, date):
+        self.id = username
+        pass
+
+
+class Comment:
+    def __init__(self, username, content, date):
+        pass
+
+
+from main import db_users, db_posts

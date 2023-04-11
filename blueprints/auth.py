@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, render_template, flash, redirect
+from flask import Blueprint, url_for, render_template, redirect
 from flask_login import current_user, login_user, LoginManager, login_required, logout_user
 from blueprints.models import User
 from blueprints.forms import LoginForm, RegistrationForm
@@ -113,4 +113,4 @@ def user():
 
 
 # import from main file at the end to avoid circular imports
-from main import db
+from main import db_posts, db_users

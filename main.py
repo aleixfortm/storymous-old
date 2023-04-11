@@ -1,18 +1,21 @@
 from flask import Flask, render_template, url_for, redirect
 from flask_login import login_required, current_user
-from blueprints.config import SECRET_KEY, API_ENDPOINT, MONGODB_URI
+from blueprints.config import SECRET_KEY, MONGODB_URI
 from flask_pymongo import PyMongo
-import requests, random
+from blueprints.api import test_stories
+import random
 
 
 # create app object and assign secret key
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
+
 # pymongo config
 app.config["MONGO_URI"] = MONGODB_URI
 mongo = PyMongo(app)
-db = mongo.db.main
-
+# create collection instances
+db_users = mongo.db.users
+db_posts = mongo.db.posts
 
 
 def register_blueprints(app):
@@ -32,15 +35,7 @@ from blueprints.auth import login_manager
 login_manager.init_app(app)
 
 
-##### API STORY RETRIEVING #####
-stories_api = requests.get(API_ENDPOINT)
-if stories_api.status_code == 200:
-    test_stories = stories_api.json()
-else:
-    print("Error: API request failed with status code", stories_api.status_code)
 
-
-##### ROUTING #####
 @app.route("/")
 def index():
     return redirect(url_for("home"))
