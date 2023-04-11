@@ -18,8 +18,6 @@ def index():
 @home_bp.route("/home/<feed>")
 def home(feed="templates"):
 
-    print("\n" + current_user.username + "\n")
-
     stories = None
 
     if feed == "templates":
@@ -33,6 +31,7 @@ def home(feed="templates"):
 
 
     if current_user.is_authenticated:
+        print("\nUser: " + current_user.username + "\n")
         return render_template("home.html", user=current_user.username, user_logged=current_user.is_authenticated, stories=stories, feed=feed)
 
     return render_template("home.html", user=None, user_logged=current_user.is_authenticated, stories=stories, feed=feed)
