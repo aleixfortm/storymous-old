@@ -51,6 +51,7 @@ def user(username=None):
 
         user_posts = list(db_posts.find({"username": username}))
         user_posts = user_posts[::-1] #order from newest to oldest
+        print(user_posts)
 
         return render_template("profile.html", username=current_user.username, stories=user_posts)
     
