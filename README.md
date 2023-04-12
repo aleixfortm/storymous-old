@@ -15,4 +15,4 @@ The front-end is fully responive, built without frameworks. The backend is suppo
 - Add user profile template
 - Track user stats
 - Let users post stories
-- More to come
+- Max username len 20chars
