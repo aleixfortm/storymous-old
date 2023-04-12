@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect, jsonify
 from flask_login import login_required, current_user
 from misc.api import test_stories
-import random
+from main import db_posts, db_users
+import random, json
 
 
 #blueprint creation 
@@ -32,27 +33,30 @@ def home(feed="templates"):
         random.shuffle(test_stories)
         stories = test_stories[:5]
     
+
     elif feed == "recommended":
-        pass
-    else:
+        stories = list(db_posts.find())
+        random.shuffle(stories)
+    
+
+    elif feed == "following":
         pass
     
-        
 
-
+    # returns logged in homepage
     if current_user.is_authenticated:
         print("\nUser: " + current_user.username + "\n")
         return render_template("home.html", user=current_user.username, 
                                             user_logged=current_user.is_authenticated, 
-                                            stories=stories, 
-                                            feed=feed, 
-                                            tags=tags)
+                                            stories=stories,  feed=feed, tags=tags)
+                                           
 
+    # not logged in, returns logged out homepage
     return render_template("home.html", user=None, 
                                         user_logged=current_user.is_authenticated, 
-                                        stories=stories, 
-                                        feed=feed, 
-                                        tags=tags)
+                                        stories=stories, feed=feed, tags=tags)
+                                        
+                                        
 
 
 @login_required

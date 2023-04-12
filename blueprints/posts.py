@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from misc.forms import PostForm
 from misc.models import Post
 from flask_pymongo import ObjectId
+import random
 from main import db_posts
 
 # blueprint creation
@@ -48,8 +49,8 @@ def user(username=None):
     # if reloaded successfully, user's username will not be None
     elif username is not None:
 
-        user_posts = db_posts.find({"username": username})
-        print(user_posts[0]["_id"])
+        user_posts = list(db_posts.find({"username": username}))
+        user_posts = user_posts[::-1] #order from newest to oldest
 
         return render_template("profile.html", username=current_user.username, stories=user_posts)
     

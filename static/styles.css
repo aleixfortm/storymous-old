@@ -393,8 +393,9 @@ body {
     justify-content: left;
     border-radius: 5px;
     margin-bottom: 8px;
-    width: auto;
+    width: 100%;
     word-wrap: break-word;
+    hyphens: auto;
 }
 
 .story__title {
@@ -404,6 +405,7 @@ body {
     margin: 0px 0px;
     font-size: large;
     word-wrap: break-word;
+    hyphens: auto;
 }
 
 .story__upper {
@@ -412,7 +414,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0px 0px;
-    width: fit-content;
+    width: 100%;
 }
 
 .story__user-container {
@@ -452,6 +454,7 @@ body {
     border-radius: 15px 15px 15px 0;
     text-align: left;
     word-wrap: break-word;
+    hyphens: auto;
     width: auto;
 }
 
@@ -476,7 +479,7 @@ body {
 .oops-feed {
     text-align: center;
     font-style: italic;
-    margin: auto;
+    margin: 0;
 }
 
 /*
@@ -800,4 +803,12 @@ input[type="submit"]:hover {
 
 .lower {
     color: #a1a1a1;
+}
+
+.admin {
+    color: rgb(255, 116, 116);
+}
+
+.yellow {
+    color: yellow;
 }
