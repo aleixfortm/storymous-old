@@ -160,9 +160,20 @@ body {
 }
 
 
-.introduction__text-stats-text {
-    margin-top: 8px;
-    text-align: center;
+.introduction__options-container {
+    margin: 8px 0 0 0;
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.introduction__options-profile {
+    padding: 5px 2px;
+    background-color: white;
+    color: #000000;
+    text-decoration: none;
+
 }
 
 .introduction__text-stats-img {
@@ -816,4 +827,8 @@ input[type="submit"]:hover {
 
 .test {
     margin: auto;
+}
+
+.spacer2 {
+    padding: 2px;
 }
