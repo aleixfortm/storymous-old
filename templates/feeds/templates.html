@@ -12,15 +12,15 @@
 </div>
 
 <main class="main">
-    <section class="randomstory">
+    <section class="story">
         {% if stories %}
             {% for story in stories %}
-            <article class="randomstory__article">
-                <div class="randomstory__upper">
-                    <h2 class="randomstory__title"> {{ story["title"] }} </h2>
-                    <time class="randomstory__date" datetime="21-04-2023"> {{ story["date"] }} </time>
+            <article class="story__article">
+                <div class="story__upper">
+                    <h2 class="story__title"> {{ story["title"] }} </h2>
+                    <time class="story__date" datetime="21-04-2023"> {{ story["date"] }} </time>
                 </div>
-                <p class="randomstory__content">
+                <p class="story__content">
                     {{ story["story"] }}
                 </p>
             </article>
