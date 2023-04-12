@@ -130,23 +130,80 @@ body {
 }
 
 .introduction__text-box {
-    font-size: large;
-    justify-content: center;
+    max-width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
     background-color: #374250;
     box-shadow: 0 0 14px 0 #222830;
+    margin: 20px auto;
+    padding: 5px 0 10px 0;
+    font-size: large;
 }
 
-.introduction__text-text {
-    margin: 0 10px;
+.introduction__profile-stats {
+    margin: 10px 10px 10px 10px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.stats__title {
+    justify-self: flex-start;
+}
+
+.profile__stats-section {
+    margin: 15px 0;
+}
+
+.stats__account-title {
+    margin: 5px 0 5px 0;
+}
+
+.stats__account-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0px 0 0 0;
+}
+
+.container3 {
+    align-items: flex-end;
+    margin: 0 0 0 10px;
+}
+
+.spacer3 {
+    padding: 20px 5px;
+}
+
+.spacer4 {
+    padding: 20px 15px;
+}
+
+.stats__part1 {
+    margin: 5px 0 0 0;
+}
+
+.stats__part2 {
+    margin: 4px 0 0 0;
+    text-align: center;
 }
 
 .introduction__text-stats {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin: 10px 10px 0 10px;
-    max-width: 250px;
+    justify-content: center;
+    margin: 10px 10px 10px 10px;
+    max-width: fit-content;
+    max-height: fit-content;
     align-items: center;
+}
+
+.introduction__text-text {
+    margin: 0 10px;
 }
 
 .introduction__text-stats-title {
@@ -178,9 +235,8 @@ body {
 
 .introduction__text-stats-img {
     margin: 5px 0px 0 0px;
-    max-width:max-content;
-    height: 160px;
-    border-radius: 100px;
+    height: 250px;
+    border-radius: 100%;
     border: 3px solid whitesmoke;
 }
 
@@ -230,7 +286,7 @@ body {
     text-decoration: underline;
 }
 
-@media screen and (max-width: 694px) {
+@media screen and (max-width: 695px) {
     .introduction{
         margin: 0px auto 30px auto;
         max-width: 400px;
@@ -245,6 +301,8 @@ body {
     .introduction__text-box {
         margin-top: 25px;
         padding: 10px 0;
+        flex-direction: column;
+        max-width: fit-content;
     }
 
     .introduction__text-stats {
@@ -279,6 +337,9 @@ body {
         border-radius: 100%;
         max-width: 90%;
         height: auto;
+    }
+    .introduction__profile-stats {
+        width: auto;
     }
   }
 
@@ -815,6 +876,10 @@ input[type="submit"]:hover {
 
 .lower {
     color: #a1a1a1;
+}
+
+.lower-2 {
+    color: #4d4d4d;
 }
 
 .admin {
