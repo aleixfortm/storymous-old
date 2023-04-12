@@ -6,8 +6,18 @@
             <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">log_out</a></li>
         </ul>
     </header>
-    <main class="main" style="flex-direction: column;">
+    
         <div class="oops-feed">Work in progress - section not finished!</div> 
+
+        <div class="introduction__text-box test">
+            <div class="introduction__text-stats">
+                <div class="introduction__text-stats-title-container">
+                    <div class="introduction__text-stats-title">{{ user }}</div>
+                </div>
+                <img src="{{ url_for('static', filename='img/default.png') }}" alt="profile_img" class="introduction__text-stats-img">
+            </div> 
+        </div>
+    <main class="main" style="flex-direction: column;">
         <div class="feed-selector">
             <div class="feed-selector__container">
                 <div class="feed-selector__title">Your posts</div>
@@ -22,7 +32,7 @@
                             <img src="/static/img/default.png" alt="Profile picture" class="story__user-img">
                         </div> 
                         <div class="story__user-info-container">
-                            <div class="story__user-comment cur-def">Default comment</div>
+                            <div class="story__user-comment cur-def">{{ story["comment"] }}</div>
                             <div class="story__username cur-pnt""> <span class="lower"><b>@</span>{{ story["username"] }}</b></div>
                         </div>
                     </div>
