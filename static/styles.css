@@ -393,7 +393,8 @@ body {
     justify-content: left;
     border-radius: 5px;
     margin-bottom: 8px;
-    width: 100%;
+    width: auto;
+    word-wrap: break-word;
 }
 
 .story__title {
@@ -403,8 +404,6 @@ body {
     margin: 0px 0px;
     font-size: large;
     word-wrap: break-word;
-    flex-shrink: 1;
-    max-width: 100%;
 }
 
 .story__upper {
@@ -413,6 +412,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0px 0px;
+    width: fit-content;
 }
 
 .story__user-container {
@@ -424,6 +424,7 @@ body {
 .story__user-img-container {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
 }
 
 .story__user-img {
@@ -437,15 +438,25 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0 0 0 5px;
+    width: fit-content;
+    hyphens: auto;
+    justify-content: space-between;
 }
 
-.story__user-name {
+.story__user-comment {
     margin-top: 0px;
     font-weight: bold;
     color: black;
     background-color: #faf8f8;
     padding: 5px 10px;
     border-radius: 15px 15px 15px 0;
+    text-align: left;
+    word-wrap: break-word;
+    width: auto;
+}
+
+.story__username {
+    margin: 5px 0px;
 }
 
 .story__user-tags {
@@ -775,3 +786,18 @@ input[type="submit"]:hover {
         margin-top: 15px;
     }
   }
+
+
+/* ----------- GLOBAL SELECTORS -------------*/
+
+.cur-def{
+    cursor: default;
+}
+
+.cur-pnt {
+    cursor: pointer;
+}
+
+.lower {
+    color: #a1a1a1;
+}
