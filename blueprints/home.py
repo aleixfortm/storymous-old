@@ -8,6 +8,7 @@ import random
 home_bp = Blueprint("home", __name__)
 
 
+
 @home_bp.route("/")
 def index():
     return redirect(url_for("home.home"))
@@ -17,6 +18,13 @@ def index():
 @home_bp.route("/home")
 @home_bp.route("/home/<feed>")
 def home(feed="templates"):
+
+    tags = ["poll", "drama", "mysterious", "space", "jungle", 
+        "horror", "night", "cursed", "secret", "treasure", 
+        "haunted", "island", "mummy", "mansion", "ghost", "monster"]
+
+    random.shuffle(tags)
+    tags = tags[0:random.randint(0, 3)]
 
     stories = None
 
@@ -28,13 +36,23 @@ def home(feed="templates"):
         pass
     else:
         pass
+    
+        
 
 
     if current_user.is_authenticated:
         print("\nUser: " + current_user.username + "\n")
-        return render_template("home.html", user=current_user.username, user_logged=current_user.is_authenticated, stories=stories, feed=feed)
+        return render_template("home.html", user=current_user.username, 
+                                            user_logged=current_user.is_authenticated, 
+                                            stories=stories, 
+                                            feed=feed, 
+                                            tags=tags)
 
-    return render_template("home.html", user=None, user_logged=current_user.is_authenticated, stories=stories, feed=feed)
+    return render_template("home.html", user=None, 
+                                        user_logged=current_user.is_authenticated, 
+                                        stories=stories, 
+                                        feed=feed, 
+                                        tags=tags)
 
 
 @login_required

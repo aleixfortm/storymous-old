@@ -15,17 +15,32 @@
     <section class="story">
         {% if stories %}
             {% for story in stories %}
-            <article class="story__article">
-                <div class="story__upper">
-                    <div class="story__title-container">
-                        <h2 class="story__title"> {{ story["title"] }} </h2>
+            <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="color: inherit; text-decoration: none;">
+                <div class="story__user-container">
+                    <div class="story__user-img-container">
+                        <img src="/static/img/logo.png" alt="Profile picture" class="story__user-img">
+                    </div> 
+                    <div class="story__user-info-container">
+                        <div class="story__user-name">AI generated</div>
+                        <div class="story__user-tags">
+
+                            <div class="story__tag">{{ tag }}</div>
+
+                        </div>
                     </div>
-                    <!--<time class="story__date" datetime="21-04-2023"> {{ story["date"] }} </time>-->
                 </div>
-                <p class="story__content">
-                    {{ story["story"] }}
-                </p>
-            </article>
+                <article class="story__article">    
+                    <div class="story__upper">
+                        <div class="story__title-container">
+                            <h2 class="story__title"> {{ story["title"] }} </h2>
+                        </div>
+                        <!--<time class="story__date" datetime="21-04-2023"> {{ story["date"] }} </time>-->
+                    </div>
+                    <p class="story__content">
+                        {{ story["story"] }}
+                    </p>
+                </article>
+            </a>
             {% endfor %}
         {% endif %}
     </section>

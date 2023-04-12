@@ -444,8 +444,22 @@ body {
     font-weight: bold;
     color: black;
     background-color: #faf8f8;
-    padding: 5px;
-    border-radius: 10px 10px 10px 0;
+    padding: 5px 10px;
+    border-radius: 15px 15px 15px 0;
+}
+
+.story__user-tags {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+}
+
+.story__tag {
+    border-radius: 15px;
+    padding: 1px 8px;
+    color: white;
+    opacity: 0.8;
+    margin-right: 5px;
 }
 
 .oops-feed {
