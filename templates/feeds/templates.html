@@ -17,8 +17,10 @@
             {% for story in stories %}
             <article class="story__article">
                 <div class="story__upper">
-                    <h2 class="story__title"> {{ story["title"] }} </h2>
-                    <time class="story__date" datetime="21-04-2023"> {{ story["date"] }} </time>
+                    <div class="story__title-container">
+                        <h2 class="story__title"> {{ story["title"] }} </h2>
+                    </div>
+                    <!--<time class="story__date" datetime="21-04-2023"> {{ story["date"] }} </time>-->
                 </div>
                 <p class="story__content">
                     {{ story["story"] }}
