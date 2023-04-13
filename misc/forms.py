@@ -39,13 +39,9 @@ class RegistrationForm(FlaskForm):
         print("checked len!!")
         return True if min_len <= len(field.data) <= max_len else False
 
-    def save_user_to_db(self):
-        password_hash = generate_password_hash(self.password.data)
-        db_users.insert_one({
-            'email': self.email.data,
-            'username': self.username.data,
-            'password_hash': password_hash
-        })
+    def hash_password(self):
+        return generate_password_hash(self.password.data)
+
 
 
 class UpdateUserForm(FlaskForm):

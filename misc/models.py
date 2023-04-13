@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 from bson.objectid import ObjectId
 
 """
@@ -32,6 +32,10 @@ class User(UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+    def quicksave_to_db(self):
+        print("quicksaved!")
+        db_users.insert_one(self.__dict__)
 
     # retrieve user data as dict
     @staticmethod

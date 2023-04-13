@@ -87,7 +87,9 @@ def register():
             error_message = "Username length must be between 2 and 20 characters"
 
         else: # proceeds if user or email do not exist
-            form.save_user_to_db()
+            password_hash = form.hash_password()
+            user_object = User(username=form.username.data, email=form.email.data, password_hash=password_hash)
+            user_object.quicksave_to_db()
 
             print("\nRegistered successfully!\n")
             message = "Registered successfully! Log in to continue"
