@@ -22,8 +22,7 @@ login_manager.init_app(app)
 from misc.models import User
 @login_manager.user_loader
 def load_user(username):
-    # Your code to load user from database
-    print("\nCalled user_loader from login_manager\n")
+    
     user = User.check_user(username)
     return user
 

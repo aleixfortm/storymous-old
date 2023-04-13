@@ -66,7 +66,8 @@ class UpdateUserForm(FlaskForm):
 class PostForm(FlaskForm):
     newstory_title = StringField("Title", validators=[DataRequired()], render_kw={"class": "newstory_title"})
     newstory_content = TextAreaField("Content", validators=[DataRequired()], render_kw={"class": "newstory_content"})
-    #newstory_comment = Text
+    newstory_preview = TextAreaField("Preview", render_kw={"class": "newstory_preview"})
+    newstory_comment = TextAreaField("Comment", render_kw={"class": "newstory_comment"})
     newstory_submit = SubmitField("Post", render_kw={"class": "newstory_submit"})
 
 from main import db_users, db_posts

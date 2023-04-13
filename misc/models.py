@@ -44,11 +44,15 @@ class User(UserMixin):
     
 
 class Post:
-    def __init__(self, username, title, content, date=None):
+    def __init__(self, username, title, content, preview=None, post_comment=None, date=None):
         self.username = username
+        self.date = date
         self.title = title
         self.content = content
-        self.date = date
+        self.preview = preview
+        self.post_comment = post_comment
+        self.vists = 1
+        self.user_comments = []
 
     def save_post_to_db(self):
         db_posts.insert_one({
@@ -56,6 +60,12 @@ class Post:
             'title': self.title,
             'content': self.content
             })
+
+    def increase_visits(self):
+        self.visits += 1
+
+    def add_user_comment(self, comment):
+        self.user_comments.append(comment)
 
 
 class Comment:

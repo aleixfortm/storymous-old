@@ -9,7 +9,7 @@
     <main class="main">
         <div class="login-form">
             <div class="login-form__title-container">
-                <span class="login-form__title">Start new story</span>
+                <span class="login-form__title">Create new story</span>
             </div>
             {% if message %}
             <div class="login-form__error-container">
@@ -24,7 +24,9 @@
             <form method="POST" action="{{ url_for('posts.newstory') }}" class="newstory-form__box">
                 {{form.hidden_tag()}}
                 {{form.newstory_title(placeholder="Story title (be original!)")}}
-                {{form.newstory_content(placeholder="The beginning of your amazing story here, which others will continue")}}
+                {{form.newstory_content(placeholder="Your amazing story here")}}
+                {{form.newstory_preview(placeholder="Synopsis (Optional - Recommended): What users see before accessing your story. Will show a section of the story content if left blank")}}
+                {{form.newstory_comment(placeholder="Comment (Optional): E.g. My first story!")}}
                 {{form.newstory_submit()}}
             </form>
             <div class="newstory-help">
