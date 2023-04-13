@@ -1,10 +1,10 @@
 from flask import Blueprint, url_for, render_template, redirect
 from flask_login import login_required, current_user
 from misc.forms import PostForm
-from misc.models import Post
+from misc.models import Post, User
 from flask_pymongo import ObjectId
-import random
-from main import db_posts
+import random, datetime
+from main import db_posts, db_users
 
 # blueprint creation
 posts_bp = Blueprint("posts", __name__)
@@ -21,11 +21,15 @@ def newstory():
         form = PostForm()
         if form.validate_on_submit(): #if form submitted
 
+            # build story object and save it to db
             story_object = Post(username=current_user.username, title=form.newstory_title.data,
                                 content=form.newstory_content.data, preview=form.newstory_preview.data,
-                                post_comment=form.newstory_comment)
-
+                                post_comment=form.newstory_comment.data, date=datetime.datetime.now().isoformat())
             story_object.quicksave_to_db()
+
+            # retrieve user data to update stats
+            user_data = User.find_by_username(current_user.username)
+
 
             #story_object.save_post_to_db()
             print("\nPost saved successfully\n")

@@ -15,11 +15,16 @@ However, I am setting the username to be the id of the user, and the username wi
 users in the database.
 """
 class User(UserMixin):
-    def __init__(self, email, username, password_hash):
+    def __init__(self, email, username, password_hash, n_written=0, n_contributed=0, n_friends=0, creation_date=None):
         self.id = username
         self.email = email
         self.username = username
         self.password_hash = password_hash
+        self.n_written = n_written
+        self.n_contributed = n_contributed
+        self.n_friends = n_friends
+        self.friends = []
+        self.creation_date = creation_date
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -52,21 +57,15 @@ class Post:
         self.content = content
         self.preview = preview
         self.post_comment = post_comment
-        self.vists = 1
+        self.visits = 1
         self.n_comments = 0
         self.user_comments = []
-
-    def save_post_to_db(self):
-        db_posts.insert_one({
-            'username': self.username,
-            'title': self.title,
-            'content': self.content
-            })
     
     def quicksave_to_db(self):
+        print("quicksaved!")
         db_posts.insert_one(self.__dict__)
     
-    def replace_or_create_to_db(self):
+    def replace_db_doc(self):
         post_dict = self.__dict__
         db_posts.update_one({'_id': self._id}, {'$set': post_dict}, upsert=True)
 
