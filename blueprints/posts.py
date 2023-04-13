@@ -56,11 +56,14 @@ def user(username=None):
     # if reloaded successfully, user's username will not be None
     elif username is not None:
 
+        # retrieve user data to display
+        user_data = db_users.find_one({"username": username})
+
+        # retrieve user posts to display
         user_posts = list(db_posts.find({"username": username}))
         user_posts = user_posts[::-1] #order from newest to oldest
-        print(user_posts)
 
-        return render_template("profile.html", username=current_user.username, stories=user_posts)
+        return render_template("profile.html", stories=user_posts, **user_data)
     
     # user will reload the page if authenticated, with its username as part of URL
     username = current_user.username

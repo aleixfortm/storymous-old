@@ -55,12 +55,11 @@ class UpdateUserForm(FlaskForm):
     submit = SubmitField("Update")
 
     def check_email(self, field):
-        if db_users.find_one({"email": field.data}):
-            raise ValidationError("That email has already been registered")
+        return db_users.find_one({"email": field.data})
         
     def check_username(self, field):
-        if db_users.find_one({"username": field.data}):
-            raise ValidationError("That username already exists")
+        return db_users.find_one({"username": field.data})
+
 
 
 class PostForm(FlaskForm):
