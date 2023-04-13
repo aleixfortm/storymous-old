@@ -279,22 +279,13 @@ body {
     border: 3px solid whitesmoke;
 }
 
-.introduction__box-2 {
-    max-width: 600px;
-    margin: 25px auto 0 auto;
-    padding: 10px 0px;
-    background-color: #3b4655;
-    display: flex;
-    flex-direction: row;
-    flex-direction: row;
-    justify-content: space-between;
-    box-shadow: 0 0 10px 0 #29313a;
-}
+
 
 .introduction__text-2 {
     font-size: large;
     justify-content: center;
     margin-left: 10px;
+    padding-right: 10px;
 }
 
 .introduction__signin {
@@ -403,8 +394,84 @@ body {
 
 /* ---------- Feed-selector ------------*/
 
+.signup-buttons {
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    padding: 10px 25px;
+    margin: auto auto;
+}
+
+.login-home{
+    padding: 5px 30px;
+    background-color: whitesmoke;
+    color: #ffffff;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: medium;
+    max-width: 70px;
+    margin: auto;
+    background-color: rgb(37, 204, 37);
+}
+
+.login-home:hover {
+    background-color: rgb(24, 136, 24);
+}
+
+.register-home {
+    padding: 5px 30px;
+    background-color: whitesmoke;
+    color: #ffffff;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: medium;
+    max-width: 70px;
+    margin: auto;
+    background-color: rgb(0, 124, 240);
+}
+
+.register-home:hover {
+    background-color: rgb(0, 83, 161);
+}
+
+.introduction__box-2 {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    background-color: #374250;
+    margin: 20px auto;
+    padding: 5px 0 10px 0;
+    font-size: large;
+    border: 1px solid rgba(245, 245, 245, 0.329);
+    border-radius: 10px;
+}
+
+.logout-button {
+    padding: 5px 30px;
+    background-color: whitesmoke;
+    color: #ffffff;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: medium;
+    max-width: 70px;
+    margin: auto;
+    background-color: rgb(224, 20, 20);
+}
+
+.logout-button:hover {
+    background-color: rgb(156, 32, 32);
+}
+
 .feed-selector {
     margin: 0 5px;
+}
+
+@media screen and (max-width: 530px) {
+    .introduction__box-2 {
+        flex-direction: column;
+    }
+
 }
 
 .feed-selector__container {
@@ -424,13 +491,13 @@ body {
     margin-bottom: 10px;
     cursor: default;
     font-weight: bolder;
-    border-bottom: 3px solid #2a313b;
+    border-bottom: 3px solid #282e35;
 }
 
 .feed-selector__options-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     text-align: center;
 }

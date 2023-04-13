@@ -5,7 +5,7 @@
                     {% if user_logged %}
                     <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('posts.user')}}" class="navbar__link ">profile</a></li>
-                    <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">log_out</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">settings</a></li>
                     {% else %}
                     <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link ">sign_in</a></li>
@@ -27,14 +27,17 @@
                     Learn how storymous works</a></h4>
             </div>
         </div>
-
     {% else %}
     <div class="introduction__box-2">
         <div class="introduction__text-2">
-            <h1>Welcome to <span class="introduction__user-title">Storymous</span>!<br>
-            <h2> <a href="{{ url_for('auth.login') }}" class="introduction__signin">Sign in</a> to start creating<br> </h2></h1>
+            <h1>Welcome to <span class="introduction__user-title"><br>Storymous</span>!<br>
             <h4>New around here? <a href="{{ url_for('home.about') }}" class="introduction__about"> <br> 
                 Learn how storymous works</a></h4>
+        </div>
+        <div class="signup-buttons">
+            <a href="{{ url_for('auth.login') }}" style="text-decoration: none;"><div class="login-home">Log In</div></a>
+            <p><b>or</b></p>
+            <a href="{{ url_for('auth.register') }}" style="text-decoration: none;"><div class="register-home">Register</div></a>
         </div>
     {% endif %}
         

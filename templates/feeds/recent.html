@@ -13,32 +13,36 @@
 
 <main class="main">
     <section class="story">
-        {% if stories %}
-            {% for story in stories %}
-                <div>
-                <div class="story__user-container">
-                    <div class="story__user-img-container">
-                        <img src="/static/img/default.png" alt="Profile picture" class="story__user-img">
-                    </div> 
-                    <div class="story__user-info-container">
-                        <div class="story__user-comment cur-def"> {{story["comment"] }} </div>
-                        <div class="story__username cur-pnt""> <span class="lower"><b>@</span>{{ story["username"] }}</b></div>
+        {% if user_logged %}
+            {% if stories %}
+                {% for story in stories %}
+                    <div>
+                    <div class="story__user-container">
+                        <div class="story__user-img-container">
+                            <img src="/static/img/default.png" alt="Profile picture" class="story__user-img">
+                        </div> 
+                        <div class="story__user-info-container">
+                            <div class="story__user-comment cur-def"> {{story["comment"] }} </div>
+                            <div class="story__username cur-pnt""> <span class="lower"><b>@</span>{{ story["username"] }}</b></div>
+                        </div>
                     </div>
-                </div>
-                    <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="color: inherit; text-decoration: none;">
-                        <article class="story__article">    
-                            <div class="story__upper">
-                                <div class="story__title-container">
-                                    <h2 class="story__title"> {{ story["title"] }} </h2>
+                        <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="color: inherit; text-decoration: none;">
+                            <article class="story__article">    
+                                <div class="story__upper">
+                                    <div class="story__title-container">
+                                        <h2 class="story__title"> {{ story["title"] }} </h2>
+                                    </div>
                                 </div>
-                            </div>
-                            <p class="story__content">
-                                {{ story["content"] }}
-                            </p>
-                        </article>
-                    </a>
-                </div>
-            {% endfor %}
+                                <p class="story__content">
+                                    {{ story["content"] }}
+                                </p>
+                            </article>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% else %}
+        <p class="oops-feed">Oops... You'll have to sign in to view this!</p>
         {% endif %}
     </section>
 </main>

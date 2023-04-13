@@ -3,13 +3,13 @@
         <ul class="navbar__navigation">
             <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " >home</a></li>
             <li class="navbar__navigation-item"><a href="{{url_for('posts.user')}}" class="navbar__link " style="color:rgb(255, 220, 64);">profile</a></li>
-            <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">log_out</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">settings</a></li>
         </ul>
     </header>
     
         <div class="oops-feed">Work in progress - section not finished!</div> 
 
-        <div class="introduction__text-box">
+        <div class="introduction__text-box cur-def">
             <div class="introduction__text-stats">
                 <div class="introduction__text-stats-title-container">
                     <div class="introduction__text-stats-title"><span class="lower-2">@</span>{{ username }}</div>
@@ -48,6 +48,8 @@
                 <a href="#" style="text-decoration: none;"><div class="edit-profile">User settings</div></a>
             </div>
         </div>
+
+        <a href="{{ url_for('auth.logout')}}" style="text-decoration: none;"><div class="logout-button">Log Out</div></a>
     <main class="main" style="flex-direction: column;">
         <div class="feed-selector">
             <div class="feed-selector__container">
