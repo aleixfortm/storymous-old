@@ -135,10 +135,43 @@ body {
     flex-direction: row;
     justify-content:space-around;
     background-color: #374250;
-    box-shadow: 0 0 14px 0 #222830;
     margin: 20px auto;
     padding: 5px 0 10px 0;
     font-size: large;
+    border: 1px solid rgba(245, 245, 245, 0.329);
+    border-radius: 10px;
+}
+
+.introduction__text-box-bis {
+    max-width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    background-color: #374250;
+    margin: 20px auto;
+    padding: 5px 0 10px 0;
+    font-size: large;
+    border: 1px solid rgba(245, 245, 245, 0.329);
+    border-radius: 10px;
+}
+
+.introduction__text-box-bis:hover {
+    border: 1px solid rgba(245, 245, 245, 0.267);
+    background-color: #353e49;
+}
+
+.edit-profile {
+    padding: 5px 30px;
+    background-color: whitesmoke;
+    color: #000000;
+    margin-top: 20px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: medium;
+}
+.edit-profile:hover {
+
+    background-color: rgb(206, 206, 206);
 }
 
 .introduction__profile-stats {
@@ -183,6 +216,10 @@ body {
     padding: 20px 15px;
 }
 
+.spacer5 {
+    padding: 0px 10px;
+}
+
 .stats__part1 {
     margin: 5px 0 0 0;
 }
@@ -204,6 +241,7 @@ body {
 
 .introduction__text-text {
     margin: 0 10px;
+    padding: 0 25px;
 }
 
 .introduction__text-stats-title {
@@ -227,6 +265,7 @@ body {
 
 .introduction__options-profile {
     padding: 5px 2px;
+    border-radius: 5px;
     background-color: white;
     color: #000000;
     text-decoration: none;
@@ -270,6 +309,7 @@ body {
 
 .introduction__user {
     color: rgb(46, 207, 94);
+    word-break: break-all;
 }
 
 .introduction__user-title {
@@ -282,8 +322,7 @@ body {
 }
 
 .introduction__about:hover {
-    color: rgb(211, 137, 0);
-    text-decoration: underline;
+    color: rgb(223, 145, 0);
 }
 
 @media screen and (max-width: 695px) {
@@ -874,6 +913,10 @@ input[type="submit"]:hover {
     cursor: pointer;
 }
 
+.no-dec {
+    text-decoration: none;
+}
+
 .lower {
     color: #a1a1a1;
 }
@@ -895,5 +938,5 @@ input[type="submit"]:hover {
 }
 
 .spacer2 {
-    padding: 2px;
+    padding: 6px;
 }

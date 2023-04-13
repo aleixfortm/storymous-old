@@ -19,11 +19,11 @@
 
     {% if user_logged %}
     <div class="introduction__box">
-        <div class="introduction__text-box">
+        <div class="introduction__text-box cur-def">
             <div class="introduction__text-text">
                 <h1>Welcome back, <span class="introduction__user"><br>{{ user }}</span>. <br> <!--USER MAX 20CHAR-->
-                <h2>Amazing stories await</h2></h1>
-                <h4>Need a reminder? <a href="{{ url_for('home.about') }}" class="introduction__about"> <br> 
+                <h2 style="word-wrap: break-word;">Amazing stories<br>await!</h2></h1>
+                <h4>Need a reminder? <a href="{{ url_for('home.about') }}" class="introduction__about no-dec"> <br> 
                     Learn how storymous works</a></h4>
             </div>
         </div>
@@ -39,19 +39,24 @@
     {% endif %}
         
         {% if user_logged %}
-        <div class="introduction__text-box">
-            <div class="introduction__text-stats">
-                <div class="introduction__text-stats-title-container">
-                    <div class="introduction__text-stats-title"><span class="lower-2">@</span>{{ user }}</div>
-                </div>
-                <img src="{{ url_for('static', filename='img/default.png') }}" alt="profile_img" class="introduction__text-stats-img">
-                <div class="introduction__options-container">
-                    <a href="" class="introduction__options-profile">Profile</a>
-                    <div class="spacer2"></div>
-                    <a href="" class="introduction__options-profile">Logout</a>
-                </div>
-            </div> 
-        </div>
+        <div class="spacer5"></div>
+        <a href="{{ url_for('posts.user', username=current_user.username)}}" style="text-decoration: none;">
+            <div class="introduction__text-box-bis">
+                <div class="introduction__text-stats">
+                    <div class="introduction__text-stats-title-container">
+                        <div class="introduction__text-stats-title"><span class="lower-2">@</span>{{ user }}</div>
+                    </div>
+                    <img src="{{ url_for('static', filename='img/default.png') }}" alt="profile_img" class="introduction__text-stats-img">
+                    <!--
+                    <div class="introduction__options-container">
+                        <a href="" class="introduction__options-profile">Profile</a>
+                        <div class="spacer2"></div>
+                        <a href="" class="introduction__options-profile">Logout</a>
+                    </div>
+                    -->
+                </div> 
+            </div>
+        </a>
         {% endif %}
         
     </div>
