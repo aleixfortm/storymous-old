@@ -15,8 +15,8 @@ However, I am setting the username to be the id of the user, and the username wi
 users in the database.
 """
 class User(UserMixin):
-    def __init__(self, email, username, password_hash, _id=None, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0, creation_date=None):
-        self._id = _id
+    def __init__(self, email, username, password_hash, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0, creation_date=None):
+        self._id = ObjectId()
         self.username = username
         self.email = email
         self.password_hash = password_hash

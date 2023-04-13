@@ -7,6 +7,10 @@ from misc.forms import LoginForm, RegistrationForm
 # blueprint creation 
 auth_bp = Blueprint("auth", __name__)
 
+"""
+pass dict as kwargs without including ObjectId --> 
+**{k: v for k, v in my_dict.items() if k != '_id'}
+"""
 
 @login_required
 @auth_bp.route("/login", methods=["GET", "POST"])
