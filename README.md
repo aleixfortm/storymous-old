@@ -10,9 +10,9 @@ The front-end is fully responive, built without frameworks. The backend is suppo
 - ~~Save user data to database~~
 - ~~Styled~~
 - ~~Add error messages on login/register~~
-- Add feed options (General, following)
-- Add about section
-- Add user profile template
+- ~~Add feed options (General, following)~~
+- ~~Add about section~~
+- ~~Add user profile template~~
+- ~~Let users post stories~~
+- ~~Max username len 20chars~~
 - Track user stats
-- Let users post stories
-- Max username len 20chars
