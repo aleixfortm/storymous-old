@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash
 from bson.objectid import ObjectId
+import datetime
 
 """
 By inheriting from UserMixin, the User class gains the following functionalities:
@@ -15,8 +16,8 @@ However, I am setting the username to be the id of the user, and the username wi
 users in the database.
 """
 class User(UserMixin):
-    def __init__(self, email, username, password_hash, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0, creation_date=None):
-        self._id = ObjectId()
+    def __init__(self, email, username, password_hash, creation_date=datetime.datetime.now().isoformat(), _id=None, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0):
+        self._id = ObjectId(_id)
         self.username = username
         self.email = email
         self.password_hash = password_hash
@@ -51,9 +52,7 @@ class User(UserMixin):
     @staticmethod
     def check_user(username):
         user_data = db_users.find_one({'username': username})
-        if user_data:
-            return User(**user_data)
-        return None
+        return User(**user_data) if user_data != None else None
     
 
 class Post:
