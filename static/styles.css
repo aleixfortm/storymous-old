@@ -479,6 +479,24 @@ body {
     background-color: rgb(156, 32, 32);
 }
 
+.load-button {
+    padding: 5px 20px;
+    background-color: rgba(245, 245, 245, 0);
+    color: #ffffff;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: medium;
+    max-width: fit-content;
+    margin: 0 auto 20px auto;
+    text-align: center;
+    border: 2px solid whitesmoke;
+}
+
+.load-button:hover {
+    background-color: #353f4d;
+    border: 2px solid rgb(150, 150, 150);
+}
+
 .feed-selector {
     margin: 15px 5px -10px 5px;
 }
@@ -552,7 +570,7 @@ body {
 .main {
     max-width: 550px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: 25px auto 50px auto;
     justify-content: space-between;
     padding: 10px;
@@ -1084,3 +1102,11 @@ input[type="submit"]:hover {
     font-style: normal;
 }
 
+.no-bg {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.white-border {
+    border: 2px solid whitesmoke;
+
+}

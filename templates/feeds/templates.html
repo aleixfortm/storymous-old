@@ -42,4 +42,7 @@
             {% endfor %}
         {% endif %}
     </section>
+    {% if more_posts %}
+    <a href="{{ url_for('posts.newstory')}}" style="text-decoration: none;"><div class="load-button">Load more</div></a>
+    {% endif %}
 </main>
