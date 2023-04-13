@@ -12,10 +12,10 @@
                 <span class="login-form__title">New account</span>
             </div>
 
-            {% if message %}
+            {% if error_message %}
             <div class="login-form__error-container">
                 <div class="login-form__error-message">
-                    {{ message }}
+                    {{ error_message }}
                 </div>
             </div>
             {% endif %}

@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, render_template, redirect
+from flask import Blueprint, url_for, render_template, redirect, request
 from flask_login import current_user, login_user, LoginManager, login_required, logout_user, login_manager
 from misc.models import User
 from misc.forms import LoginForm, RegistrationForm
@@ -12,7 +12,9 @@ auth_bp = Blueprint("auth", __name__)
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
 
-    message = None
+    message = request.args.get('message')
+    error_message = ""
+
     if current_user.is_authenticated:
         print("\nAlready logged, sending back home\n")
         return redirect(url_for("home.home"))
@@ -26,8 +28,8 @@ def login():
             user_data = User.find_by_username(form.user.data)
 
             if not user_data:
-                message = "Incorrect e-mail or username"
-                return render_template("login.html", form=form, message=message)
+                error_message = "Incorrect e-mail or username"
+                return render_template("login.html", form=form, error_message=error_message)
         
         user_object = User(email=user_data["email"], 
                            username=user_data["username"], 
@@ -40,9 +42,9 @@ def login():
             return redirect(url_for("home.home"))
         
         else:
-            message = "Incorrect password"
-    
-    return render_template("login.html", form=form, message=message)
+            error_message = "Incorrect password"
+
+    return render_template("login.html", form=form, message=message, error_message=error_message)
 
 
 @login_required
@@ -60,7 +62,7 @@ def logout():
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
     
-    message = None
+    error_message = ""
     # redirect home if already logged in
     if current_user.is_authenticated:
         return redirect(url_for("home.home"))
@@ -73,19 +75,22 @@ def register():
         found_username = form.check_username(form.username)
 
         if found_email is not None: # email exists in database?
-            message = "E-mail already taken"
+            error_message = "E-mail already taken"
 
         elif found_username is not None: # username exists in database?
-            message = "Username already taken"
+            error_message = "Username already taken"
 
-        elif not form.is_valid_username(form.username):
-            message = "Invalid username, allowed (a-z, A-Z, _)"
+        elif not form.is_valid_username_chars(form.username):
+            error_message = "Invalid username, allowed (a-z, A-Z, _)"
+
+        elif not form.is_valid_username_len(form.username):
+            error_message = "Username length must be between 2 and 20 characters"
 
         else: # proceeds if user or email do not exist
             form.save_user_to_db()
 
             print("\nRegistered successfully!\n")
-            message = "Thanks for registering!"
-            return redirect(url_for("auth.login"))
+            message = "Registered successfully! Log in to continue"
+            return redirect(url_for("auth.login", message=message))
         
-    return render_template("register.html", form=form, message=message)
+    return render_template("register.html", form=form, error_message=error_message)

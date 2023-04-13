@@ -1,4 +1,4 @@
-from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, Length
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from werkzeug.security import generate_password_hash
 from flask_wtf.file import FileField, FileAllowed
@@ -27,10 +27,17 @@ class RegistrationForm(FlaskForm):
         # Check if not None for that username!
         return db_users.find_one({'username': field.data})
     
-    def is_valid_username(self, field):
+    def is_valid_username_chars(self, field):
         # Check if username meets all requirements: accepted special chars: "_" and len<=20chars
         pattern = r'^[a-zA-Z0-9_]+$'
         return bool(re.match(pattern, field.data))
+    
+    def is_valid_username_len(self, field):
+        # Check if username meets len requirements
+        min_len = 2
+        max_len = 20
+        print("checked len!!")
+        return True if min_len <= len(field.data) <= max_len else False
 
     def save_user_to_db(self):
         password_hash = generate_password_hash(self.password.data)
@@ -59,6 +66,7 @@ class UpdateUserForm(FlaskForm):
 class PostForm(FlaskForm):
     newstory_title = StringField("Title", validators=[DataRequired()], render_kw={"class": "newstory_title"})
     newstory_content = TextAreaField("Content", validators=[DataRequired()], render_kw={"class": "newstory_content"})
+    #newstory_comment = Text
     newstory_submit = SubmitField("Post", render_kw={"class": "newstory_submit"})
 
 from main import db_users, db_posts
