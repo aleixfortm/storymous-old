@@ -21,10 +21,9 @@ def newstory():
         form = PostForm()
         if form.validate_on_submit(): #if form submitted
 
-            story_object = Post(username=current_user.username,
-                                title=form.newstory_title.data,
-                                content=form.newstory_content.data
-                                )
+            story_object = Post(username=current_user.username, title=form.newstory_title.data,
+                                content=form.newstory_content.data, preview=form.newstory_preview.data,
+                                post_comment=form.newstory_comment)
 
             story_object.save_post_to_db()
             print("\nPost saved successfully\n")

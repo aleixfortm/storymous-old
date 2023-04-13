@@ -52,6 +52,7 @@ class Post:
         self.preview = preview
         self.post_comment = post_comment
         self.vists = 1
+        self.n_comments = 0
         self.user_comments = []
 
     def save_post_to_db(self):
@@ -60,11 +61,15 @@ class Post:
             'title': self.title,
             'content': self.content
             })
+    
+    def quicksave_post_to_db(self, object):
+        db_posts.insert_one(object.__dict__)
 
     def increase_visits(self):
         self.visits += 1
 
     def add_user_comment(self, comment):
+        self.n_comments += 1
         self.user_comments.append(comment)
 
 
