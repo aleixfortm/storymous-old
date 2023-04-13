@@ -21,19 +21,21 @@ def newstory():
         form = PostForm()
         if form.validate_on_submit(): #if form submitted
 
+            user = current_user.username
+
             # build story object and save it to db
-            story_object = Post(username=current_user.username, title=form.newstory_title.data,
+            story_object = Post(username=user, title=form.newstory_title.data,
                                 content=form.newstory_content.data, preview=form.newstory_preview.data,
                                 post_comment=form.newstory_comment.data, date=datetime.datetime.now().isoformat())
+            # quicksave of post to db
             story_object.quicksave_to_db()
 
-            # retrieve user data to update stats
-            user_data = User.find_by_username(current_user.username)
+            # update user stats (number of written posts) directly to database (no need to retrieve user data)
+            db_users.update_one({"username": user}, {"$inc": {"n_writ_posts": 1}})
 
-
-            #story_object.save_post_to_db()
+            message = "Story successfully uploaded!"
             print("\nPost saved successfully\n")
-            return redirect(url_for("home.home"))
+            return redirect(url_for("home.home", message=message))
 
         #message = "Invalid input"
         return render_template("newstory.html", form=form, message=message)

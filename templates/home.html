@@ -15,6 +15,23 @@
                 </ul>
             </header>
         </div>
+
+        {% if error_message %}
+        <div class="login-form__error-container">
+            <div class="login-form__error-message">
+                {{ error_message }}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if message %}
+        <div class="login-form__error-container">
+            <div class="login-form__error-message error-green">
+                {{ message }}
+            </div>
+        </div>
+        {% endif %}
+
 <div class="introduction">
 
     {% if user_logged %}

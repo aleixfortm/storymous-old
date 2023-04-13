@@ -15,16 +15,20 @@ However, I am setting the username to be the id of the user, and the username wi
 users in the database.
 """
 class User(UserMixin):
-    def __init__(self, email, username, password_hash, n_written=0, n_contributed=0, n_friends=0, creation_date=None):
-        self.id = username
-        self.email = email
+    def __init__(self, email, username, password_hash, _id=None, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0, creation_date=None):
+        self._id = _id
         self.username = username
+        self.email = email
         self.password_hash = password_hash
-        self.n_written = n_written
-        self.n_contributed = n_contributed
+        self.n_writ_posts = n_writ_posts
+        self.n_contr_posts = n_contr_posts
         self.n_friends = n_friends
-        self.friends = []
+        self.friends = friends
+        self.n_comments = n_comments
         self.creation_date = creation_date
+
+    def get_id(self):
+        return self.username
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -44,7 +48,7 @@ class User(UserMixin):
     def check_user(username):
         user_data = db_users.find_one({'username': username})
         if user_data:
-            return User(email=user_data['email'], username=user_data['username'], password_hash=user_data['password_hash'])
+            return User(**user_data)
         return None
     
 

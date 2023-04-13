@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, redirect, session
+from flask import Blueprint, render_template, url_for, redirect, session, request
 from flask_login import login_required, current_user
 from misc.api import test_stories
 from main import db_posts, db_users
@@ -25,6 +25,8 @@ def index():
 @home_bp.route("/home/<feed>")
 def home(feed="templates"):
     
+    message = request.args.get('message')
+    error_message = None
 
     more_posts = False
     stories = None
@@ -45,15 +47,15 @@ def home(feed="templates"):
     # returns logged in homepage
     if current_user.is_authenticated:
         print("\nUser: " + current_user.username + "\n")
-        return render_template("home.html", user=current_user.username, 
-                                            user_logged=current_user.is_authenticated, 
+        return render_template("home.html", user=current_user.username, error_message=error_message,
+                                            user_logged=current_user.is_authenticated, message=message,
                                             stories=stories, feed=feed, more_posts=more_posts)
                                            
     
     # not logged in, returns logged out homepage
-    return render_template("home.html", user=None, 
+    return render_template("home.html", user=None, error_message=error_message,
                                         user_logged=current_user.is_authenticated, 
-                                        stories=stories, feed=feed)
+                                        stories=stories, feed=feed, message=message)
                                         
 
 @home_bp.route('/load-more-templates')
