@@ -25,7 +25,9 @@ def newstory():
                                 content=form.newstory_content.data, preview=form.newstory_preview.data,
                                 post_comment=form.newstory_comment)
 
-            story_object.save_post_to_db()
+            story_object.quicksave_to_db()
+
+            #story_object.save_post_to_db()
             print("\nPost saved successfully\n")
             return redirect(url_for("home.home"))
 

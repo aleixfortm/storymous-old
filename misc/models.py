@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from bson.objectid import ObjectId
 
 """
 By inheriting from UserMixin, the User class gains the following functionalities:
@@ -44,7 +44,8 @@ class User(UserMixin):
     
 
 class Post:
-    def __init__(self, username, title, content, preview=None, post_comment=None, date=None):
+    def __init__(self, username, date, title, content, preview=None, post_comment=None):
+        self._id = ObjectId()
         self.username = username
         self.date = date
         self.title = title
@@ -62,8 +63,12 @@ class Post:
             'content': self.content
             })
     
-    def quicksave_post_to_db(self, object):
-        db_posts.insert_one(object.__dict__)
+    def quicksave_to_db(self):
+        db_posts.insert_one(self.__dict__)
+    
+    def replace_or_create_to_db(self):
+        post_dict = self.__dict__
+        db_posts.update_one({'_id': self._id}, {'$set': post_dict}, upsert=True)
 
     def increase_visits(self):
         self.visits += 1

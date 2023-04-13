@@ -156,8 +156,8 @@ body {
 }
 
 .introduction__text-box-bis:hover {
-    border: 1px solid rgba(245, 245, 245, 0.267);
-    background-color: #353e49;
+    border: 1px solid rgba(245, 245, 245, 0.87);
+    background-color: #303842;
 }
 
 .edit-profile {
@@ -213,7 +213,7 @@ body {
 }
 
 .spacer4 {
-    padding: 20px 15px;
+    padding: 20px 5px;
 }
 
 .spacer5 {
@@ -1068,5 +1068,19 @@ input[type="submit"]:hover {
 
 .spacer2 {
     padding: 6px;
+}
+
+.text-bold {
+    font-weight: bolder;
+
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-normal {
+    font-style: normal;
 }
 
