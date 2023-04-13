@@ -459,12 +459,28 @@ body {
     background-color: rgb(224, 20, 20);
 }
 
+.newstory-button {
+    padding: 5px 30px;
+    background-color: whitesmoke;
+    color: #ffffff;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: medium;
+    max-width: 145px;
+    margin: auto;
+    background-color: rgb(160, 5, 231);
+}
+
+.newstory-button:hover {
+    background-color: rgb(115, 0, 168);;
+}
+
 .logout-button:hover {
     background-color: rgb(156, 32, 32);
 }
 
 .feed-selector {
-    margin: 0 5px;
+    margin: 70px 5px -10px 5px;
 }
 
 @media screen and (max-width: 530px) {

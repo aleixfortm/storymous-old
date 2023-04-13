@@ -50,19 +50,14 @@
                         <div class="introduction__text-stats-title"><span class="lower-2">@</span>{{ user }}</div>
                     </div>
                     <img src="{{ url_for('static', filename='img/default.png') }}" alt="profile_img" class="introduction__text-stats-img">
-                    <!--
-                    <div class="introduction__options-container">
-                        <a href="" class="introduction__options-profile">Profile</a>
-                        <div class="spacer2"></div>
-                        <a href="" class="introduction__options-profile">Logout</a>
-                    </div>
-                    -->
                 </div> 
             </div>
         </a>
         {% endif %}
-        
     </div>
+    {% if user_logged %}
+    <a href="{{ url_for('posts.newstory')}}" style="text-decoration: none;"><div class="newstory-button">Write new story</div></a>
+    {% endif %}
 </div>
 
 {% if feed == "templates" %}
