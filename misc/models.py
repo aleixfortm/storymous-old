@@ -35,8 +35,14 @@ class User(UserMixin):
         return check_password_hash(self.password_hash, password)
     
     def quicksave_to_db(self):
-        print("quicksaved!")
         db_users.insert_one(self.__dict__)
+    
+    # check if account is old or new format
+    def is_new_format(self):
+        return "n_friends" in db_users.find_one({"username": self.username}) 
+
+    def replace_user(self):
+        db_users.replace_one({"username": self.username}, self.__dict__)
 
     # retrieve user data as dict
     @staticmethod
@@ -47,6 +53,13 @@ class User(UserMixin):
     @staticmethod
     def find_by_username(username):
         return db_users.find_one({'username': username})
+    
+    @staticmethod
+    def format_date_data(user_data):
+        dt = datetime.datetime.fromisoformat(user_data["creation_date"])
+        formatted_date = dt.strftime('%b %d, %Y')
+        user_data["creation_date"] = formatted_date
+        return user_data
 
     # return user object from retrieved dict
     @staticmethod
@@ -56,7 +69,7 @@ class User(UserMixin):
     
 
 class Post:
-    def __init__(self, username, date, title, content, preview=None, post_comment=None):
+    def __init__(self, username, title, content, date=datetime.datetime.now().isoformat(), preview=None, post_comment=None):
         self._id = ObjectId()
         self.username = username
         self.date = date
@@ -69,7 +82,6 @@ class Post:
         self.user_comments = []
     
     def quicksave_to_db(self):
-        print("quicksaved!")
         db_posts.insert_one(self.__dict__)
     
     def replace_db_doc(self):
@@ -82,6 +94,13 @@ class Post:
     def add_user_comment(self, comment):
         self.n_comments += 1
         self.user_comments.append(comment)
+
+    @staticmethod
+    def format_date_data(user_data):
+        dt = datetime.datetime.fromisoformat(user_data["creation_date"])
+        formatted_date = dt.strftime('%b %d, %Y')
+        user_data["creation_date"] = formatted_date
+        return user_data
 
 
 class Comment:

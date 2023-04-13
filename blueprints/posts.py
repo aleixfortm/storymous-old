@@ -57,7 +57,9 @@ def user(username=None):
     elif username is not None:
 
         # retrieve user data to display
-        user_data = db_users.find_one({"username": username})
+        user_data = User.find_by_username(username)
+        # date data formatting
+        user_data = User.format_date_data(user_data)
 
         # retrieve user posts to display
         user_posts = list(db_posts.find({"username": username}))

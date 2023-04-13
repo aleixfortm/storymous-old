@@ -31,15 +31,19 @@ def login():
         if not user_data: # not found by email
             user_data = User.find_by_username(form.user.data)
 
-            if not user_data:
+            if not user_data: # not found by username either
                 error_message = "Incorrect e-mail or username"
                 return render_template("login.html", form=form, error_message=error_message)
         
-        user_object = User(email=user_data["email"], 
+        user_object = User(_id=user_data["_id"], 
+                           email=user_data["email"], 
                            username=user_data["username"], 
                            password_hash=user_data["password_hash"])
 
         if user_object.check_password(form.password.data):
+
+            if not user_object.is_new_format():
+                user_object.replace_user()
 
             login_user(user_object)
             print("\nLogged in successfully\n")
