@@ -36,7 +36,7 @@ class User(UserMixin):
     
     def assign_pic_path(self):
         pic_dict = {0: "blue", 1: "green", 2: "grey", 3: "orange", 4: "pink", 5: "purple", 6: "red", 7: "skyblue", 8: "yellow"}
-        color = pic_dict[random.randint(0, 5)]
+        color = pic_dict[random.randint(0, 8)]
         filepath = f'/static/img/default_{color}.png'
         self.pic_path = filepath
 
