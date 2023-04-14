@@ -15,4 +15,9 @@ The front-end is fully responive, built without frameworks. The backend is suppo
 - ~~Add user profile template~~
 - ~~Let users post stories~~
 - ~~Max username len 20chars~~
-- Track user stats
+- ~~Track user stats~~
+- Add friends functionality, display friends' posts on following feed
+- Style and format /post/<post_id> html page for displaying and viewing posts
+- Allow posting single comments without a story
+- Allow comments on post (from /post/<post_id>)
+- Track post stats, with visual icons (comments, clicks)
