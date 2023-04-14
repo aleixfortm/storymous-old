@@ -459,6 +459,11 @@ body {
     background-color: rgb(224, 20, 20);
 }
 
+.story__user-comment-container {
+    max-width: fit-content;
+    word-wrap: break-word;
+}
+
 .newstory-button {
     padding: 5px 30px;
     background-color: whitesmoke;
@@ -466,7 +471,7 @@ body {
     border-radius: 15px;
     font-weight: bold;
     font-size: medium;
-    max-width: 145px;
+    max-width: 150px;
     margin: 0 auto 60px auto;
     background-color: rgb(160, 5, 231);
 }

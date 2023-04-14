@@ -16,13 +16,13 @@
         {% if user_logged %}
             {% if stories %}
                 {% for story in stories %}
-                    <div>
+                    <div >
                     <div class="story__user-container">
                         <div class="story__user-img-container">
                             <img src="{{ story['pic_path'] }}" alt="Profile picture" class="story__user-img">
                         </div> 
                         <div class="story__user-info-container">
-                            <div class="story__user-comment cur-def"> {{story["post_comment"] }} </div>
+                            <div class="story__user-comment-container"><div class="story__user-comment cur-def"> {{story["post_comment"] }} </div></div>
                             <div class="story__username cur-pnt""> <span class="lower"><b>@</span>{{ story["username"] }}</b><span class="story__username-date lower">{{ story["date"] }}</span></div>
                         </div>
                     </div>
