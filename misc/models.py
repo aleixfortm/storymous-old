@@ -35,7 +35,7 @@ class User(UserMixin):
         return self.username
     
     def assign_pic_path(self):
-        pic_dict = {0: "green", 1: "blue", 2: "grey", 3: "purple", 4: "red", 5: "yellow"}
+        pic_dict = {0: "blue", 1: "green", 2: "grey", 3: "orange", 4: "pink", 5: "purple", 6: "red", 7: "skyblue", 8: "yellow"}
         color = pic_dict[random.randint(0, 5)]
         filepath = f'/static/img/default_{color}.png'
         self.pic_path = filepath
@@ -55,7 +55,7 @@ class User(UserMixin):
     
     @staticmethod
     def pic_color_static(pic_num):
-        pic_dict = {0: "green", 1: "blue", 2: "grey", 3: "purple", 4: "red", 5: "yellow"}
+        pic_dict = {0: "blue", 1: "green", 2: "grey", 3: "orange", 4: "pink", 5: "purple", 6: "red", 7: "skyblue", 8: "yellow"}
         return pic_dict[pic_num]
 
     # retrieve user data as dict
