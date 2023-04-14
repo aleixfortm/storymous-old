@@ -3,8 +3,7 @@ from flask_login import login_required, current_user
 from misc.api import test_stories
 from misc.models import User, Post
 from misc.pipelines import POST_PIC_PIPELINE
-from main import db_posts, db_users, app
-import random
+from main import db_posts
 
 
 #blueprint creation 
@@ -45,7 +44,9 @@ def home(feed="recent"):
 
         # stories = list(db_posts.find().sort("date", -1).limit(10))¡
 
+        # retrieve posts using piepline --> Post data + profile picture from its owner
         stories = list(db_posts.aggregate(POST_PIC_PIPELINE))
+        # map the posts to format the creation date
         stories = list(map(Post.format_date_data, stories))
 
     # returns logged in homepage
@@ -68,16 +69,12 @@ def load_more_templates():
     current_posts = session.get('current_posts', POSTS_PER_PAGE)
     current_posts += POSTS_PER_PAGE
     session['current_posts'] = current_posts
+    feed = "templates"
 
-    return redirect(url_for('home.home'))                   
+    return redirect(url_for('home.home', feed="templates"))                   
 
 
 @login_required
 @home_bp.route("/about")
 def about():
     return render_template("about.html", user_logged=current_user.is_authenticated)
-    
-
-@app.errorhandler(404)
-def not_found_error(error):
-    return render_template("404.html", error=error), 404

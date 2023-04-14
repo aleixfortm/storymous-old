@@ -12,7 +12,7 @@
             <div class="story__user-container">
                 <div class="story__user-img-container">
                     <a href="{{ url_for('posts.user', username=story['username']) }}" style="color: inherit; text-decoration: none;">
-                        <img src="{{ story['pic_path'] }}" alt="Profile picture" class="story__user-img">
+                        <img src="{{ owner['pic_path'] }}" alt="Profile picture" class="story__user-img">
                     </a>
                 </div> 
                 <div class="story__user-info-container">
@@ -25,24 +25,47 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="color: inherit; text-decoration: none;">
-                <article class="story__article">    
-                    <div class="story__upper">
-                        <div class="story__title-container">
-                            <h2 class="story__title"> {{ story["title"] }} </h2>
+            <article class="story__article post__story cur-def">    
+                <div class="story__upper">
+                    <div class="story__title-container">
+                        <h2 class="story__title"> {{ story["title"] }} </h2>
+                    </div>
+                </div>
+                <p class="story__content">
+                    {{ story["content"] }}
+                </p>
+            </article>
+        </div>
+<!-- SHOULD IMPLEMENT COMMENT WRITING HERE RIGHT BELOW THE POST -->
+
+<!-- END OF IMPLEMENTATION HERE-->
+        {% if comments %}
+            {% for comment in comments %}
+            {% for i in range(4) %}
+                <div>
+                    <div class="comment__user-container">
+                        <div><img src="/static/img/reply_icon.png" alt="reply icon" style="max-width: 35px; margin: 0 0px 0 0px; transform: scaleX(-1); "></div>
+                        <div class="comment__user-img-container">
+                            
+                            <a href="{{ url_for('posts.user', username=comment['username']) }}" style="color: inherit; text-decoration: none;">
+                                <img src="{{ comment['pic_path'] }}" alt="Profile picture" class="comment__user-img">
+                            </a>
+                        </div> 
+                        <div class="story__user-info-container">
+                            
+                            <div class="comment__username cur-pnt""> 
+                                <a href="{{ url_for('posts.user', username=comment['username']) }}" style="color: inherit; text-decoration: none;">
+                                    <span class="lower"><b>@</b></span><b class="story__user-name">{{ comment["username"] }}</b>
+                                    <span class="comment__username-date lower">{{ comment["date"] }}</span>
+                                </a>
+                            </div>
+                            <div class="comment__user-comment-container"><div class="comment__user-comment cur-def"> {{comment["comment"] }} </div></div>
                         </div>
                     </div>
-                    <p class="story__content">
-                        {{ story["content"] }}
-                    </p>
-                </article>
-            </a>
-        </div>
+                </div>
+            {% endfor %}
+            {% endfor %}
+        {% endif %}
     </main>
 </div>
 {% endblock %}
-
-<main class="main">
-    
-</main>
-

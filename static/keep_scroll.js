@@ -1,3 +1,4 @@
+/*
 // store the scroll position when a template is unloaded
 window.addEventListener('beforeunload', function() {
     var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
@@ -12,3 +13,4 @@ window.addEventListener('beforeunload', function() {
       sessionStorage.removeItem('scrollPos');
     }
   });
+  */

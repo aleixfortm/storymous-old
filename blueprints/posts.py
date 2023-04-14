@@ -3,8 +3,10 @@ from flask_login import login_required, current_user
 from misc.forms import PostForm
 from misc.models import Post, User
 from flask_pymongo import ObjectId
-import random, datetime
 from main import db_posts, db_users
+from misc.pipelines import POST_PIC_PIPELINE
+import datetime
+
 
 # blueprint creation
 posts_bp = Blueprint("posts", __name__)
@@ -90,8 +92,16 @@ def post(post_id):
         message = "Invalid post id"
         return redirect(url_for("home.home", message=message))
 
+
     post = db_posts.find_one({"_id": ObjectId(post_id)})
+    formatted_post = Post.format_date_data(post)
+    owner = db_users.find_one({"username": post["username"]})
+    comments = [{"username": "pollancre", "comment": "Let's gooo!!!", "pic_path": "/static/img/default_blue.png", "date": "Apr 25"}]
 
+    # retrieve posts using piepline --> Post data + profile picture from its owner
+    #stories = list(db_posts.aggregate(POST_PIC_PIPELINE))
+    # map the posts to format the creation date
+    #stories = list(map(Post.format_date_data, stories))
 
-    return render_template("post.html", story=post)
+    return render_template("post.html", story=formatted_post, owner=owner, comments=comments)
     
