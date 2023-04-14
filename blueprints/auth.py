@@ -44,6 +44,7 @@ def login():
 
             if not user_object.is_new_format():
                 user_object.replace_user()
+                print("\nOutdated user account, updating...\nSuccess!\n")
 
             login_user(user_object)
             print("\nLogged in successfully\n")

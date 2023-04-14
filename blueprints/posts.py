@@ -65,6 +65,7 @@ def user(username=None):
         user_posts = list(db_posts.find({"username": username}))
         user_posts = user_posts[::-1] #order from newest to oldest
 
+
         return render_template("profile.html", stories=user_posts, **user_data)
     
     # user will reload the page if authenticated, with its username as part of URL

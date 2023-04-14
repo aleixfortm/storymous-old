@@ -1,7 +1,7 @@
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash
 from bson.objectid import ObjectId
-import datetime
+import datetime, random
 
 """
 By inheriting from UserMixin, the User class gains the following functionalities:
@@ -16,7 +16,7 @@ However, I am setting the username to be the id of the user, and the username wi
 users in the database.
 """
 class User(UserMixin):
-    def __init__(self, email, username, password_hash, creation_date=datetime.datetime.now().isoformat(), _id=None, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0):
+    def __init__(self, email, username, password_hash, pic_path=None, creation_date=datetime.datetime.now().isoformat(), _id=None, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0):
         self._id = ObjectId(_id)
         self.username = username
         self.email = email
@@ -27,9 +27,18 @@ class User(UserMixin):
         self.friends = friends
         self.n_comments = n_comments
         self.creation_date = creation_date
+        self.pic_path = pic_path
+        if pic_path is None:
+            self.assign_pic_path()
 
     def get_id(self):
         return self.username
+    
+    def assign_pic_path(self):
+        pic_dict = {0: "green", 1: "blue", 2: "grey", 3: "purple", 4: "red", 5: "yellow"}
+        color = pic_dict[random.randint(0, 5)]
+        filepath = f'/static/img/default_{color}.png'
+        self.pic_path = filepath
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -39,10 +48,15 @@ class User(UserMixin):
     
     # check if account is old or new format
     def is_new_format(self):
-        return "n_friends" in db_users.find_one({"username": self.username}) 
+        return "pic_path" in db_users.find_one({"username": self.username}) 
 
     def replace_user(self):
         db_users.replace_one({"username": self.username}, self.__dict__)
+    
+    @staticmethod
+    def pic_color_static(pic_num):
+        pic_dict = {0: "green", 1: "blue", 2: "grey", 3: "purple", 4: "red", 5: "yellow"}
+        return pic_dict[pic_num]
 
     # retrieve user data as dict
     @staticmethod

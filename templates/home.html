@@ -66,7 +66,7 @@
                     <div class="introduction__text-stats-title-container">
                         <div class="introduction__text-stats-title"><span class="lower-2">@</span>{{ user }}</div>
                     </div>
-                    <img src="{{ url_for('static', filename='img/default.png') }}" alt="profile_img" class="introduction__text-stats-img">
+                    <img src="{{ user_data['pic_path'] }}" alt="profile_img" class="introduction__text-stats-img">
                 </div> 
             </div>
         </a>

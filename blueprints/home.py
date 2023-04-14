@@ -1,12 +1,15 @@
 from flask import Blueprint, render_template, url_for, redirect, session, request
 from flask_login import login_required, current_user
 from misc.api import test_stories
+from misc.models import User
+from misc.pipelines import POST_PIC_PIPELINE
 from main import db_posts, db_users
 import random
 
 
 #blueprint creation 
 home_bp = Blueprint("home", __name__)
+
 
 POSTS_PER_PAGE = 5
 
@@ -40,20 +43,24 @@ def home(feed="templates"):
     
     elif feed == "recent":
         session["current_posts"] = POSTS_PER_PAGE
-        user_posts = list(db_posts.find({"username": "pollancre"}))
-        stories = user_posts[::-1] #order from newest to oldest
-    
+
+        # stories = list(db_posts.find().sort("date", -1).limit(10))
+
+        # Perform a left outer join with the users collection using $lookup
+
+        stories = list(db_posts.aggregate(POST_PIC_PIPELINE))
+        print(stories)
 
     # returns logged in homepage
     if current_user.is_authenticated:
-        print("\nUser: " + current_user.username + "\n")
-        return render_template("home.html", user=current_user.username, error_message=error_message,
+        user_data = User.find_by_username(current_user.username)
+
+        return render_template("home.html", user=current_user.username, user_data=user_data, error_message=error_message,
                                             user_logged=current_user.is_authenticated, message=message,
                                             stories=stories, feed=feed, more_posts=more_posts)
                                            
-    
     # not logged in, returns logged out homepage
-    return render_template("home.html", user=None, error_message=error_message,
+    return render_template("home.html", user=None, error_message=error_message, more_posts=more_posts,
                                         user_logged=current_user.is_authenticated, 
                                         stories=stories, feed=feed, message=message)
                                         
@@ -77,3 +84,31 @@ def about():
 @home_bp.errorhandler(404)
 def not_found_error(error):
     return render_template("404.html", error=error), 404
+
+
+pic_pipeline = [
+            {
+                '$sort': {'date': -1}
+            },
+            {
+                '$lookup': {
+                    'from': 'users',
+                    'localField': 'username',
+                    'foreignField': 'username',
+                    'as': 'post_data'
+                }
+            },
+            {
+                '$unwind': '$user'
+            },
+            {
+                '$addFields': {
+                    'pic_path': {'$arrayElemAt': ['$user.picture', 0]}
+                }
+            },
+            {
+                '$project': {
+                    'user': 0
+                }
+            }
+            ]
