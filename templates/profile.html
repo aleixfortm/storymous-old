@@ -45,15 +45,22 @@
                         </div>
                     </div>
                 </div>
+                {% if admin_rights %}
                 <a href="#" style="text-decoration: none;"><div class="edit-profile">User settings</div></a>
+                {% endif %}
             </div>
         </div>
-
+        {% if admin_rights %}
         <a href="{{ url_for('auth.logout')}}" style="text-decoration: none;"><div class="logout-button">Log Out</div></a>
+        {% endif %}
     <main class="main" style="flex-direction: column;">
         <div class="feed-selector">
             <div class="feed-selector__container">
+                {% if admin_rights %}
                 <div class="feed-selector__title">Your posts</div>
+                {% else %}
+                <div class="feed-selector__title">{{ username }}'s posts</div>
+                {% endif %}
             </div>
         </div>
         <section class="story">

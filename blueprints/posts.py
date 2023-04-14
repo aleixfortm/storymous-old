@@ -49,12 +49,17 @@ def newstory():
 @posts_bp.route("/user/<username>")
 def user(username=None):
 
-    # return user back to homepage if not authenticated
+    visitor = current_user
+
+    # return visitor back to homepage if not authenticated
     if not current_user.is_authenticated:
         return redirect(url_for("home.home"))
 
     # if reloaded successfully, user's username will not be None
     elif username is not None:
+
+        # give admin rights if profile visitor visits own profile
+        admin_rights = True if visitor.username == username else False
 
         # retrieve user data to display
         user_data = User.find_by_username(username)
@@ -65,7 +70,9 @@ def user(username=None):
         user_posts = list(db_posts.find({"username": username}))[::-1]
         user_posts = list(map(Post.format_date_data, user_posts))
 
-        return render_template("profile.html", stories=user_posts, **user_data)
+        return render_template("profile.html", stories=user_posts, admin_rights=admin_rights, **user_data)
+
+
     
     # user will reload the page if authenticated, with its username as part of URL
     username = current_user.username
