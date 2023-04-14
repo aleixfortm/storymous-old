@@ -110,11 +110,11 @@ class Post:
         self.user_comments.append(comment)
 
     @staticmethod
-    def format_date_data(user_data):
-        dt = datetime.datetime.fromisoformat(user_data["creation_date"])
-        formatted_date = dt.strftime('%b %d, %Y')
-        user_data["creation_date"] = formatted_date
-        return user_data
+    def format_date_data(post_data):
+        dt = datetime.datetime.fromisoformat(post_data["date"])
+        formatted_date = dt.strftime('%b %d')
+        post_data["date"] = formatted_date
+        return post_data
 
 
 class Comment:

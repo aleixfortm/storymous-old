@@ -599,6 +599,10 @@ body {
     margin: 2px 0;
 }
 
+.story__username-date {
+    margin: 0 0 0 12px;
+}
+
 .story__title-container {
     background-color: bisque;
     padding: 2px;

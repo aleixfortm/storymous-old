@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect, session, request
 from flask_login import login_required, current_user
 from misc.api import test_stories
-from misc.models import User
+from misc.models import User, Post
 from misc.pipelines import POST_PIC_PIPELINE
 from main import db_posts, db_users
 import random
@@ -46,9 +46,9 @@ def home(feed="templates"):
 
         # stories = list(db_posts.find().sort("date", -1).limit(10))
 
-        # Perform a left outer join with the users collection using $lookup
 
         stories = list(db_posts.aggregate(POST_PIC_PIPELINE))
+        stories = list(map(Post.format_date_data, stories))
         print(stories)
 
     # returns logged in homepage

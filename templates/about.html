@@ -5,7 +5,7 @@
             {% if user_logged %}
             <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link ">home</a></li>
             <li class="navbar__navigation-item"><a href="{{url_for('posts.user')}}" class="navbar__link ">profile</a></li>
-            <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">settings</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('home.about')}}" class="navbar__link " style="color:rgb(255, 220, 64);">about</a></li>
             {% else %}
             <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link ">home</a></li>
             <li class="navbar__navigation-item"><a href="{{url_for('auth.login')}}" class="navbar__link ">sign_in</a></li>
@@ -17,8 +17,8 @@
     <main class="main flex-column">
         <h1 class="oops-feed text-normal">What is Storymous?</h1> <br>
         <p class="oops-feed"><b>Storymous</b> is a lightweight story-based <b>social media</b>  where users can create stories together.
-            Not only it is possible to <b>write</b> your stories and <b>read</b> others', but <b>make stories interactively with other people</b> 
-            to build amazing multi-option fiction.
+            Not only it is possible to <b>write</b> your stories and <b>read</b> others', but also to <b>build stories interactively with other people</b> 
+            to produce amazing <b>multi-option fiction</b>.
         </p>  <br>
         <p class="oops-feed">-- This section is being worked on! --</p>
     </main>

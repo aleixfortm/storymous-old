@@ -3,7 +3,7 @@
         <ul class="navbar__navigation">
             <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " >home</a></li>
             <li class="navbar__navigation-item"><a href="{{url_for('posts.user')}}" class="navbar__link " style="color:rgb(255, 220, 64);">profile</a></li>
-            <li class="navbar__navigation-item"><a href="{{url_for('auth.logout')}}" class="navbar__link ">settings</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('home.about')}}" class="navbar__link ">about</a></li>
         </ul>
     </header>
     
@@ -62,11 +62,12 @@
                     <div>
                     <div class="story__user-container">
                         <div class="story__user-img-container">
-                            <img src="/static/img/default.png" alt="Profile picture" class="story__user-img">
+                            <img src="{{ pic_path }}" alt="Profile picture" class="story__user-img">
                         </div> 
                         <div class="story__user-info-container">
                             <div class="story__user-comment cur-def">{{ story["post_comment"] }}</div>
-                            <div class="story__username cur-pnt""> <span class="lower"><b>@</span>{{ story["username"] }}</b></div>
+                            <div class="story__username cur-pnt""> <span class="lower"><b>@</span>{{ story["username"] }}</b><span class="story__username-date lower">{{ story["date"] }}</span></div>
+                            
                         </div>
                     </div>
                 <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="color: inherit; text-decoration: none;">

@@ -62,9 +62,8 @@ def user(username=None):
         user_data = User.format_date_data(user_data)
 
         # retrieve user posts to display
-        user_posts = list(db_posts.find({"username": username}))
-        user_posts = user_posts[::-1] #order from newest to oldest
-
+        user_posts = list(db_posts.find({"username": username}))[::-1]
+        user_posts = list(map(Post.format_date_data, user_posts))
 
         return render_template("profile.html", stories=user_posts, **user_data)
     
