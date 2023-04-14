@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_login import LoginManager
 from misc.config import SECRET_KEY, MONGODB_URI
 from flask_pymongo import PyMongo
@@ -21,10 +21,10 @@ db_friends = mongo.db.friends
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+# load user loader from login manager
 from misc.models import User
 @login_manager.user_loader
-def load_user(username):
-    
+def load_user(username): 
     user = User.check_user(username)
     return user
 

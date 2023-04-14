@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from misc.api import test_stories
 from misc.models import User, Post
 from misc.pipelines import POST_PIC_PIPELINE
-from main import db_posts, db_users
+from main import db_posts, db_users, app
 import random
 
 
@@ -26,7 +26,7 @@ def index():
 @login_required
 @home_bp.route("/home")
 @home_bp.route("/home/<feed>")
-def home(feed="templates"):
+def home(feed="recent"):
     
     message = request.args.get('message')
     error_message = None
@@ -40,16 +40,13 @@ def home(feed="templates"):
         stories = test_stories[:current_posts]
         more_posts = True if current_pages < n_pages else False
 
-    
     elif feed == "recent":
         session["current_posts"] = POSTS_PER_PAGE
 
-        # stories = list(db_posts.find().sort("date", -1).limit(10))
-
+        # stories = list(db_posts.find().sort("date", -1).limit(10))¡
 
         stories = list(db_posts.aggregate(POST_PIC_PIPELINE))
         stories = list(map(Post.format_date_data, stories))
-        print(stories)
 
     # returns logged in homepage
     if current_user.is_authenticated:
@@ -81,34 +78,6 @@ def about():
     return render_template("about.html", user_logged=current_user.is_authenticated)
     
 
-@home_bp.errorhandler(404)
+@app.errorhandler(404)
 def not_found_error(error):
     return render_template("404.html", error=error), 404
-
-
-pic_pipeline = [
-            {
-                '$sort': {'date': -1}
-            },
-            {
-                '$lookup': {
-                    'from': 'users',
-                    'localField': 'username',
-                    'foreignField': 'username',
-                    'as': 'post_data'
-                }
-            },
-            {
-                '$unwind': '$user'
-            },
-            {
-                '$addFields': {
-                    'pic_path': {'$arrayElemAt': ['$user.picture', 0]}
-                }
-            },
-            {
-                '$project': {
-                    'user': 0
-                }
-            }
-            ]
