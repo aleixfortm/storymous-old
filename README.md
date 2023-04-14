@@ -21,3 +21,4 @@ The front-end is fully responive, built without frameworks. The backend is suppo
 - Allow posting single comments without a story
 - Allow comments on post (from /post/<post_id>)
 - Track post stats, with visual icons (comments, clicks)
+- Asynchronous loading with AJAX
