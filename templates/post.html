@@ -8,19 +8,36 @@
     </header>
     <main class="main" style="flex-direction: column;">
         <div class="oops-feed"></div> 
-        <section class="story">
-            
-                <article class="story__article">
+        <div>
+            <div class="story__user-container">
+                <div class="story__user-img-container">
+                    <a href="{{ url_for('posts.user', username=story['username']) }}" style="color: inherit; text-decoration: none;">
+                        <img src="{{ story['pic_path'] }}" alt="Profile picture" class="story__user-img">
+                    </a>
+                </div> 
+                <div class="story__user-info-container">
+                    <div class="story__user-comment-container"><div class="story__user-comment cur-def"> {{story["post_comment"] }} </div></div>
+                    <div class="story__username cur-pnt""> 
+                        <a href="{{ url_for('posts.user', username=story['username']) }}" style="color: inherit; text-decoration: none;">
+                            <span class="lower"><b>@</b></span><b class="story__user-name">{{ story["username"] }}</b>
+                            <span class="story__username-date lower">{{ story["date"] }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="color: inherit; text-decoration: none;">
+                <article class="story__article">    
                     <div class="story__upper">
-                        <h2 class="story__title"> {{ story["title"] }} </h2>
-                        <!--<time class="story__date" datetime="21-04-2023"> NoDateYet </time>-->
+                        <div class="story__title-container">
+                            <h2 class="story__title"> {{ story["title"] }} </h2>
+                        </div>
                     </div>
                     <p class="story__content">
                         {{ story["content"] }}
                     </p>
                 </article>
-
-        </section>
+            </a>
+        </div>
     </main>
 </div>
 {% endblock %}
@@ -28,3 +45,4 @@
 <main class="main">
     
 </main>
+

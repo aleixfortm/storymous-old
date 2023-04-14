@@ -464,6 +464,15 @@ body {
     word-wrap: break-word;
 }
 
+.story__user-name {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.story__user-name:hover {
+    color: #9b9b9b; 
+}
+
 .newstory-button {
     padding: 5px 30px;
     background-color: whitesmoke;
