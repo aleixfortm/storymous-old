@@ -661,8 +661,45 @@ body {
     margin-top: 5px;
 }
 
+#comment_content {
+    width: 95.2%;
+    height: 30px;
+    color: whitesmoke;
+    font-size: 14px;
+    font-family: inherit;
+    background-color: #445061;
+    border: 2px dashed #313d4d;
+    border-radius: 5px;
+    padding: 5px 10px 10px 10px;
+    margin-top: 4px;
+    margin-bottom: 5px;
+    transition: all 0.2s;
+    resize: none;
+    box-sizing: content-box;
+}
+
+#comment_content:focus {
+    background-color: #4b5461;
+    color: whitesmoke;
+    border: 2px solid #313d4d;
+    box-shadow: 0 0 10px 0 #37414e;
+}
+
 .comment__username {
     margin: 6px 0px 7px 0;
+}
+
+.content-form__box {
+    padding: 0 0 0 0;
+    align-items: end;
+    margin: 0;
+}
+
+#comment_submit {
+    max-width: fit-content;
+    text-align: center;
+    padding-right: 10px;
+    margin: 5px 0 0 0;
 }
 
 .comment__user-comment-container {

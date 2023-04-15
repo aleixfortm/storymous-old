@@ -37,33 +37,35 @@
             </article>
         </div>
 <!-- SHOULD IMPLEMENT COMMENT WRITING HERE RIGHT BELOW THE POST -->
-
+        <form method="POST" action="{{ url_for('posts.post', post_id=story['_id']) }}" class="content-form__box">
+            {{form.hidden_tag()}}
+            {{form.comment_content(placeholder="Write a comment")}}
+            {{form.comment_submit()}}
+        </form>
 <!-- END OF IMPLEMENTATION HERE-->
         {% if comments %}
             {% for comment in comments %}
-            {% for i in range(4) %}
-                <div>
-                    <div class="comment__user-container">
-                        <div><img src="/static/img/reply_icon.png" alt="reply icon" style="max-width: 35px; margin: 0 0px 0 0px; transform: scaleX(-1); "></div>
-                        <div class="comment__user-img-container">
-                            
-                            <a href="{{ url_for('posts.user', username=comment['username']) }}" style="color: inherit; text-decoration: none;">
-                                <img src="{{ comment['pic_path'] }}" alt="Profile picture" class="comment__user-img">
-                            </a>
-                        </div> 
-                        <div class="story__user-info-container">
-                            
-                            <div class="comment__username cur-pnt""> 
+                    <div>
+                        <div class="comment__user-container">
+                            <div><img src="/static/img/reply_icon.png" alt="reply icon" style="max-width: 35px; margin: 0 0px 0 0px; transform: scaleX(-1); "></div>
+                            <div class="comment__user-img-container">
+                                
                                 <a href="{{ url_for('posts.user', username=comment['username']) }}" style="color: inherit; text-decoration: none;">
-                                    <span class="lower"><b>@</b></span><b class="story__user-name">{{ comment["username"] }}</b>
-                                    <span class="comment__username-date lower">{{ comment["date"] }}</span>
+                                    <img src="{{ comment['pic_path'] }}" alt="Profile picture" class="comment__user-img">
                                 </a>
+                            </div> 
+                            <div class="story__user-info-container">
+                                
+                                <div class="comment__username cur-pnt""> 
+                                    <a href="{{ url_for('posts.user', username=comment['username']) }}" style="color: inherit; text-decoration: none;">
+                                        <span class="lower"><b>@</b></span><b class="story__user-name">{{ comment["username"] }}</b>
+                                        <span class="comment__username-date lower">{{ comment["date"] }}</span>
+                                    </a>
+                                </div>
+                                <div class="comment__user-comment-container"><div class="comment__user-comment cur-def"> {{comment["comment"] }} </div></div>
                             </div>
-                            <div class="comment__user-comment-container"><div class="comment__user-comment cur-def"> {{comment["comment"] }} </div></div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
             {% endfor %}
         {% endif %}
     </main>

@@ -1,10 +1,9 @@
 from flask import Blueprint, url_for, render_template, redirect
 from flask_login import login_required, current_user
-from misc.forms import PostForm
-from misc.models import Post, User
+from misc.forms import PostForm, CommentForm
+from misc.models import Post, User, Comment
 from flask_pymongo import ObjectId
-from main import db_posts, db_users
-from misc.pipelines import POST_PIC_PIPELINE
+from main import db_posts, db_users, db_comments
 import datetime
 
 
@@ -82,26 +81,64 @@ def user(username=None):
 
 
 @login_required
-@posts_bp.route("/post/<post_id>")
+@posts_bp.route("/post/<post_id>", methods=["POST", "GET"])
 def post(post_id):
 
     if current_user.is_authenticated:
         pass
-
+    
     if post_id is None:
         message = "Invalid post id"
         return redirect(url_for("home.home", message=message))
 
-
+    # retrieve data from db
     post = db_posts.find_one({"_id": ObjectId(post_id)})
     formatted_post = Post.format_date_data(post)
     owner = db_users.find_one({"username": post["username"]})
+
+    post_comments_id = post["user_comments"]
+    comments = []
+
+    #Comment.find_documents(id_list)
+
+
+    # test comment
     comments = [{"username": "pollancre", "comment": "Let's gooo!!!", "pic_path": "/static/img/default_blue.png", "date": "Apr 25"}]
+
+    # increase view count +1 (consider saving flag data to session to avoid spam-reload increment)
+    db_posts.update_one({"_id": ObjectId(post_id)}, {"$inc": {"visits": 1}})
+
+    form = CommentForm()
+    if form.validate_on_submit():
+        
+        user = current_user.username
+
+        # build story object and save it to db
+        comment_object = Comment(username=user, content=form.comment_content.data, 
+                                 date=datetime.datetime.now().isoformat())
+        # quicksave of post to db
+        comment_object.quicksave_to_db()
+
+        # increase comment count +1 in post document
+        db_posts.update_one({"_id": ObjectId(post_id)}, {"$inc": {"n_comments": 1}})
+        # add comment _id to section "user_comments" at the Post's document
+        Post.add_comment_id(post_id=post_id, comment_id=comment_object._id)
+        # update user stats (number of written posts) directly to database (no need to retrieve user data)
+        User.increase_written_posts_by_one(user)
+
+        """
+        redirect user to force GET request (Post, Redirect, Get pattern)
+        --> User refreshing page might resend post request again. This is avoided by redirecting
+            user to the same URL to force GET Request, and if the page is reloaded, it will just 
+            send a GET Request instead of a POST if the redirect were not to happen.
+        """
+
+        return redirect(url_for("posts.post", post_id=post_id))
 
     # retrieve posts using piepline --> Post data + profile picture from its owner
     #stories = list(db_posts.aggregate(POST_PIC_PIPELINE))
     # map the posts to format the creation date
     #stories = list(map(Post.format_date_data, stories))
 
-    return render_template("post.html", story=formatted_post, owner=owner, comments=comments)
+    return render_template("post.html", form=form, story=formatted_post, owner=owner, comments=comments)
     

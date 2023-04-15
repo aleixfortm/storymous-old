@@ -81,6 +81,11 @@ class User(UserMixin):
         user_data = db_users.find_one({'username': username})
         return User(**user_data) if user_data != None else None
     
+    @staticmethod
+    def increase_written_posts_by_one(username):
+        db_users.update_one({"username": username}, {"$inc": {"n_writ_posts": 1}})
+
+    
 
 class Post:
     def __init__(self, username, title, content, date=datetime.datetime.now().isoformat(), preview=None, post_comment=None):
@@ -116,12 +121,26 @@ class Post:
         post_data["date"] = formatted_date
         return post_data
 
+    @staticmethod
+    def add_comment_id(post_id, comment_id):
+        db_posts.update_one({'_id': ObjectId(post_id)},
+                            {'$push': {'user_comments': comment_id}})
+                            
+                            
 
 class Comment:
-    def __init__(self, username, content, date):
+    def __init__(self, username, content, date=datetime.datetime.now().isoformat()):
+        self._id = ObjectId()
         self.username = username
         self.content = content
         self.date = date
+    
+    def quicksave_to_db(self):
+        db_comments.insert_one(self.__dict__)
+    
+    @staticmethod
+    def find_docs_in_db(id_list):
+        return db_comments.find_one({"_id": ObjectId(_id)})
 
 
-from main import db_users, db_posts
+from main import db_users, db_posts, db_comments, db_friends
