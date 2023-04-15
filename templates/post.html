@@ -51,7 +51,7 @@
                             <div class="comment__user-img-container">
                                 
                                 <a href="{{ url_for('posts.user', username=comment['username']) }}" style="color: inherit; text-decoration: none;">
-                                    <img src="{{ comment['pic_path'] }}" alt="Profile picture" class="comment__user-img">
+                                    <img src="{{ owner['pic_path'] }}" alt="Profile picture" class="comment__user-img">
                                 </a>
                             </div> 
                             <div class="story__user-info-container">
@@ -62,7 +62,7 @@
                                         <span class="comment__username-date lower">{{ comment["date"] }}</span>
                                     </a>
                                 </div>
-                                <div class="comment__user-comment-container"><div class="comment__user-comment cur-def"> {{comment["comment"] }} </div></div>
+                                <div class="comment__user-comment-container"><div class="comment__user-comment cur-def"> {{ comment["content"] }} </div></div>
                             </div>
                         </div>
                     </div>

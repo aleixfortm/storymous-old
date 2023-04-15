@@ -140,7 +140,12 @@ class Comment:
     
     @staticmethod
     def find_docs_in_db(id_list):
-        return db_comments.find_one({"_id": ObjectId(_id)})
+        comments_list = []
+        for _id in id_list:
+            comments_list.append(db_comments.find_one({"_id": ObjectId(_id)}))
+        print(comments_list)
+        return comments_list
+
 
 
 from main import db_users, db_posts, db_comments, db_friends

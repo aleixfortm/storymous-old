@@ -4,6 +4,7 @@ from misc.forms import PostForm, CommentForm
 from misc.models import Post, User, Comment
 from flask_pymongo import ObjectId
 from main import db_posts, db_users, db_comments
+from misc.pipelines import COMMENT_PIC_PIPELINE
 import datetime
 
 
@@ -92,21 +93,21 @@ def post(post_id):
         return redirect(url_for("home.home", message=message))
 
     # retrieve data from db
-    post = db_posts.find_one({"_id": ObjectId(post_id)})
-    formatted_post = Post.format_date_data(post)
-    owner = db_users.find_one({"username": post["username"]})
+    post_data = db_posts.find_one({"_id": ObjectId(post_id)})
+    formatted_post = Post.format_date_data(post_data)
+    owner_data = db_users.find_one({"username": post_data["username"]})
 
-    post_comments_id = post["user_comments"]
-    comments = []
-
-    #Comment.find_documents(id_list)
-
-
-    # test comment
-    comments = [{"username": "pollancre", "comment": "Let's gooo!!!", "pic_path": "/static/img/default_blue.png", "date": "Apr 25"}]
+    post_comments_id = post_data["user_comments"] 
+    post_comments = Comment.find_docs_in_db(post_comments_id)
 
     # increase view count +1 (consider saving flag data to session to avoid spam-reload increment)
     db_posts.update_one({"_id": ObjectId(post_id)}, {"$inc": {"visits": 1}})
+
+
+
+    # map the posts to format the creation date
+    comments = list(map(Post.format_date_data, comments))
+
 
     form = CommentForm()
     if form.validate_on_submit():
@@ -140,5 +141,5 @@ def post(post_id):
     # map the posts to format the creation date
     #stories = list(map(Post.format_date_data, stories))
 
-    return render_template("post.html", form=form, story=formatted_post, owner=owner, comments=comments)
+    return render_template("post.html", form=form, story=formatted_post, owner=owner_data, comments=post_comments)
     
