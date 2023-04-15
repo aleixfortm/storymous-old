@@ -70,8 +70,15 @@ class User(UserMixin):
     
     @staticmethod
     def format_date_data(user_data):
-        dt = datetime.datetime.fromisoformat(user_data["creation_date"])
-        formatted_date = dt.strftime('%b %d, %Y')
+        t = datetime.datetime.fromisoformat(user_data["creation_date"])
+        now = datetime.datetime.now()
+        dt = now - t
+        if dt.days < 1:
+            formatted_date = f"Today at {t.strftime('%H:%M')}"
+        elif dt.days < 2:
+            formatted_date = f"Yesterday at {t.strftime('%H:%M')}"
+        else:
+            formatted_date = t.strftime('%b %d, %Y')
         user_data["creation_date"] = formatted_date
         return user_data
 
@@ -84,6 +91,10 @@ class User(UserMixin):
     @staticmethod
     def increase_written_posts_by_one(username):
         db_users.update_one({"username": username}, {"$inc": {"n_writ_posts": 1}})
+
+    @staticmethod
+    def increase_written_comments_by_one(username):
+        db_users.update_one({"username": username}, {"$inc": {"n_comments": 1}})
 
     
 
@@ -116,8 +127,15 @@ class Post:
 
     @staticmethod
     def format_date_data(post_data):
-        dt = datetime.datetime.fromisoformat(post_data["date"])
-        formatted_date = dt.strftime('%b %d')
+        t = datetime.datetime.fromisoformat(post_data["date"])
+        now = datetime.datetime.now()
+        dt = now - t
+        if dt.days < 1:
+            formatted_date = f"Today at {t.strftime('%H:%M')}"
+        elif dt.days < 2:
+            formatted_date = f"Yesterday at {t.strftime('%H:%M')}"
+        else:
+            formatted_date = dt.strftime('%b %d')
         post_data["date"] = formatted_date
         return post_data
 
@@ -143,9 +161,18 @@ class Comment:
         comments_list = []
         for _id in id_list:
             comments_list.append(db_comments.find_one({"_id": ObjectId(_id)}))
-        print(comments_list)
-        return comments_list
 
+        return comments_list
+    
+    @staticmethod
+    def add_pic_to_comments(comments):
+        for comment in comments:
+            username = comment["username"]
+            user_data = db_users.find_one({"username": username})
+            pic_path = user_data["pic_path"]
+            comment["pic_path"] = pic_path
+        
+        return comments
 
 
 from main import db_users, db_posts, db_comments, db_friends

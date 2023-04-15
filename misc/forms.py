@@ -66,8 +66,8 @@ class PostForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    comment_content = TextAreaField("Comment", render_kw={"class": "comment__content"})
-    comment_submit = SubmitField("Post", validators=[DataRequired()] , render_kw={"class": "comment__submit"})
+    comment_content = TextAreaField("AddComment", validators=[DataRequired()], render_kw={"class": "comment__content"})
+    comment_submit = SubmitField("Comment" , render_kw={"class": "comment__submit"})
 
 
 from main import db_users, db_posts

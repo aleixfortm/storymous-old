@@ -47,11 +47,11 @@
             {% for comment in comments %}
                     <div>
                         <div class="comment__user-container">
-                            <div><img src="/static/img/reply_icon.png" alt="reply icon" style="max-width: 35px; margin: 0 0px 0 0px; transform: scaleX(-1); "></div>
+                            <div><img src="/static/img/reply_icon.png" alt="reply icon" style="max-width: 25px; margin: 0 0px 0 0px; transform: scaleX(-1); "></div>
                             <div class="comment__user-img-container">
                                 
                                 <a href="{{ url_for('posts.user', username=comment['username']) }}" style="color: inherit; text-decoration: none;">
-                                    <img src="{{ owner['pic_path'] }}" alt="Profile picture" class="comment__user-img">
+                                    <img src="{{ comment['pic_path'] }}" alt="Profile picture" class="comment__user-img">
                                 </a>
                             </div> 
                             <div class="story__user-info-container">

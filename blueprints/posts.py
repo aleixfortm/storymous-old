@@ -103,8 +103,8 @@ def post(post_id):
     # increase view count +1 (consider saving flag data to session to avoid spam-reload increment)
     db_posts.update_one({"_id": ObjectId(post_id)}, {"$inc": {"visits": 1}})
 
-
-
+    # insert pic_path of each user to respective comment
+    comments = Comment.add_pic_to_comments(post_comments)
     # map the posts to format the creation date
     comments = list(map(Post.format_date_data, comments))
 
@@ -125,7 +125,7 @@ def post(post_id):
         # add comment _id to section "user_comments" at the Post's document
         Post.add_comment_id(post_id=post_id, comment_id=comment_object._id)
         # update user stats (number of written posts) directly to database (no need to retrieve user data)
-        User.increase_written_posts_by_one(user)
+        User.increase_written_comments_by_one(user)
 
         """
         redirect user to force GET request (Post, Redirect, Get pattern)
@@ -141,5 +141,5 @@ def post(post_id):
     # map the posts to format the creation date
     #stories = list(map(Post.format_date_data, stories))
 
-    return render_template("post.html", form=form, story=formatted_post, owner=owner_data, comments=post_comments)
+    return render_template("post.html", form=form, story=formatted_post, owner=owner_data, comments=comments)
     
