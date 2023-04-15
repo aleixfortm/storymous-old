@@ -123,16 +123,17 @@ class Post:
         t = datetime.datetime.fromisoformat(post_data["date"])
         now = datetime.datetime.now()
         dt = now - t
-        hours = dt.total_seconds() / 3600
-        days = dt.days
+        minutes = int(dt.total_seconds() // 60)
+        hours = int(minutes // 60)
+        days = int(dt.days)
         if hours < 1:
-            formatted_date = f"{t.strftime('%M')}min ago" 
+            formatted_date = f"{minutes}min ago" 
         elif days < 1:
-            formatted_date = f"{t.strftime('%H')}h ago"
+            formatted_date = f"{hours}h ago"
         elif days < 2:
             formatted_date = f"Yesterday"
         else:
-            formatted_date = f"{t.strftime('%d')} days ago"
+            formatted_date = f"{days} days ago"
         post_data["date"] = formatted_date
         return post_data
 
@@ -142,7 +143,6 @@ class Post:
                             {'$push': {'user_comments': comment_id}})
                             
                             
-
 class Comment:
     def __init__(self, username, content, date=datetime.datetime.now().isoformat()):
         self._id = ObjectId()
