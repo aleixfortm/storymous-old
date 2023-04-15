@@ -808,7 +808,7 @@ body {
 
 .post-icons {
     background-color: #31394600;
-    margin: 5px 0 35px 0;
+    margin: 5px 0 0px 0;
     padding: 2px 4px 0px 5px;
     border: 2px solid #394350bd;
     border-radius: 5px;
@@ -837,6 +837,10 @@ body {
     font-style: italic;
     margin: 0;
     margin: auto;
+}
+
+.marg-bot-post {
+    margin-bottom: 35px;
 }
 
 /*
