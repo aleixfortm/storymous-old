@@ -59,8 +59,8 @@
                                 <div class="comment__username cur-pnt""> 
                                     <a href="{{ url_for('posts.user', username=comment['username']) }}" style="color: inherit; text-decoration: none;">
                                         <span class="lower"><b>@</b></span><b class="story__user-name">{{ comment["username"] }}</b>
-                                        <span class="comment__username-date lower">{{ comment["date"] }}</span>
                                     </a>
+                                        <span class="comment__username-date lower cur-def">{{ comment["date"] }}</span>
                                 </div>
                                 <div class="comment__user-comment-container"><div class="comment__user-comment cur-def"> {{ comment["content"] }} </div></div>
                             </div>

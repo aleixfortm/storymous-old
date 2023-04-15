@@ -28,8 +28,9 @@
                                 <div class="story__username cur-pnt""> 
                                     <a href="{{ url_for('posts.user', username=story['username']) }}" style="color: inherit; text-decoration: none;">
                                         <span class="lower"><b>@</b></span><b class="story__user-name">{{ story["username"] }}</b>
-                                        <span class="story__username-date lower">{{ story["date"] }}</span>
                                     </a>
+                                        <span class="story__username-date lower cur-def">{{ story["date"] }}</span>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -47,11 +48,17 @@
                         </a>
                         <div class="post-icons-bar">
                             <div class="post-icons cur-def">
-                                <div>0</div>
+                                
                                 <div><img src="/static/img/plus_icon3.png" alt="continued-stories" class="icon-plus"></div>
+                                <div class="lower2">0</div>
                                 <div class="separator6"></div>
-                                <div>{{ story["n_comments"]}}</div>
+                                
                                 <div><img src="/static/img/comment_icon3.png" alt="comments" class="icon-comment"></div>
+                                <div>{{ story["n_comments"]}}</div>
+                                <div class="separator7"></div>
+                                
+                                <div><img src="/static/img/visits_icon.png" alt="times-visited" class="icon-eye"></div>
+                                <div>{{ story["visits"] }}</div>
                             </div>
                         </div>
                         <div class="marg-bot-post"></div>

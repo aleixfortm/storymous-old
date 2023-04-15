@@ -810,27 +810,51 @@ body {
     background-color: #31394600;
     margin: 5px 0 0px 0;
     padding: 2px 4px 0px 5px;
-    border: 2px solid #394350bd;
-    border-radius: 5px;
+    border-bottom: 2px solid #394350bd;
+    /*border-radius: 5px;*/
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     width: fit-content;
+    transition: 0.2s all;
+}
+
+.post-icons:hover {
+    border-bottom: 2px solid #7f8ea1bd;
 }
 
 .icon-comment {
     max-width: 16px;
-    margin: 2px 0 0 4px;
+    margin: 2px 4px 0 0px;
 }
 
 .icon-plus {
     max-width: 14px;
-    margin: 0 0 0 4px;
+    margin: 3px 3px 0 0px;
+}
+
+.lower2 {
+    color: rgb(212, 212, 212);
+    font-weight: bold;
+}
+
+.icon-eye {
+    max-width: 20px;
+    margin: 0 2px 0 0px;
+}
+
+.pad-bot {
+    padding-bottom: 3px;
 }
 
 .separator6 {
-    margin: 0 6px;
+    margin: 0 8px;
 }
+
+.separator7 {
+    margin: 0 5px;
+}
+
 
 .oops-feed {
     text-align: center;

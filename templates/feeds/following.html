@@ -16,20 +16,48 @@
         {% if user_logged %}
             {% if stories %}
                 {% for story in stories %}
-                <article class="story__article">
-                    <div class="story__upper">
-                        <div class="story__title-container">
-                            <h2 class="story__title"> {{ story["title"] }} </h2>
+                    <div>
+                        <div class="story__user-container">
+                            <div class="story__user-img-container">
+                                <a href="{{ url_for('posts.user', username=story['username']) }}" style="color: inherit; text-decoration: none;">
+                                    <img src="{{ story['pic_path'] }}" alt="Profile picture" class="story__user-img">
+                                </a>
+                            </div> 
+                            <div class="story__user-info-container">
+                                <div class="story__user-comment-container"><div class="story__user-comment cur-def"> {{story["post_comment"] }} </div></div>
+                                <div class="story__username cur-pnt""> 
+                                    <a href="{{ url_for('posts.user', username=story['username']) }}" style="color: inherit; text-decoration: none;">
+                                        <span class="lower"><b>@</b></span><b class="story__user-name">{{ story["username"] }}</b>
+                                    </a>
+                                        <span class="story__username-date lower cur-def">{{ story["date"] }}</span>
+                                    
+                                </div>
+                            </div>
                         </div>
-                        <!--<time class="story__date" datetime="21-04-2023"> {{ story["date"] }} </time>-->
+                        <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="color: inherit; text-decoration: none;">
+                            <article class="story__article">    
+                                <div class="story__upper">
+                                    <div class="story__title-container">
+                                        <h2 class="story__title"> {{ story["title"] }} </h2>
+                                    </div>
+                                </div>
+                                <p class="story__content">
+                                    {{ story["content"] }}
+                                </p>
+                            </article>
+                        </a>
+                        <div class="post-icons-bar">
+                            <div class="post-icons cur-def">
+                                <div>0</div>
+                                <div><img src="/static/img/plus_icon3.png" alt="continued-stories" class="icon-plus"></div>
+                                <div class="separator6"></div>
+                                <div>{{ story["n_comments"]}}</div>
+                                <div><img src="/static/img/comment_icon3.png" alt="comments" class="icon-comment"></div>
+                            </div>
+                        </div>
+                        <div class="marg-bot-post"></div>
                     </div>
-                    <p class="story__content">
-                        {{ story["story"] }}
-                    </p>
-                </article>
                 {% endfor %}
-            {% else %}
-            <p class="oops-feed">-- Section being worked on (very thoroughly!) --</p>
             {% endif %}
         {% else %}
         <p class="oops-feed">Oops... You'll have to sign in to view this!</p>

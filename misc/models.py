@@ -71,14 +71,7 @@ class User(UserMixin):
     @staticmethod
     def format_date_data(user_data):
         t = datetime.datetime.fromisoformat(user_data["creation_date"])
-        now = datetime.datetime.now()
-        dt = now - t
-        if dt.days < 1:
-            formatted_date = f"Today at {t.strftime('%H:%M')}"
-        elif dt.days < 2:
-            formatted_date = f"Yesterday at {t.strftime('%H:%M')}"
-        else:
-            formatted_date = t.strftime('%b %d, %Y')
+        formatted_date = t.strftime('%b %d, %Y')
         user_data["creation_date"] = formatted_date
         return user_data
 
@@ -130,12 +123,16 @@ class Post:
         t = datetime.datetime.fromisoformat(post_data["date"])
         now = datetime.datetime.now()
         dt = now - t
-        if dt.days < 1:
-            formatted_date = f"Today at {t.strftime('%H:%M')}"
-        elif dt.days < 2:
-            formatted_date = f"Yesterday at {t.strftime('%H:%M')}"
+        hours = dt.total_seconds() / 3600
+        days = dt.days
+        if hours < 1:
+            formatted_date = f"{t.strftime('%M')}min ago" 
+        elif days < 1:
+            formatted_date = f"{t.strftime('%H')}h ago"
+        elif days < 2:
+            formatted_date = f"Yesterday"
         else:
-            formatted_date = dt.strftime('%b %d')
+            formatted_date = f"{t.strftime('%d')} days ago"
         post_data["date"] = formatted_date
         return post_data
 
