@@ -425,8 +425,8 @@ body {
     border-radius: 15px;
     font-weight: bold;
     font-size: medium;
-    max-width: 70px;
-    margin: auto;
+    width: fit-content;
+
     background-color: rgb(0, 124, 240);
 }
 
@@ -804,13 +804,14 @@ body {
 .post-icons-bar {
     display: flex;
     justify-content: right;
+    font-size: 13px;
 }
 
 .post-icons {
     background-color: #31394600;
     margin: 5px 0 0px 0;
     padding: 2px 4px 0px 5px;
-    border-bottom: 2px solid #394350bd;
+
     /*border-radius: 5px;*/
     display: flex;
     flex-direction: row;
@@ -819,17 +820,13 @@ body {
     transition: 0.2s all;
 }
 
-.post-icons:hover {
-    border-bottom: 2px solid #7f8ea1bd;
-}
-
 .icon-comment {
-    max-width: 16px;
+    max-width: 14px;
     margin: 2px 4px 0 0px;
 }
 
 .icon-plus {
-    max-width: 14px;
+    max-width: 12px;
     margin: 3px 3px 0 0px;
 }
 
@@ -839,8 +836,8 @@ body {
 }
 
 .icon-eye {
-    max-width: 20px;
-    margin: 0 2px 0 0px;
+    max-width: 19px;
+    margin: -1px 2px 0 0px;
 }
 
 .pad-bot {
@@ -848,7 +845,7 @@ body {
 }
 
 .separator6 {
-    margin: 0 8px;
+    margin: 0 7px;
 }
 
 .separator7 {
@@ -864,7 +861,12 @@ body {
 }
 
 .marg-bot-post {
-    margin-bottom: 35px;
+    border-bottom: 2px solid #3a4149;
+    padding-bottom: 20px;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 70%;
+    
 }
 
 /*
