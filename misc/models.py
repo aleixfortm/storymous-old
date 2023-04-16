@@ -128,7 +128,9 @@ class Post:
         minutes = int(dt.total_seconds() // 60)
         hours = int(minutes // 60)
         days = int(dt.days)
-        if hours < 1:
+        if minutes < 2:
+            formatted_date = f"Now" 
+        elif hours < 1:
             formatted_date = f"{minutes}min ago" 
         elif days < 1:
             formatted_date = f"{hours}h ago"
@@ -182,3 +184,11 @@ class Settings:
 
     def create_or_update_settings_to_db(self):
         db_settings.update_one({"username": self.username}, {"$set": self.__dict__}, upsert=True)
+    
+    @staticmethod
+    def check_user_has_settings(username):
+        return db_settings.find_one({"username": username})
+
+    @staticmethod
+    def get_user_settings(username):
+        db_settings.find_one({"username": username})
