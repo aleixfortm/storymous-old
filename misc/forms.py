@@ -1,5 +1,5 @@
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, Length
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField
 from werkzeug.security import generate_password_hash
 from flask_wtf.file import FileField, FileAllowed
 from flask_wtf import FlaskForm
@@ -68,6 +68,10 @@ class PostForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment_content = TextAreaField("AddComment", validators=[DataRequired()], render_kw={"class": "comment__content"})
     comment_submit = SubmitField("Comment" , render_kw={"class": "comment__submit"})
+
+
+class ColorChoiceForm(FlaskForm):
+    color_dropdown = SelectField("Dropdown", choices=[("1", "Red"), ("2", "Blue")])
 
 
 from main import db_users, db_posts

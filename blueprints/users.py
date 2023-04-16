@@ -1,7 +1,8 @@
-from flask import Blueprint, url_for, render_template, redirect
+from flask import Blueprint, url_for, render_template, redirect, request
 from flask_login import current_user, login_required
 from misc.models import User, Post
-from main import db_posts
+from misc.forms import ColorChoiceForm
+from main import db_posts, db_settings
 
 
 # blueprint creation 
@@ -43,7 +44,7 @@ def user(username=None):
 
 @login_required
 @users_bp.route("/settings")
-@users_bp.route("/settings/<username>")
+@users_bp.route("/settings/<username>", methods=["GET", "POST"])
 def settings(username=None):
 
     # return visitor back to homepage if not authenticated
@@ -52,10 +53,24 @@ def settings(username=None):
 
     # if reloaded successfully, user's username will not be None
     elif username is not None:
-        
-
         return render_template("settings.html")
     
+
+    form = ColorChoiceForm()
+    if request.method == "POST":
+
+        if form.validate_on_submit():
+            
+            # update the document if it exists, otherwise create a new document
+            db_settings.update_one(
+                {'username': username},
+                {'$set': {'value': "value"}},
+                upsert=True)
+                
+
+            return redirect(url_for("users.user", message="Successfully updated user settings"))
+
+
     # user will reload the page if authenticated, with its username as part of URL
     username = current_user.username
     return redirect(url_for("users.settings", username=username))

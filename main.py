@@ -16,6 +16,7 @@ db_users = mongo.db.users
 db_posts = mongo.db.posts
 db_comments = mongo.db.comments
 db_friends = mongo.db.friends
+db_settings = mongo.db.settings
 
 # create login manager instance to keep track of user authentication
 login_manager = LoginManager()

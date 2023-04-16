@@ -2,6 +2,8 @@ from flask_login import UserMixin
 from werkzeug.security import check_password_hash
 from bson.objectid import ObjectId
 import datetime, random
+from main import db_users, db_posts, db_comments, db_friends, db_settings
+
 
 """
 By inheriting from UserMixin, the User class gains the following functionalities:
@@ -172,4 +174,11 @@ class Comment:
         return comments
 
 
-from main import db_users, db_posts, db_comments, db_friends
+class Settings:
+    def __init__(self, username, color="orange", bionic_text=None):
+        self.username = username
+        self.color = color
+        self.bionic_text = bionic_text
+
+    def create_or_update_settings_to_db(self):
+        db_settings.update_one({"username": self.username}, {"$set": self.__dict__}, upsert=True)
