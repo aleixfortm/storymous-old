@@ -38,7 +38,7 @@ def user(username=None):
     
     # user will reload the page if authenticated, with its username as part of URL
     username = current_user.username
-    return redirect(url_for("posts.user", username=username))
+    return redirect(url_for("users.user", username=username))
 
 
 @login_required
