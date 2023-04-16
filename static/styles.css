@@ -632,6 +632,17 @@ body {
     flex-grow: 1;
 }
 
+.readmore-button {
+    white-space: nowrap; 
+    font-weight: bolder; 
+    color:rgb(197, 190, 207);
+}
+
+.readmore-button:hover {
+    text-decoration: underline;
+    color: rgb(167, 163, 173);
+}
+
 .story__article {
     padding: 15px 15px;
     border-radius: 5px;

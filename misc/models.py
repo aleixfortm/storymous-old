@@ -104,10 +104,30 @@ class Post:
         self.visits = 1
         self.n_comments = 0
         self.user_comments = []
-    
+        self.extended_length = False
+        self.add_html_line_jumps()
+        self.check_extended_length()
+        self.add_preview_if_lacking()
+        self.add_comment_if_lacking()
+
     def quicksave_to_db(self):
         db_posts.insert_one(self.__dict__)
+
+    def add_html_line_jumps(self):
+        self.content = self.content.replace("\n", "<br>")
+
+    def check_extended_length(self):
+        self.extended_length = True if len(self.content) > 410 else False
     
+    def add_preview_if_lacking(self):
+        if not self.preview:
+            if self.extended_length:
+                self.preview = str(self.content[:410] + "...")
+
+    def add_comment_if_lacking(self):
+        if not self.post_comment:
+            self.post_comment = "..."
+
     def replace_db_doc(self):
         post_dict = self.__dict__
         db_posts.update_one({'_id': self._id}, {'$set': post_dict}, upsert=True)

@@ -41,7 +41,6 @@ def newstory():
         #message = "Invalid input"
         return render_template("newstory.html", form=form, message=message)
     
-    
     return redirect(url_for("home.home"))
 
 

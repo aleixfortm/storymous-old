@@ -41,7 +41,11 @@
                                 </div>
                             </div>
                             <p class="story__content">
-                                {{ story["content"] }}
+                                {{ story["preview"]|safe }}
+                            
+                            {% if story["extended_length"] %}
+                            <b class="readmore-button"><em>Read more</em></b>
+                            {% endif %}
                             </p>
                         </article>
                     </a>
