@@ -15,7 +15,18 @@
     <div class="feed-selector marg-top-null">
         <div class="feed-selector__container marg-top-null">
             <div class="feed-selector__title">Settings</div>
-
+        </div>
+    </div>
+    <div>
+        <div class="settings-color">
+            <form method="POST" action="{{ url_for('users.settings', username=current_user.username) }}">
+                {{form.hidden_tag()}}
+                <div>
+                    <label for="select">Book color</label>
+                    {{ form.color_dropdown() }}
+                </div>
+                {{ form.save_dropdown() }}
+              </form>
         </div>
     </div>
 </main>

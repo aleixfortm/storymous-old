@@ -1,6 +1,6 @@
 from flask import Blueprint, url_for, render_template, redirect, request
 from flask_login import current_user, login_required
-from misc.models import User, Post
+from misc.models import User, Post, Settings
 from misc.forms import ColorChoiceForm
 from main import db_posts, db_settings
 
@@ -47,30 +47,36 @@ def user(username=None):
 @users_bp.route("/settings/<username>", methods=["GET", "POST"])
 def settings(username=None):
 
+
+
     # return visitor back to homepage if not authenticated
     if not current_user.is_authenticated:
         return redirect(url_for("home.home", error_message="You must log in to access settings"))
 
     # if reloaded successfully, user's username will not be None
     elif username is not None:
-        return render_template("settings.html")
-    
 
-    form = ColorChoiceForm()
-    if request.method == "POST":
+        # return current user settings
+        current_settings = Settings.check_user_settings(username)
+        # create form object
+        form = ColorChoiceForm()
+        form.color_dropdown.default = current_settings["color"]
 
-        if form.validate_on_submit():
-            
-            # update the document if it exists, otherwise create a new document
-            db_settings.update_one(
-                {'username': username},
-                {'$set': {'value': "value"}},
-                upsert=True)
-                
+        if request.method == "POST":
 
-            return redirect(url_for("users.user", message="Successfully updated user settings"))
+            if form.validate_on_submit():
+
+                # create user settings object with form values
+                user_settings_object = Settings(username=username, color=form.color_dropdown.data)
+                # send data to settings collection with username
+                user_settings_object.create_or_update_settings_to_db()
+                user_settings_object.update_pic_to_users_db()
+                    
+                return redirect(url_for("users.user", message="Successfully updated user settings"))
+        
+        form.process()
+        return render_template("settings.html", form=form, **current_settings)
 
 
     # user will reload the page if authenticated, with its username as part of URL
-    username = current_user.username
-    return redirect(url_for("users.settings", username=username))
+    return redirect(url_for("users.settings", username=current_user.username))

@@ -71,7 +71,9 @@ class CommentForm(FlaskForm):
 
 
 class ColorChoiceForm(FlaskForm):
-    color_dropdown = SelectField("Dropdown", choices=[("1", "Red"), ("2", "Blue")])
+    choices = [("blue", "blue"), ("green", "green"), ("grey", "grey"), ("orange", "orange"), ("pink", "pink"), ("purple", "purple"), ("red", "red"), ("skyblue", "skyblue"), ("yellow", "yellow")] 
+    color_dropdown = SelectField("Dropdown", choices=choices, default="orange")
+    save_dropdown = SubmitField("Save changes")
 
 
 from main import db_users, db_posts

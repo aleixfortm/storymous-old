@@ -91,7 +91,6 @@ class User(UserMixin):
     def increase_written_comments_by_one(username):
         db_users.update_one({"username": username}, {"$inc": {"n_comments": 1}})
 
-    
 
 class Post:
     def __init__(self, username, title, content, date=datetime.datetime.now().isoformat(), preview=None, post_comment=None):
@@ -177,7 +176,7 @@ class Comment:
 
 
 class Settings:
-    def __init__(self, username, color="orange", bionic_text=None):
+    def __init__(self, username, color="orange", bionic_text=False):
         self.username = username
         self.color = color
         self.bionic_text = bionic_text
@@ -185,10 +184,10 @@ class Settings:
     def create_or_update_settings_to_db(self):
         db_settings.update_one({"username": self.username}, {"$set": self.__dict__}, upsert=True)
     
-    @staticmethod
-    def check_user_has_settings(username):
-        return db_settings.find_one({"username": username})
+    def update_pic_to_users_db(self):
+        filepath = f'/static/img/default_{self.color}.png'
+        db_users.update_one({"username": self.username}, {"$set": {"pic_path": filepath}})
 
     @staticmethod
-    def get_user_settings(username):
-        db_settings.find_one({"username": username})
+    def check_user_settings(username):
+        return db_settings.find_one({"username": username})

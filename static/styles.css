@@ -54,7 +54,7 @@ body {
     align-items: center;
     font-weight: bold;
     cursor: default;
-    color: rgb(0, 255, 234);
+    color: rgb(197, 255, 63);
 }
 
 .navbar__title {
@@ -848,29 +848,49 @@ body {
     display: flex;
     justify-content: right;
     font-size: 13px;
+    height: fit-content
 }
+
+.post-icon-bg {
+    height: fit-content;
+    padding: 0 4px;
+    display: flex;
+    background-color: rgba(240, 248, 255, 0);
+    border-radius: 10px;
+    opacity: 1;
+}
+
+.post-icon-bg:hover {
+    cursor: pointer;
+    display: flex;
+    background-color: rgba(240, 248, 255, 0.219);
+    border-radius: 12px;
+}
+
 
 .post-icons {
     background-color: #31394600;
     margin: 5px 0 0px 0;
     padding: 2px 4px 0px 5px;
-
     /*border-radius: 5px;*/
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     width: fit-content;
-    transition: 0.2s all;
+    height: fit-content;
+    align-items: center;
 }
 
 .icon-comment {
-    max-width: 14px;
-    margin: 2px 4px 0 0px;
+    width: 14px;
+    margin: 3px 4px 0 0px;
+    height: 100%;
 }
 
 .icon-plus {
-    max-width: 12px;
+    width: 12px;
     margin: 3px 3px 0 0px;
+    height: 100%;
 }
 
 .lower2 {
@@ -878,9 +898,12 @@ body {
     font-weight: bold;
 }
 
+
+
 .icon-eye {
-    max-width: 19px;
-    margin: -1px 2px 0 0px;
+    width: 19px;
+    margin: 2px 1px 0 0;
+    height: 100%;
 }
 
 .pad-bot {
@@ -888,11 +911,11 @@ body {
 }
 
 .separator6 {
-    margin: 0 7px;
+    margin: 0 5px;
 }
 
 .separator7 {
-    margin: 0 5px;
+    margin: 0 3px;
 }
 
 
@@ -1234,6 +1257,14 @@ input[type="submit"]:hover {
 .error__home:hover { 
     text-decoration: underline;
     color:rgb(255, 179, 64);
+}
+
+#save_dropdown {
+    padding: 0 10px;
+    margin: auto;
+    margin: 30px auto;
+    width: fit-content;
+    box-sizing: border-box;
 }
 
 /* --------- Footer ---------- */
