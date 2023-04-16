@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, render_template, redirect
+from flask import Blueprint, url_for, render_template, redirect, session
 from flask_login import login_required, current_user
 from misc.forms import PostForm, CommentForm
 from misc.models import Post, User, Comment
@@ -48,9 +48,6 @@ def newstory():
 @login_required
 @posts_bp.route("/post/<post_id>", methods=["POST", "GET"])
 def post(post_id):
-
-    if current_user.is_authenticated:
-        pass
     
     if post_id is None:
         message = "Invalid post id"
@@ -64,8 +61,21 @@ def post(post_id):
     post_comments_id = post_data["user_comments"] 
     post_comments = Comment.find_docs_in_db(post_comments_id)
 
-    # increase view count +1 (consider saving flag data to session to avoid spam-reload increment)
-    db_posts.update_one({"_id": ObjectId(post_id)}, {"$inc": {"visits": 1}})
+
+    if current_user.is_authenticated:
+        # increment post view count if user has not visited yet in the current session
+        if not session.get(post_id, False):
+            # increase view count +1
+            db_posts.update_one({"_id": ObjectId(post_id)}, {"$inc": {"visits": 1}})
+            session[post_id] = True
+
+    else: # anonymous user (not authenticated)
+
+        if not session.get(post_id, False):
+            # increase view count +1
+            db_posts.update_one({"_id": ObjectId(post_id)}, {"$inc": {"visits": 1}})
+            session[post_id] = True
+
 
     # insert pic_path of each user to respective comment
     comments = Comment.add_pic_to_comments(post_comments)
