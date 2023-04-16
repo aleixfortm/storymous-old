@@ -279,7 +279,32 @@ body {
     border: 3px solid whitesmoke;
 }
 
+.introduction-bubble {
+    margin: 0 0 0 0px;
+    justify-content: right;
+    width: fit-content;
+    padding: 0px 30px 0 35px;
+    border-radius: 60px 60px 0 60px;
+    background-color: whitesmoke;
+    font-weight: bolder;
+    box-shadow: 0 0 15px 0 #1d2229;
+    word-break: break-word;
+}
 
+.introduction__text-stats-img-3 {
+    margin: 5px 0px 0 0px;
+    height: 250px;
+    border-radius: 100%; 
+    border: 4px solid rgb(24, 1, 1);
+}
+
+.introduction__text-stats-img-3-container {
+    justify-content: center;
+    display: flex;
+    max-width: 280px;
+    margin: auto auto;
+    padding: 0 10px;
+}
 
 .introduction__text-2 {
     font-size: large;
@@ -316,11 +341,8 @@ body {
     color: rgb(223, 145, 0);
 }
 
-@media screen and (max-width: 695px) {
-    .introduction{
-        margin: 0px auto 30px auto;
-        max-width: 400px;
-    }
+@media screen and (max-width: 700px) {
+
 
     .introduction__box {
         flex-direction: column;
@@ -368,8 +390,20 @@ body {
         max-width: 90%;
         height: auto;
     }
+
+    .introduction__text-stats-img-3 {
+        border-radius: 100%;
+        max-width: 100%;
+        height: auto;
+        margin: auto;
+    }
+
     .introduction__profile-stats {
         width: auto;
+    }
+
+    .introduction-bubble {
+        border-radius: 60px;
     }
   }
 
@@ -395,15 +429,17 @@ body {
 /* ---------- Feed-selector ------------*/
 
 .signup-buttons {
-    justify-content: space-evenly;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     text-align: center;
-    padding: 10px 25px;
+    padding: 0 10px;
     margin: auto auto;
+    max-width: 280px;
 }
 
 .login-home{
-    padding: 5px 30px;
+    padding: 5px 15px;
     background-color: whitesmoke;
     color: #ffffff;
     border-radius: 15px;
@@ -419,13 +455,14 @@ body {
 }
 
 .register-home {
-    padding: 5px 30px;
+    padding: 5px 20px;
     background-color: whitesmoke;
     color: #ffffff;
     border-radius: 15px;
     font-weight: bold;
     font-size: medium;
     width: fit-content;
+    margin: auto;
 
     background-color: rgb(0, 124, 240);
 }
@@ -515,8 +552,9 @@ body {
     margin: 15px 5px -10px 5px;
 }
 
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 700px) {
     .introduction__box-2 {
+        max-width: 350px;
         flex-direction: column;
     }
 

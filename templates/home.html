@@ -47,14 +47,20 @@
     {% else %}
     <div class="introduction__box-2">
         <div class="introduction__text-2">
-            <h1>Welcome to <span class="introduction__user-title"><br>Storymous</span>!<br>
-            <h4>New around here? <a href="{{ url_for('home.about') }}" class="introduction__about"> <br> 
+            <div class="introduction-bubble">
+                <h1 class="introduction__user-title" style="margin-bottom: 20px; margin-top: 15px; color: black">Welcome to<br><b style="color: rgb(255, 70, 70)">Storymous</b>!<br></h1>
+            </div>
+            <div class="signup-buttons">
+                <a href="{{ url_for('auth.login') }}" style="text-decoration: none;"><div class="login-home">Log In</div></a>
+                <p><b>or</b></p>
+                <a href="{{ url_for('auth.register') }}" style="text-decoration: none;"><div class="register-home">Register</div></a>
+            </div>
+            <h4 style="margin-bottom: 10px; margin-top: 10px">New around here? <a href="{{ url_for('home.about') }}" class="introduction__about"> <br> 
                 Learn how storymous works</a></h4>
+
         </div>
-        <div class="signup-buttons">
-            <a href="{{ url_for('auth.login') }}" style="text-decoration: none;"><div class="login-home">Log In</div></a>
-            <p><b>or</b></p>
-            <a href="{{ url_for('auth.register') }}" style="text-decoration: none;"><div class="register-home">Register</div></a>
+        <div class="introduction__text-stats-img-3-container">
+            <img src="/static/img/astronaut_reads.jpeg" alt="astronaut" class="introduction__text-stats-img-3">
         </div>
     {% endif %}
         
@@ -74,6 +80,8 @@
     </div>
     {% if user_logged %}
     <a href="{{ url_for('posts.newstory')}}" style="text-decoration: none;"><div class="newstory-button">Write new story</div></a>
+    {% else %}
+    
     {% endif %}
 </div>
 
