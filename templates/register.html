@@ -8,9 +8,6 @@
     </header>
     <main class="main">
         <div class="register-form">
-            <div class="login-form__title-container">
-                <span class="login-form__title">New account</span>
-            </div>
 
             {% if error_message %}
             <div class="login-form__error-container">
@@ -19,6 +16,12 @@
                 </div>
             </div>
             {% endif %}
+
+            <div class="login-form__title-container">
+                <span class="login-form__title">New account</span>
+            </div>
+
+
             
             <form method="POST" action="{{ url_for('auth.register') }}" class="register-form__box">
                 {{form.hidden_tag()}}

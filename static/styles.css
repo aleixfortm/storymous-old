@@ -607,6 +607,11 @@ body {
     box-shadow: 0 0 10px 0 #3c4755;
 }
 
+.marg-top-null {
+    padding-top: 0;
+    margin-top: 0;
+}
+
 .story__content {
     text-align: left;
     margin: 2px 0;
@@ -935,6 +940,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 .login-form__error-container {
     display: flex;
     justify-content: center;
+    margin: 0 0 10px 0;
 }
 
 .login-form__spacer {

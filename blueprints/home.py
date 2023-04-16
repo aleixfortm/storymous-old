@@ -28,7 +28,7 @@ def index():
 def home(feed="recent"):
     
     message = request.args.get('message')
-    error_message = None
+    error_message = request.args.get("error_message")
 
     more_posts = False
     stories = None

@@ -4,7 +4,7 @@
 
                     {% if user_logged %}
                     <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
-                    <li class="navbar__navigation-item"><a href="{{url_for('posts.user')}}" class="navbar__link ">profile</a></li>
+                    <li class="navbar__navigation-item"><a href="{{url_for('users.user')}}" class="navbar__link ">profile</a></li>
                     <li class="navbar__navigation-item"><a href="{{url_for('home.about')}}" class="navbar__link ">about</a></li>
                     {% else %}
                     <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " style="color:rgb(255, 220, 64);">home</a></li>
@@ -60,7 +60,7 @@
         
         {% if user_logged %}
         <div class="spacer5"></div>
-        <a href="{{ url_for('posts.user', username=current_user.username)}}" style="text-decoration: none;">
+        <a href="{{ url_for('users.user', username=current_user.username)}}" style="text-decoration: none;">
             <div class="introduction__text-box-bis">
                 <div class="introduction__text-stats">
                     <div class="introduction__text-stats-title-container">

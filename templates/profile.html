@@ -3,9 +3,9 @@
         <ul class="navbar__navigation">
             <li class="navbar__navigation-item"><a href="{{url_for('home.home')}}" class="navbar__link " >home</a></li>
             {% if admin_rights %}
-            <li class="navbar__navigation-item"><a href="{{url_for('posts.user')}}" class="navbar__link " style="color:rgb(255, 220, 64);">profile</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('users.user')}}" class="navbar__link " style="color:rgb(255, 220, 64);">profile</a></li>
             {% else %}
-            <li class="navbar__navigation-item"><a href="{{url_for('posts.user')}}" class="navbar__link " >profile</a></li>
+            <li class="navbar__navigation-item"><a href="{{url_for('users.user')}}" class="navbar__link " >profile</a></li>
             {% endif %}
             <li class="navbar__navigation-item"><a href="{{url_for('home.about')}}" class="navbar__link ">about</a></li>
         </ul>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 {% if admin_rights %}
-                <a href="#" style="text-decoration: none;"><div class="edit-profile">User settings</div></a>
+                <a href="{{ url_for('users.settings') }}" style="text-decoration: none;"><div class="edit-profile">User settings</div></a>
                 {% endif %}
             </div>
         </div>
@@ -70,29 +70,52 @@
         <section class="story">
             {% if stories %}
                 {% for story in stories %}
-                    <div>
+                <div>
                     <div class="story__user-container">
                         <div class="story__user-img-container">
-                            <img src="{{ pic_path }}" alt="Profile picture" class="story__user-img">
+                            <a href="{{ url_for('users.user', username=story['username']) }}" style="color: inherit; text-decoration: none;">
+                                <img src="{{ pic_path }}" alt="Profile picture" class="story__user-img">
+                            </a>
                         </div> 
                         <div class="story__user-info-container">
-                            <div class="story__user-comment-container"><div class="story__user-comment cur-def">{{ story["post_comment"] }}</div></div>
-                            <div class="story__username cur-pnt""><span class="lower"><b>@</span>{{ story["username"] }}</b><span class="story__username-date lower">{{ story["date"] }}</span></div>
+                            <div class="story__user-comment-container"><div class="story__user-comment cur-def"> {{ story["post_comment"] }} </div></div>
+                            <div class="story__username cur-pnt""> 
+                                <a href="{{ url_for('users.user', username=story['username']) }}" style="color: inherit; text-decoration: none;">
+                                    <span class="lower"><b>@</b></span><b class="story__user-name">{{ story["username"] }}</b>
+                                </a>
+                                    <span class="story__username-date lower cur-def">{{ story["date"] }}</span>
+                                
+                            </div>
                         </div>
                     </div>
-                <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="color: inherit; text-decoration: none;">
-                    <article class="story__article">    
-                        <div class="story__upper">
-                            <div class="story__title-container">
-                                <h2 class="story__title"> {{ story["title"] }} </h2>
+                    <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="color: inherit; text-decoration: none;">
+                        <article class="story__article">    
+                            <div class="story__upper">
+                                <div class="story__title-container">
+                                    <h2 class="story__title"> {{ story["title"] }} </h2>
+                                </div>
                             </div>
-                            <!--<time class="story__date" datetime="21-04-2023"> {{ story["date"] }} </time>-->
+                            <p class="story__content">
+                                {{ story["content"] }}
+                            </p>
+                        </article>
+                    </a>
+                    <div class="post-icons-bar">
+                        <div class="post-icons cur-def">
+                            
+                            <div><img src="/static/img/plus_icon3.png" alt="continued-stories" class="icon-plus"></div>
+                            <div class="lower2">0</div>
+                            <div class="separator6"></div>
+                            
+                            <div><img src="/static/img/comment_icon3.png" alt="comments" class="icon-comment"></div>
+                            <div class="lower2">{{ story["n_comments"]}}</div>
+                            <div class="separator7"></div>
+                            
+                            <div><img src="/static/img/visits_icon3.png" alt="times-visited" class="icon-eye"></div>
+                            <div class="lower2">{{ story["visits"] }}</div>
                         </div>
-                        <p class="story__content">
-                            {{ story["content"] }}
-                        </p>
-                    </article>
-                </a>
+                    </div>
+                    <div class="marg-bot-post"></div>
                 </div>
                 {% endfor %}
             {% else %}

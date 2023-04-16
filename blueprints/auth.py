@@ -17,10 +17,9 @@ pass dict as kwargs without including ObjectId -->
 def login():
 
     message = request.args.get('message')
-    error_message = ""
+    error_message = request.args.get("error_message")
 
     if current_user.is_authenticated:
-        print("\nAlready logged, sending back home\n")
         return redirect(url_for("home.home"))
     
     form = LoginForm()
@@ -47,11 +46,10 @@ def login():
                 print("\nOutdated user account, updating...\nSuccess!\n")
 
             login_user(user_object)
-            print("\nLogged in successfully\n")
             return redirect(url_for("home.home"))
         
         else:
-            error_message = "Incorrect password"
+            error_message = "Incorrect password for that user"
 
     return render_template("login.html", form=form, message=message, error_message=error_message)
 
@@ -72,36 +70,41 @@ def logout():
 def register():
     
     error_message = ""
+
     # redirect home if already logged in
     if current_user.is_authenticated:
         return redirect(url_for("home.home"))
     
+    
     form = RegistrationForm()
+    if request.method == "POST":
 
-    if form.validate_on_submit():
+        if form.validate_on_submit():
 
-        found_email = form.check_email(form.email)
-        found_username = form.check_username(form.username)
+            found_email = form.check_email(form.email)
+            found_username = form.check_username(form.username)
 
-        if found_email is not None: # email exists in database?
-            error_message = "E-mail already taken"
+            if found_email is not None: # email exists in database?
+                error_message = "E-mail already taken"
 
-        elif found_username is not None: # username exists in database?
-            error_message = "Username already taken"
+            elif found_username is not None: # username exists in database?
+                error_message = "Username already taken"
 
-        elif not form.is_valid_username_chars(form.username):
-            error_message = "Invalid username, allowed (a-z, A-Z, _)"
+            elif not form.is_valid_username_chars(form.username):
+                error_message = "Invalid username, allowed (a-z, A-Z, _)"
 
-        elif not form.is_valid_username_len(form.username):
-            error_message = "Username length must be between 2 and 20 characters"
+            elif not form.is_valid_username_len(form.username):
+                error_message = "Username length must be between 2 and 20 characters"
 
-        else: # proceeds if user or email do not exist
-            password_hash = form.hash_password()
-            user_object = User(username=form.username.data, email=form.email.data, password_hash=password_hash)
-            user_object.quicksave_to_db()
+            else: # proceeds if user or email do not exist
+                password_hash = form.hash_password()
+                user_object = User(username=form.username.data, email=form.email.data, password_hash=password_hash)
+                user_object.quicksave_to_db()
 
-            print("\nRegistered successfully!\n")
-            message = "Registered successfully! Log in to continue"
-            return redirect(url_for("auth.login", message=message))
+                message = "Registered successfully! Log in to continue"
+                return redirect(url_for("auth.login", message=message))
         
+        else:
+            error_message = "Incorrect e-mail format"
+            
     return render_template("register.html", form=form, error_message=error_message)

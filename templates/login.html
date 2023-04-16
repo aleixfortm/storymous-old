@@ -8,9 +8,6 @@
     </header>
     <main class="main">
         <div class="login-form">
-            <div class="login-form__title-container">
-                <span class="login-form__title">Log In</span>
-            </div>
 
             {% if error_message %}
             <div class="login-form__error-container">
@@ -18,15 +15,20 @@
                     {{ error_message }}
                 </div>
             </div>
-            {% endif %}
 
-            {% if message %}
+            {% elif message %}
             <div class="login-form__error-container">
                 <div class="login-form__error-message error-green">
                     {{ message }}
                 </div>
             </div>
             {% endif %}
+
+            <div class="login-form__title-container">
+                <span class="login-form__title">Log In</span>
+            </div>
+
+
 
             <form method="POST" action="{{ url_for('auth.login') }}" class="login-form__box">
                 {{form.hidden_tag()}}

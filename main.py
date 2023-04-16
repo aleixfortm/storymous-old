@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_login import LoginManager
 from misc.config import SECRET_KEY, MONGODB_URI
 from flask_pymongo import PyMongo
@@ -36,3 +36,5 @@ from blueprints.auth import auth_bp
 app.register_blueprint(auth_bp)
 from blueprints.posts import posts_bp
 app.register_blueprint(posts_bp)
+from blueprints.users import users_bp
+app.register_blueprint(users_bp)
