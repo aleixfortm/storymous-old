@@ -1,6 +1,6 @@
 # storymous
 
-[Storymous](aleixfortm.pythonanywhere.com) is a story-based social media where users post their short (or not-so-short) stories. It is also possible to create parallel stories together, forming multi-option interactive stories. 
+[Storymous](https://aleixfortm.pythonanywhere.com/) is a story-based social media where users post their short (or not-so-short) stories. It is also possible to create parallel stories together, forming multi-option interactive stories. 
 
 The front-end is fully responive, built without frameworks. The backend is supported by Flask (Python).
 
