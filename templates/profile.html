@@ -96,23 +96,35 @@
                                 </div>
                             </div>
                             <p class="story__content">
-                                {{ story["content"] }}
+                                {{ story["preview"]|safe }}
+                                {% if story["extended_length"] %}
+                                <b class="readmore-button"><em>Read more</em></b>
+                                {% endif %}
                             </p>
                         </article>
                     </a>
                     <div class="post-icons-bar">
                         <div class="post-icons cur-def">
-                            
-                            <div><img src="/static/img/plus_icon3.png" alt="continued-stories" class="icon-plus"></div>
-                            <div class="lower2">0</div>
+                            <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="text-decoration: none; color: none">
+                            <div class="post-icon-bg">
+                                <img src="/static/img/plus_icon3.png" alt="continued-stories" class="icon-plus">
+                                <div class="lower2">0</div>
+                            </div>
+                            </a>
                             <div class="separator6"></div>
-                            
-                            <div><img src="/static/img/comment_icon3.png" alt="comments" class="icon-comment"></div>
-                            <div class="lower2">{{ story["n_comments"]}}</div>
+                            <a href="{{ url_for('posts.post', post_id=story['_id']) }}" style="text-decoration: none; color: none">
+                            <div class="post-icon-bg">
+                                
+                                    <img src="/static/img/comment_icon3.png" alt="comments" class="icon-comment">
+                                    <div class="lower2">{{ story["n_comments"]}}</div>
+                               
+                            </div>
+                            </a>
                             <div class="separator7"></div>
-                            
-                            <div><img src="/static/img/visits_icon3.png" alt="times-visited" class="icon-eye"></div>
-                            <div class="lower2">{{ story["visits"] }}</div>
+                            <div class="post-icon-bg">
+                                <img src="/static/img/visits_icon3.png" alt="times-visited" class="icon-eye pad-left-null">
+                                <div class="lower2">{{ story["visits"] }}</div>
+                            </div>
                         </div>
                     </div>
                     <div class="marg-bot-post"></div>

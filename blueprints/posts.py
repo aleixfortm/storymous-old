@@ -93,7 +93,7 @@ def post(post_id):
             # build story object and save it to db
             comment_object = Comment(username=user, content=form.comment_content.data, 
                                     date=datetime.datetime.now().isoformat())
-            # quicksave of post to db
+            # quicksave post to db
             comment_object.quicksave_to_db()
 
             # increase comment count +1 in post document
@@ -120,5 +120,5 @@ def post(post_id):
     # map the posts to format the creation date
     #stories = list(map(Post.format_date_data, stories))
 
-    return render_template("post.html", form=form, story=formatted_post, owner=owner_data, comments=comments)
+    return render_template("post.html", form=form, story=formatted_post, owner=owner_data, comments=comments, user_logged=current_user.is_authenticated)
     

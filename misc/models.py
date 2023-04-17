@@ -93,18 +93,18 @@ class User(UserMixin):
 
 
 class Post:
-    def __init__(self, username, title, content, date=datetime.datetime.now().isoformat(), preview=None, post_comment=None):
-        self._id = ObjectId()
+    def __init__(self, username, title, content, _id=None, user_comments=[], extended_length=False, n_comments=0, date=datetime.datetime.now().isoformat(), preview=None, post_comment=None, visits=1):
+        self._id = ObjectId(_id) if _id else ObjectId()
         self.username = username
         self.date = date
         self.title = title
         self.content = content
         self.preview = preview
         self.post_comment = post_comment
-        self.visits = 1
-        self.n_comments = 0
-        self.user_comments = []
-        self.extended_length = False
+        self.visits = visits
+        self.n_comments = n_comments
+        self.user_comments = user_comments
+        self.extended_length = extended_length
         self.add_html_line_jumps()
         self.check_extended_length()
         self.add_preview_if_lacking()
@@ -123,6 +123,8 @@ class Post:
         if not self.preview:
             if self.extended_length:
                 self.preview = str(self.content[:410] + "...")
+            else:
+                self.preview = self.content
 
     def add_comment_if_lacking(self):
         if not self.post_comment:
@@ -130,7 +132,7 @@ class Post:
 
     def replace_db_doc(self):
         post_dict = self.__dict__
-        db_posts.update_one({'_id': self._id}, {'$set': post_dict}, upsert=True)
+        db_posts.update_one({'_id': self._id}, {'$set': post_dict})
 
     def increase_visits(self):
         self.visits += 1

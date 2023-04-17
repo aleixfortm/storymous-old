@@ -909,7 +909,9 @@ body {
     font-weight: bold;
 }
 
-
+select option {
+    color: black;
+}
 
 .icon-eye {
     width: 19px;

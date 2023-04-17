@@ -42,8 +42,6 @@ def home(feed="recent"):
     elif feed == "recent":
         session["current_posts"] = POSTS_PER_PAGE
 
-        # stories = list(db_posts.find().sort("date", -1).limit(10))¡
-
         # retrieve posts using piepline --> Post data + profile picture from its owner
         stories = list(db_posts.aggregate(POST_PIC_PIPELINE))
         # map the posts to format the creation date

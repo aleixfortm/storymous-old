@@ -58,6 +58,10 @@ def settings(username=None):
 
         # return current user settings
         current_settings = Settings.check_user_settings(username)
+        if not current_settings:
+            settings_object = Settings(username=username, color="red")
+            settings_object.create_or_update_settings_to_db()
+            
         # create form object
         form = ColorChoiceForm()
         form.color_dropdown.default = current_settings["color"]

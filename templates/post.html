@@ -20,7 +20,7 @@
                     </a>
                 </div> 
                 <div class="story__user-info-container">
-                    <div class="story__user-comment-container"><div class="story__user-comment cur-def"> {{story["post_comment"] }} </div></div>
+                    <div class="story__user-comment-container"><div class="story__user-comment cur-def"> {{ story["post_comment"] }} </div></div>
                     <div class="story__username cur-pnt""> 
                         <a href="{{ url_for('users.user', username=story['username']) }}" style="color: inherit; text-decoration: none;">
                             <span class="lower"><b>@</b></span><b class="story__user-name">{{ story["username"] }}</b>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <p class="story__content">
-                    {{ story["content"] }}
+                    {{ story["content"]|safe }}
                 </p>
             </article>
         </div>
