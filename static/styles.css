@@ -183,6 +183,30 @@ body {
     font-size: medium;
 }
 
+.follow-profile {
+    padding: 5px 30px;
+    color: #ffffff;
+    margin-top: 20px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: medium;
+    width: 80px;
+    background-color: rgb(69, 168, 30); 
+}
+
+.follow-profile:hover {
+    background-color: rgb(48, 117, 21); 
+}
+
+.bg-orange {
+    background-color: rgb(185, 121, 0);
+}
+
+.bg-orange:hover {
+    background-color: rgb(148, 96, 0);
+}
+
+
 .edit-profile:hover {
 
     background-color: rgb(206, 206, 206);

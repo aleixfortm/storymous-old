@@ -26,11 +26,19 @@
                     <div class="stats__account-container">
                         <div class="container3">
                             <h5 class="stats__part1">Followers</h5>
+                            {% if n_followers %}
+                            <h5 class="stats__part2 lower">{{ n_followers }}</h5>
+                            {% else %}
                             <h5 class="stats__part2 lower">0</h5>
+                            {% endif %}
                         </div>
                         <div class="container3">
                             <h5 class="stats__part1">Following</h5>
-                            <h5 class="stats__part2 lower">{{ n_friends }}</h5>
+                            {% if n_following %}
+                            <h5 class="stats__part2 lower">{{ n_following }}</h5>
+                            {% else %}
+                            <h5 class="stats__part2 lower">0</h5>
+                            {% endif %}
                         </div>
                         <!--
                         <div class="container3">
@@ -61,6 +69,12 @@
                 </div>
                 {% if admin_rights %}
                 <a href="{{ url_for('users.settings') }}" style="text-decoration: none;"><div class="edit-profile">User settings</div></a>
+                {% else %}
+                    {% if following %}
+                    <a href="{{ url_for('users.user', username=username, follow_status='unfollow', message='You stopped following @{{ username }}') }}" class="no-dec"><div class="follow-profile bg-orange">-Unfollow</div></a>
+                    {% else %}
+                    <a href="{{ url_for('users.user', username=username, follow_status='follow', message='You are now following @{{ username }}') }}" class="no-dec"><div class="follow-profile">+Follow</div></a>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>

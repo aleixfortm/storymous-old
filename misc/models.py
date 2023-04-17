@@ -18,7 +18,7 @@ However, I am setting the username to be the id of the user, and the username wi
 users in the database.
 """
 class User(UserMixin):
-    def __init__(self, email, username, password_hash, pic_path=None, creation_date=datetime.datetime.now().isoformat(), _id=None, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0):
+    def __init__(self, email, username, password_hash, n_following=0, n_followers=0, pic_path=None, creation_date=datetime.datetime.now().isoformat(), _id=None, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0):
         self._id = ObjectId(_id)
         self.username = username
         self.email = email
@@ -29,6 +29,8 @@ class User(UserMixin):
         self.friends = friends
         self.n_comments = n_comments
         self.creation_date = creation_date
+        self.n_following = n_following
+        self.n_followers = n_followers
         self.pic_path = pic_path
         if pic_path is None:
             self.assign_pic_path()
