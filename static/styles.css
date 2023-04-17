@@ -142,6 +142,19 @@ body {
     border-radius: 10px;
 }
 
+.introduction__text-box-4 {
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    background-color: #374250;
+    margin: 20px auto;
+    padding: 5px 0 10px 0;
+    font-size: large;
+    border: 1px solid rgba(245, 245, 245, 0.329);
+    border-radius: 10px;
+}
+
 .introduction__text-box-bis {
     max-width: fit-content;
     display: flex;
@@ -169,6 +182,7 @@ body {
     font-weight: bold;
     font-size: medium;
 }
+
 .edit-profile:hover {
 
     background-color: rgb(206, 206, 206);
@@ -193,6 +207,7 @@ body {
 }
 
 .stats__account-title {
+    font-size: 23px;
     margin: 5px 0 5px 0;
 }
 
@@ -205,7 +220,8 @@ body {
 
 .container3 {
     align-items: flex-end;
-    margin: 0 0 0 10px;
+    margin: 0 5px 0 5px;
+    width: 88px;
 }
 
 .spacer3 {
@@ -343,6 +359,14 @@ body {
 
 @media screen and (max-width: 700px) {
 
+    .introduction__text-box-4 {
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 0;
+        margin: auto auto;
+        max-width: 350px;
+        margin: 20px auto;
+    }
 
     .introduction__box {
         flex-direction: column;
@@ -910,8 +934,15 @@ body {
 }
 
 select option {
-    color: black;
+    color: rgb(255, 255, 255);
 }
+
+select {
+    background-color: rgb(46, 41, 51);
+    border: 2px solid rgb(145, 98, 45);
+    color: whitesmoke;
+}
+
 
 .icon-eye {
     width: 19px;
