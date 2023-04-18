@@ -16,6 +16,16 @@ def user(username=None):
 
     visitor = current_user
 
+    follow_status_update = request.args.get("follow_status")
+    if follow_status_update == "follow":
+        pass
+        ### update visitor following list
+
+    elif follow_status_update == "unfollow":
+        pass
+        ### update visitor following list
+        ### update username
+
     # return visitor back to homepage if not authenticated
     if not current_user.is_authenticated:
         return redirect(url_for("home.home", error_message="You must log in to visit user profiles"))
@@ -46,8 +56,6 @@ def user(username=None):
 @users_bp.route("/settings")
 @users_bp.route("/settings/<username>", methods=["GET", "POST"])
 def settings(username=None):
-
-
 
     # return visitor back to homepage if not authenticated
     if not current_user.is_authenticated:
