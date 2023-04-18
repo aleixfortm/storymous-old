@@ -16,15 +16,27 @@ def user(username=None):
 
     visitor = current_user
 
+    # checks if visitor sent request to follow or unfollow the owner user
     follow_status_update = request.args.get("follow_status")
+    # update following status of both users (followed)
     if follow_status_update == "follow":
-        pass
-        ### update visitor following list
+        User.add_follower(user_being_followed=username, user_follows=visitor.username)
 
+    # update following status of both users (unfollowed)
     elif follow_status_update == "unfollow":
-        pass
-        ### update visitor following list
-        ### update username
+        User.remove_follower(user_being_unfollowed=username, user_stops_following=visitor.username)
+
+    user_following = None
+    # if visitor is not the owner
+    if visitor.username != username:
+        # check if visitor follows the user and act accordingly
+        visitor_data = User.find_by_username(visitor.username)
+        following_array = visitor_data.get("following", [])
+        if visitor_data and username in following_array:
+            user_following = True
+        else:
+            user_following = False
+            
 
     # return visitor back to homepage if not authenticated
     if not current_user.is_authenticated:
@@ -45,7 +57,10 @@ def user(username=None):
         user_posts = list(db_posts.find({"username": username}))[::-1]
         user_posts = list(map(Post.format_date_data, user_posts))
 
-        return render_template("profile.html", stories=user_posts, admin_rights=admin_rights, **user_data)
+        
+
+
+        return render_template("profile.html", stories=user_posts, admin_rights=admin_rights, **user_data, user_following=user_following)
     
     # user will reload the page if authenticated, with its username as part of URL
     username = current_user.username

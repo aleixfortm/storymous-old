@@ -18,7 +18,7 @@ However, I am setting the username to be the id of the user, and the username wi
 users in the database.
 """
 class User(UserMixin):
-    def __init__(self, email, username, password_hash, n_following=0, n_followers=0, pic_path=None, creation_date=datetime.datetime.now().isoformat(), _id=None, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0):
+    def __init__(self, email, username, password_hash, n_following=0, following=[], n_followers=0, followers=[], pic_path=None, creation_date=datetime.datetime.now().isoformat(), _id=None, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0):
         self._id = ObjectId(_id)
         self.username = username
         self.email = email
@@ -30,7 +30,9 @@ class User(UserMixin):
         self.n_comments = n_comments
         self.creation_date = creation_date
         self.n_following = n_following
+        self.following = following
         self.n_followers = n_followers
+        self.followers = followers
         self.pic_path = pic_path
         if pic_path is None:
             self.assign_pic_path()
@@ -92,6 +94,28 @@ class User(UserMixin):
     @staticmethod
     def increase_written_comments_by_one(username):
         db_users.update_one({"username": username}, {"$inc": {"n_comments": 1}})
+
+    @staticmethod
+    def add_follower(user_being_followed, user_follows):
+        # updating user being followed
+        filter_query = {"username": user_being_followed}
+        update_operation = {'$addToSet': {"followers": user_follows}, '$inc': {"n_followers": 1}}
+        db_users.update_one(filter_query, update_operation)
+        # updating user that follows
+        filter_query = {"username": user_follows}
+        update_operation = {'$addToSet': {"following": user_being_followed}, '$inc': {"n_following": 1}}
+        db_users.update_one(filter_query, update_operation)
+
+    @staticmethod
+    def remove_follower(user_being_unfollowed, user_stops_following):
+        # updating user being unfollowed
+        filter_query = {"username": user_being_unfollowed}
+        update_operation = {'$pull': {"followers": user_stops_following}, '$inc': {"n_followers": -1}}
+        db_users.update_one(filter_query, update_operation)
+        # updating user that stops following
+        filter_query = {"username": user_stops_following}
+        update_operation = {'$pull': {"following": user_being_unfollowed}, '$inc': {"n_following": -1}}
+        db_users.update_one(filter_query, update_operation)
 
 
 class Post:

@@ -70,9 +70,9 @@
                 {% if admin_rights %}
                 <a href="{{ url_for('users.settings') }}" style="text-decoration: none;"><div class="edit-profile">User settings</div></a>
                 {% else %}
-                    {% if following %}
+                    {% if user_following %}
                     <a href="{{ url_for('users.user', username=username, follow_status='unfollow', message='You stopped following @{{ username }}') }}" class="no-dec"><div class="follow-profile bg-orange">-Unfollow</div></a>
-                    {% else %}
+                    {% elif user_following == False %}
                     <a href="{{ url_for('users.user', username=username, follow_status='follow', message='You are now following @{{ username }}') }}" class="no-dec"><div class="follow-profile">+Follow</div></a>
                     {% endif %}
                 {% endif %}
