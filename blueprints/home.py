@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, session, reques
 from flask_login import login_required, current_user
 from misc.api import test_stories
 from misc.models import User, Post
-from misc.pipelines import POST_PIC_PIPELINE
+from misc.pipelines import POST_PIC_PIPELINE, pic_to_following_pipeline
 from main import db_posts
 
 
@@ -43,9 +43,15 @@ def home(feed="recent"):
         session["current_posts"] = POSTS_PER_PAGE
 
         # retrieve posts using piepline --> Post data + profile picture from its owner
-        stories = list(db_posts.aggregate(POST_PIC_PIPELINE))
+        unformatted_stories = list(db_posts.aggregate(POST_PIC_PIPELINE))
         # map the posts to format the creation date
-        stories = list(map(Post.format_date_data, stories))
+        stories = list(map(Post.format_date_data, unformatted_stories))
+
+    elif feed == "following":
+        user_stats = User.find_by_username(current_user.username)
+        user_following_list = user_stats.get("following")
+        unformatted_stories = list(db_posts.aggregate(pic_to_following_pipeline(user_following_list)))
+        stories = list(map(Post.format_date_data, unformatted_stories))
 
     # returns logged in homepage
     if current_user.is_authenticated:
