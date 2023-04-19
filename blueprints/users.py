@@ -34,6 +34,10 @@ def user(username=None):
         return redirect(url_for("users.user", username=username, follow_message=follow_message))
 
 
+    # return visitor back to homepage if not authenticated
+    if not current_user.is_authenticated:
+        return redirect(url_for("home.home", error_message="You must log in to visit user profiles"))
+
     # if visitor is not the owner
     if visitor.username != username:
         # check if visitor follows the user and act accordingly
@@ -43,11 +47,7 @@ def user(username=None):
             user_following = True
         else:
             user_following = False
-            
 
-    # return visitor back to homepage if not authenticated
-    if not current_user.is_authenticated:
-        return redirect(url_for("home.home", error_message="You must log in to visit user profiles"))
 
     # if reloaded successfully, user's username will not be None
     elif username is not None:
