@@ -38,19 +38,18 @@ def user(username=None):
     if not current_user.is_authenticated:
         return redirect(url_for("home.home", error_message="You must log in to visit user profiles"))
 
-    # if visitor is not the owner
-    if visitor.username != username:
-        # check if visitor follows the user and act accordingly
-        visitor_data = User.find_by_username(visitor.username)
-        following_array = visitor_data.get("following", [])
-        if username in following_array:
-            user_following = True
-        else:
-            user_following = False
-
-
     # if reloaded successfully, user's username will not be None
     elif username is not None:
+
+        # if visitor is not the owner
+        if visitor.username != username:
+            # check if visitor follows the user and act accordingly
+            visitor_data = User.find_by_username(visitor.username)
+            following_array = visitor_data.get("following", [])
+            if username in following_array:
+                user_following = True
+            else:
+                user_following = False
 
         # give admin rights if profile visitor visits own profile
         admin_rights = True if visitor.username == username else False
