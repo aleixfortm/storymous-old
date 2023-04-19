@@ -48,10 +48,11 @@ def home(feed="recent"):
         stories = list(map(Post.format_date_data, unformatted_stories))
 
     elif feed == "following":
-        user_stats = User.find_by_username(current_user.username)
-        user_following_list = user_stats.get("following")
-        unformatted_stories = list(db_posts.aggregate(pic_to_following_pipeline(user_following_list)))
-        stories = list(map(Post.format_date_data, unformatted_stories))
+        if current_user.is_authenticated:
+            user_stats = User.find_by_username(current_user.username)
+            user_following_list = user_stats.get("following")
+            unformatted_stories = list(db_posts.aggregate(pic_to_following_pipeline(user_following_list)))
+            stories = list(map(Post.format_date_data, unformatted_stories))
 
     # returns logged in homepage
     if current_user.is_authenticated:
