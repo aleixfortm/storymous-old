@@ -194,6 +194,19 @@ body {
     background-color: rgb(69, 168, 30); 
 }
 
+#follow-form {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.follow-profile {
+    border: none;
+    text-align: center;
+    margin: 10px auto;
+    width: fit-content;
+}
+
 .follow-profile:hover {
     background-color: rgb(48, 117, 21); 
 }
@@ -1092,6 +1105,10 @@ input:focus, select:focus, textarea:focus, button:focus {
     background-color: rgb(52, 184, 0);
 }
 
+.error-blue {
+    background-color: rgb(0, 64, 184);
+}
+
 label[for="email"] {
     font-weight: 500;
     font-size:large;
@@ -1378,6 +1395,12 @@ input[type="submit"]:hover {
 
 .no-dec {
     text-decoration: none;
+}
+
+.no-dec-form {
+    text-decoration: none;
+    margin: none;
+    padding: none;
 }
 
 .lower {

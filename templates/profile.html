@@ -12,6 +12,21 @@
     </header>
     
         <!--<div class="oops-feed"> -- Work in progress - section not finished! -- </div> -->
+        {% if follow_message %}
+        <div class="login-form__error-container">
+            <div class="login-form__error-message error-blue">
+                {{ follow_message }}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if settings_message %}
+        <div class="login-form__error-container">
+            <div class="login-form__error-message error-green">
+                {{ settings_message }}
+            </div>
+        </div>
+        {% endif %}
 
         <div class="introduction__text-box cur-def">
             <div class="introduction__text-stats">
@@ -71,9 +86,17 @@
                 <a href="{{ url_for('users.settings') }}" style="text-decoration: none;"><div class="edit-profile">User settings</div></a>
                 {% else %}
                     {% if user_following %}
-                    <a href="{{ url_for('users.user', username=username, follow_status='unfollow', message='You stopped following @{{ username }}') }}" class="no-dec"><div class="follow-profile bg-orange">-Unfollow</div></a>
+                    <form id="follow-form" method="post" action="{{ url_for('users.user', username=username) }}">
+                        <input type="hidden" name="follow_status" value="unfollow">
+                        <input type="hidden" name="follow_message" value="No longer following @{{ username }}">
+                        <button type="submit" class="follow-profile bg-orange cur-pnt">- Unfollow</button>
+                    </form>
                     {% elif user_following == False %}
-                    <a href="{{ url_for('users.user', username=username, follow_status='follow', message='You are now following @{{ username }}') }}" class="no-dec"><div class="follow-profile">+Follow</div></a>
+                    <form id="follow-form" method="post" action="{{ url_for('users.user', username=username) }}">
+                        <input type="hidden" name="follow_status" value="follow">
+                        <input type="hidden" name="follow_message" value="Following @{{ username }}">
+                        <button type="submit" class="follow-profile cur-pnt">+ Follow</button>
+                    </form>
                     {% endif %}
                 {% endif %}
             </div>

@@ -11,28 +11,35 @@ users_bp = Blueprint("users", __name__)
 
 @login_required
 @users_bp.route("/user")
-@users_bp.route("/user/<username>")
+@users_bp.route("/user/<username>", methods=["POST", "GET"])
 def user(username=None):
 
+    # visitor is the object of the visiting user
     visitor = current_user
 
-    # checks if visitor sent request to follow or unfollow the owner user
-    follow_status_update = request.args.get("follow_status")
-    # update following status of both users (followed)
-    if follow_status_update == "follow":
-        User.add_follower(user_being_followed=username, user_follows=visitor.username)
-
-    # update following status of both users (unfollowed)
-    elif follow_status_update == "unfollow":
-        User.remove_follower(user_being_unfollowed=username, user_stops_following=visitor.username)
-
     user_following = None
+    # if visitor clicks follow/unfollow button
+    if request.method == "POST":
+        # checks if visitor sent request to follow or unfollow the owner user
+        follow_status_update = request.form.get("follow_status")
+        follow_message = request.form.get("follow_message")
+        # update following status of both users (followed)
+        if follow_status_update == "follow":
+            User.add_follower(user_being_followed=username, user_follows=visitor.username)
+
+        # update following status of both users (unfollowed)
+        elif follow_status_update == "unfollow":
+            User.remove_follower(user_being_unfollowed=username, user_stops_following=visitor.username)
+
+        return redirect(url_for("users.user", username=username, follow_message=follow_message))
+
+
     # if visitor is not the owner
     if visitor.username != username:
         # check if visitor follows the user and act accordingly
         visitor_data = User.find_by_username(visitor.username)
         following_array = visitor_data.get("following", [])
-        if visitor_data and username in following_array:
+        if username in following_array:
             user_following = True
         else:
             user_following = False
@@ -57,14 +64,17 @@ def user(username=None):
         user_posts = list(db_posts.find({"username": username}))[::-1]
         user_posts = list(map(Post.format_date_data, user_posts))
 
-        
+        #retrieve message, if any, most likely sent as a change of following status or from successfully saved settings
+        follow_message = request.args.get("follow_message")
+        settings_message = request.args.get("settings_message")
 
-
-        return render_template("profile.html", stories=user_posts, admin_rights=admin_rights, **user_data, user_following=user_following)
+        return render_template("profile.html", stories=user_posts, admin_rights=admin_rights, **user_data, 
+                               user_following=user_following, follow_message=follow_message, settings_message=settings_message)
     
-    # user will reload the page if authenticated, with its username as part of URL
+    # user will reload the page if authenticated, with its username as part of the URL
     username = current_user.username
     return redirect(url_for("users.user", username=username))
+
 
 
 @login_required
@@ -98,10 +108,15 @@ def settings(username=None):
                 # send data to settings collection with username
                 user_settings_object.create_or_update_settings_to_db()
                 user_settings_object.update_pic_to_users_db()
-                    
-                return redirect(url_for("users.user", message="Successfully updated user settings"))
-        
+                # create settings message to inform about successful changes
+                settings_message = "Successfully updated user settings"
+
+                # redirect back to user page with success message
+                return redirect(url_for("users.user", username=username , settings_message=settings_message))
+
+        # process form if loading settings html page
         form.process()
+
         return render_template("settings.html", form=form, **current_settings)
 
 
