@@ -61,19 +61,11 @@ def post(post_id):
     post_comments = Comment.find_docs_in_db(post_comments_id)
 
     # add user session tracking based on post to avoid same user spam clicking post to increase stats
-    if current_user.is_authenticated:
-        # increment post view count if user has not visited yet in the current session
-        if not session.get(post_id, False):
-            # increase view count +1
-            db_posts.update_one({"_id": ObjectId(post_id)}, {"$inc": {"visits": 1}})
-            session[post_id] = True
-
-    else: # anonymous user (not authenticated)
-
-        if not session.get(post_id, False):
-            # increase view count +1
-            db_posts.update_one({"_id": ObjectId(post_id)}, {"$inc": {"visits": 1}})
-            session[post_id] = True
+    # increment post view count if user has not visited yet in the current session
+    if not session.get(post_id, False):
+        # increase view count +1
+        db_posts.update_one({"_id": ObjectId(post_id)}, {"$inc": {"visits": 1}})
+        session[post_id] = True
 
     # insert pic_path of each user to respective comment
     comments = Comment.add_pic_to_comments(post_comments)
