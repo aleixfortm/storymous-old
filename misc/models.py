@@ -6,7 +6,7 @@ from main import db_users, db_posts, db_comments, db_friends, db_settings
 
 
 """
-By inheriting from UserMixin, the User class gains the following functionalities:
+By inheriting from UserMixin, the User class gains the following attributes and methods:
 
 is_authenticated: A boolean property indicating whether the user is authenticated or not.
 is_active: A boolean property indicating whether the user is active or not.
@@ -18,7 +18,10 @@ However, I am setting the username to be the id of the user, and the username wi
 users in the database.
 """
 class User(UserMixin):
-    def __init__(self, email, username, password_hash, n_following=0, following=[], n_followers=0, followers=[], pic_path=None, creation_date=datetime.datetime.now().isoformat(), _id=None, n_comments=0, friends=[], n_writ_posts=0, n_contr_posts=0, n_friends=0):
+    def __init__(self, email, username, password_hash, n_following=0, following=[], n_followers=0, followers=[], 
+                 pic_path=None, creation_date=datetime.datetime.now().isoformat(), _id=None, n_comments=0, friends=[], 
+                 n_writ_posts=0, n_contr_posts=0, n_friends=0):
+        
         self._id = ObjectId(_id)
         self.username = username
         self.email = email
@@ -119,7 +122,9 @@ class User(UserMixin):
 
 
 class Post:
-    def __init__(self, username, title, content, _id=None, user_comments=[], extended_length=False, n_comments=0, date=datetime.datetime.now().isoformat(), preview=None, post_comment=None, visits=1):
+    def __init__(self, username, title, content, _id=None, user_comments=[], extended_length=False, n_comments=0, 
+                 date=datetime.datetime.now().isoformat(), preview=None, post_comment=None, visits=1):
+        
         self._id = ObjectId(_id) if _id else ObjectId()
         self.username = username
         self.date = date
