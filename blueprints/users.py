@@ -4,7 +4,6 @@ from misc.models import User, Post, Settings
 from misc.forms import ColorChoiceForm
 from main import db_posts, db_settings
 
-
 # blueprint creation 
 users_bp = Blueprint("users", __name__)
 
