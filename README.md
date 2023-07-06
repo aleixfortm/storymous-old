@@ -1,6 +1,8 @@
 # storymous
 
-[Storymous](https://aleixfortm.pythonanywhere.com/) is a story-based social media where users post their short (or not-so-short) stories. It is also possible to create parallel stories together, forming multi-option interactive stories. 
+Find new version [here](https://github.com/aleixfortm/storymous)
+
+Storymous is a story-based social media where users post their short (or not-so-short) stories. It is also possible to create parallel stories together, forming multi-option interactive stories. 
 
 # Roadmap
 - ~~Make front-end reponsive to mobile and desktop resolutions~~
